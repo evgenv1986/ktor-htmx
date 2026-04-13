@@ -38,7 +38,7 @@ fun main() {
                         }
                     }
                     body {
-                        h2 { +"Ktor + HTMX" }
+                        h2 { +"Ktor + HTMX V2" }
 
                         // --- Секция 1: Приветствие ---
                         div {
