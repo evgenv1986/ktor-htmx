@@ -1,6 +1,7 @@
 package com.example
 
-import com.example.rest.executionStep.input.InputStepRoute
+import com.example.rest.executionStep.step.InputStepRoute
+import com.example.rest.executionStep.persist.StepCompleteRoute
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -33,7 +34,7 @@ fun main() {
 //            CreateStepRoute(this).register()
 
             InputStepRoute(this).register()
-            WorkoutStepCompleteRoute(this).register()
+            StepCompleteRoute(this).register()
 
             get("/") {
                 call.respondHtml(HttpStatusCode.OK) {

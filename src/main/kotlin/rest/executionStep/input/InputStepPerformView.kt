@@ -1,6 +1,6 @@
 package com.example.rest.executionStep.input
 
-import com.example.TaskOfStep
+import com.example.rest.executionStep.task.TaskOfStep
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.html.respondHtml
 import kotlinx.html.ButtonType
