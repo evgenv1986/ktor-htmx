@@ -9,7 +9,12 @@ import kotlinx.html.*
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(val lastName: String, val firstName: String, val middleName: String?)
+data class User(
+    val lastName: String,
+    val firstName: String,
+    val middleName: String?,
+    val age: Int
+)
 
 class UserRegistrationHandler {
 
@@ -27,9 +32,15 @@ class UserRegistrationHandler {
                 input { name = "lastName"; placeholder = "Фамилия"; required = true }
                 input { name = "firstName"; placeholder = "Имя"; required = true }
                 input { name = "middleName"; placeholder = "Отчество (необязательно)" }
+                input(type = InputType.number) {
+                    name = "age"
+                    placeholder = "Возраст"
+                    min = "1"
+                    max = "120"
+                    required = true
+                }
                 button { type = ButtonType.submit; +"Зарегистрировать" }
             }
-            div { id = "registration-result" }
         }
     }
 

@@ -22,10 +22,18 @@ fun main() {
         }
         // Создаем экземпляр нашего вынесенного класса
         val registrationHandler = UserRegistrationHandler()
+//        val exerciseStepView = InputExerciseStepPerformView()
+
         routing {
             var counter = 0
             // Регистрация маршрутов из внешнего класса
             registrationHandler.registerRoutes(this)
+            // маршрут формы ввода выполнения сета упражнения
+//            CreateStepRoute(this).register()
+
+            WorkoutStepCreateRoute(this).register()
+            WorkoutStepCompleteRoute(this).register()
+
             get("/") {
                 call.respondHtml(HttpStatusCode.OK) {
                     lang = "ru"
@@ -47,24 +55,31 @@ fun main() {
                         }
                     }
                     body {
-                        h2 { +"Ktor + HTMX MVP" }
-                        // Приветствие (старый код)
-                        div {
-                            h3 { +"1. Приветствие" }
-                            form {
-                                attributes["hx-get"] = "/hello"; attributes["hx-target"] = "#result"
-                                div("form-row") {
-                                    input(type = InputType.text) { name = "name"; value = "World" }
-                                    button { type = ButtonType.submit; +"Ок" }
-                                }
-                            }
-                            div { id = "result" }
-                        }
-                        hr {}
+//                        h2 { +"Ktor + HTMX MVP" }
+//                        // Приветствие (старый код)
+//                        div {
+//                            h3 { +"1. Приветствие" }
+//                            form {
+//                                attributes["hx-get"] = "/hello"; attributes["hx-target"] = "#result"
+//                                div("form-row") {
+//                                    input(type = InputType.text) { name = "name"; value = "World" }
+//                                    button { type = ButtonType.submit; +"Ок" }
+//                                }
+//                            }
+//                            div { id = "result" }
+//                        }
+//                        hr {}
                         // Вызов отрисовки формы из нашего КЛАССА
-                        with(registrationHandler) {
-                            renderRegistrationForm()
+//                        with(registrationHandler) {
+//                            renderRegistrationForm()
+//                        }
+                       button {
+                            attributes["hx-get"] = "/workouts/performances/123"
+                            attributes["hx-target"] = "#form-inputExerciseStepPerformView"
+                            +"Начать выполнение подхода №3"
                         }
+                        hr{}
+                        div { id = "form-inputExerciseStepPerformView" }
                     }
                 }
             }
@@ -76,3 +91,5 @@ fun main() {
         }
     }.start(wait = true)
 }
+
+
