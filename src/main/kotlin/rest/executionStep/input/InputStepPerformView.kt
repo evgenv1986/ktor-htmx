@@ -1,12 +1,9 @@
 package com.example.rest.executionStep.input
 
 import com.example.rest.executionStep.task.TaskOfStep
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.html.respondHtml
 import kotlinx.html.ButtonType
 import kotlinx.html.FlowContent
 import kotlinx.html.InputType
-import kotlinx.html.body
 import kotlinx.html.br
 import kotlinx.html.button
 import kotlinx.html.div
@@ -16,13 +13,13 @@ import kotlinx.html.id
 import kotlinx.html.input
 import kotlinx.html.label
 
-class InputStepPerformView(val call: ApplicationCall) {
-    suspend fun invoke(task: TaskOfStep) {
-        call.respondHtml {
-            body {
-                content(task)
-            }
-        }
+class InputStepPerformView() {
+    fun FlowContent.invoke(task: TaskOfStep) {
+        content(task)
+//        call.respondHtml {
+//            body {
+//            }
+//        }
     }
     fun FlowContent.content(task: TaskOfStep){
         return div {

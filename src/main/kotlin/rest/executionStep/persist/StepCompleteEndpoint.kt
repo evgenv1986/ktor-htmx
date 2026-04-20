@@ -10,12 +10,9 @@ class StepCompleteEndpoint(private val successStepCompleteViewResult: SuccessSte
     // Логика сохранения
     suspend fun handle(call: ApplicationCall) {
         val step = call.receive<InputExerciseStep>()
-//        with (SuccessStepCompleteViewResult(call)){
-//            invoke(step)
-//        }
         call.respondHtml {
             body {
-                with (SuccessStepCompleteViewResult()){
+                with (successStepCompleteViewResult){
                     invoke(step)
                 }
             }

@@ -1,5 +1,7 @@
 package com.example
 
+import com.example.rest.executionStep.input.InputStepEndpoint
+import com.example.rest.executionStep.input.InputStepPerformView
 import com.example.rest.executionStep.persist.StepCompleteEndpoint
 import com.example.rest.executionStep.step.InputStepRoute
 import com.example.rest.executionStep.persist.StepCompleteRoute
@@ -26,16 +28,18 @@ fun main() {
         }
         // Создаем экземпляр нашего вынесенного класса
         val registrationHandler = UserRegistrationHandler()
-//        val exerciseStepView = InputExerciseStepPerformView()
 
         routing {
             var counter = 0
             // Регистрация маршрутов из внешнего класса
             registrationHandler.registerRoutes(this)
             // маршрут формы ввода выполнения сета упражнения
-//            CreateStepRoute(this).register()
-
-            InputStepRoute(this).register()
+            InputStepRoute(
+                this,
+                InputStepEndpoint(
+                    InputStepPerformView()
+                ))
+                .register()
             StepCompleteRoute(
                 this,
                 StepCompleteEndpoint(

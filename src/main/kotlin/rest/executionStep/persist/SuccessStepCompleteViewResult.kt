@@ -11,11 +11,6 @@ import kotlinx.html.style
 class SuccessStepCompleteViewResult() {
     fun FlowContent.invoke(step: InputExerciseStep) {
         successMessage(step)
-//        call.respondHtml {
-//            body {
-//                successMessage(step)
-//            }
-//        }
     }
     fun FlowContent.successMessage(step: InputExerciseStep) {
         div {
