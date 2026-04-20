@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.rest.executionStep.input.InputStepRoute
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -31,7 +32,7 @@ fun main() {
             // маршрут формы ввода выполнения сета упражнения
 //            CreateStepRoute(this).register()
 
-            WorkoutStepCreateRoute(this).register()
+            InputStepRoute(this).register()
             WorkoutStepCompleteRoute(this).register()
 
             get("/") {
