@@ -36,7 +36,7 @@ class InputStepPerformView(val call: ApplicationCall) {
                 // Скрытое поле с названием
                 input(type = InputType.hidden) {
                     name = "exerciseName"
-                    value = "Подтягивания"
+                    value = task.exerciseName
                 }
 
                 h3 {+"""

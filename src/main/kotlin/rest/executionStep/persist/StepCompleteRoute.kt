@@ -8,12 +8,13 @@ import io.ktor.server.routing.post
 import kotlinx.html.body
 
 class StepCompleteRoute(
-    private val routing: Routing
+    private val routing: Routing,
+    private val stepCompleteEndpoint: StepCompleteEndpoint
 ) {
     fun register() {
         routing.post("/workouts/performances") {
             try {
-                with(StepCompleteEndpoint()){
+                with(stepCompleteEndpoint){
                     handle(call)
                 }
             } catch (e: Exception) {
