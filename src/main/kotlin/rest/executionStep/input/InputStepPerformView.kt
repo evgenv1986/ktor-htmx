@@ -16,10 +16,6 @@ import kotlinx.html.label
 class InputStepPerformView() {
     fun FlowContent.invoke(task: TaskOfStep) {
         content(task)
-//        call.respondHtml {
-//            body {
-//            }
-//        }
     }
     fun FlowContent.content(task: TaskOfStep){
         return div {
