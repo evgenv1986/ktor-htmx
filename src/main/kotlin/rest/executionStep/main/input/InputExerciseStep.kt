@@ -1,4 +1,4 @@
-package com.example.rest.executionStep.input
+package com.example.rest.executionStep.main.input
 
 import kotlinx.serialization.Serializable
 

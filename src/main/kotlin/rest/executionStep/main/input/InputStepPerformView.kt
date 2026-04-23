@@ -1,6 +1,6 @@
-package com.example.rest.executionStep.input
+package com.example.rest.executionStep.main.input
 
-import com.example.rest.executionStep.task.TaskOfStep
+import com.example.rest.executionStep.main.task.TaskOfStep
 import kotlinx.html.ButtonType
 import kotlinx.html.FlowContent
 import kotlinx.html.InputType

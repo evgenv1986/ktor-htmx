@@ -1,10 +1,7 @@
-package com.example.rest.executionStep.persist
+package com.example.rest.executionStep.main.persist
 
-import com.example.rest.executionStep.input.InputExerciseStep
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.html.respondHtml
+import com.example.rest.executionStep.main.input.InputExerciseStep
 import kotlinx.html.FlowContent
-import kotlinx.html.body
 import kotlinx.html.div
 import kotlinx.html.style
 

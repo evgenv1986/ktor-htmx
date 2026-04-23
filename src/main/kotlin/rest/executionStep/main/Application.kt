@@ -1,11 +1,12 @@
-package com.example
+package com.example.rest.executionStep.main
 
-import com.example.rest.executionStep.input.InputStepEndpoint
-import com.example.rest.executionStep.input.InputStepPerformView
-import com.example.rest.executionStep.persist.StepCompleteEndpoint
-import com.example.rest.executionStep.step.InputStepRoute
-import com.example.rest.executionStep.persist.StepCompleteRoute
-import com.example.rest.executionStep.persist.SuccessStepCompleteViewResult
+import com.example.UserRegistrationHandler
+import com.example.rest.executionStep.main.input.InputStepEndpoint
+import com.example.rest.executionStep.main.input.InputStepPerformView
+import com.example.rest.executionStep.main.persist.StepCompleteEndpoint
+import com.example.rest.executionStep.main.step.InputStepRoute
+import com.example.rest.executionStep.main.persist.StepCompleteRoute
+import com.example.rest.executionStep.main.persist.SuccessStepCompleteViewResult
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -20,6 +21,10 @@ import kotlinx.serialization.json.Json
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 8080
     embeddedServer(Netty, port = port) {
+        module()
+    }.start(wait = true)
+}
+    fun Application.module() {
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
@@ -101,7 +106,4 @@ fun main() {
                 call.respondHtml { body { +"👋 Привет, $name!" } }
             }
         }
-    }.start(wait = true)
-}
-
-
+    }

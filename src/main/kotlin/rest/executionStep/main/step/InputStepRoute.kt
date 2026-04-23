@@ -1,6 +1,6 @@
-package com.example.rest.executionStep.step
+package com.example.rest.executionStep.main.step
 
-import com.example.rest.executionStep.input.InputStepEndpoint
+import com.example.rest.executionStep.main.input.InputStepEndpoint
 import io.ktor.server.application.call
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get

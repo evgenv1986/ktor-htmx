@@ -1,6 +1,6 @@
-package com.example.rest.executionStep.input
+package com.example.rest.executionStep.main.input
 
-import com.example.rest.executionStep.task.TaskOfStepById
+import com.example.rest.executionStep.main.task.TaskOfStepById
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.html.respondHtml
 import kotlinx.html.body
