@@ -7,6 +7,4 @@ class TaskOfStep(
     val exerciseName: String,
     val weight: Double,
     val reps: Int
-) {
-
-}
+)
