@@ -16,6 +16,15 @@ import io.ktor.server.testing.testApplication
 import io.ktor.serialization.kotlinx.json.json
 
 class ExecutionStepRoutesTest : StringSpec({
+    "should return 200 OK on request active step"{
+        testApplication {
+            application {
+                module()
+            }
+            val response = client
+                .get("/workouts/performances/123")
+        }
+    }
     "the route should return 200 OK" {
         testApplication {
             application {
