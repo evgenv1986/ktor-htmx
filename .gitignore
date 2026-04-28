@@ -43,3 +43,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/catalog/usecase/build.gradle.kts
+/catalog/build.gradle.kts
