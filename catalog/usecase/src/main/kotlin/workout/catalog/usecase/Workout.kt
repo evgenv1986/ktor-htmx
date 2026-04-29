@@ -1,6 +1,10 @@
 package workout.catalog.usecase.workout
 
+import arrow.core.Either
+import arrow.core.raise.either
+import arrow.core.raise.ensure
 import workout.catalog.usecase.MockIdStore
+import workout.catalog.usecase.MockWorkoutAlreadyExist
 import workout.catalog.usecase.WorkoutEvents
 import workout.catalog.usecase.WorkoutId
 import workout.catalog.usecase.WorkoutStatus
@@ -22,15 +26,26 @@ open class Workout(
     }
 
     companion object {
-        fun add(idStore: MockIdStore): Workout {
+        fun add(
+            idStore: MockIdStore,
+            workoutAlreadyExist: MockWorkoutAlreadyExist,
+            workoutText: String
+        ) : Either<WorkoutError, Workout> = either {
+            ensure (!workoutAlreadyExist(workoutText)){
+                WorkoutError.AlreadyExist
+            }
             val id = idStore.generate()
-            return Workout(
+            Workout(
                 status = WorkoutStatus.ADDED,
                 id = id
-            ).apply{ addEvent(
-                //        ...event: DomainEvent
+            ).apply{ addEvent( // ...event: DomainEvent
             )}
         }
     }
 
+}
+interface WorkoutError {
+
+
+    object AlreadyExist : WorkoutError
 }
