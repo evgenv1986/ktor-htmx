@@ -5,7 +5,7 @@ import arrow.core.raise.either
 import arrow.core.raise.ensure
 import workout.catalog.usecase.MockIdStore
 import workout.catalog.usecase.MockWorkoutAlreadyExist
-import workout.catalog.usecase.WorkoutEvents
+import workout.catalog.usecase.WorkoutEvent
 import workout.catalog.usecase.WorkoutId
 import workout.catalog.usecase.WorkoutStatus
 
@@ -13,16 +13,16 @@ open class Workout(
     val status: WorkoutStatus,
     val id: WorkoutId
 ) {
-    private lateinit var event: WorkoutEvents.Added
+    private lateinit var event: WorkoutEvent
 
-    fun popEvents(): List<WorkoutEvents> {
+    fun popEvents(): List<WorkoutEvent> {
         val workoutId = 1
         return listOf(event)
     }
 
-    fun addEvent() {
+    fun addEvent(event: WorkoutEvent) {
         val workoutId = 1
-        event = WorkoutEvents.Added(id)
+        this.event = WorkoutEvent.Added(id)
     }
 
     companion object {
@@ -38,14 +38,11 @@ open class Workout(
             Workout(
                 status = WorkoutStatus.ADDED,
                 id = id
-            ).apply{ addEvent( // ...event: DomainEvent
-            )}
+            ).apply{ addEvent(WorkoutEvent.Added(id)) }
         }
     }
 
 }
-interface WorkoutError {
-
-
+sealed interface WorkoutError {
     object AlreadyExist : WorkoutError
 }

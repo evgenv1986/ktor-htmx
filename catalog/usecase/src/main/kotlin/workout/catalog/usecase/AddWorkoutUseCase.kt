@@ -12,9 +12,6 @@ class AddWorkoutUseCase(
 ) {
     operator fun invoke(workoutText: String)
     :Either<WorkoutUseCaseError, WorkoutId> = either {
-//        ensure (!workoutAlreadyExist(workoutText)){
-//            WorkoutError.AlreadyExist
-//        }
         val workout = Workout.add(idStore, workoutAlreadyExist, workoutText)
             .mapLeft{ it.toUseCaseError() }
             .bind()
@@ -24,9 +21,9 @@ class AddWorkoutUseCase(
 }
 
 sealed interface WorkoutUseCaseError {
-
+    object AlreadyExist: WorkoutUseCaseError
 }
 
-fun WorkoutError.toUseCaseError() {
-    TODO("Not yet implemented")
+fun WorkoutError.toUseCaseError() = when(this) {
+    WorkoutError.AlreadyExist -> WorkoutUseCaseError.AlreadyExist
 }

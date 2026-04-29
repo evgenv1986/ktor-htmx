@@ -26,9 +26,9 @@ class AddWorkoutTest: StringSpec( {
         workoutId.shouldBeEqual(idStore.generate())
         val savedWorkout: Workout = saveWorkout.captured()!!
         savedWorkout.status shouldBe WorkoutStatus.ADDED
-        val events: List<WorkoutEvents> = savedWorkout.popEvents()
+        val events: List<WorkoutEvent> = savedWorkout.popEvents()
         events.shouldHaveSize(1)
-        val event = events[0].shouldBeInstanceOf<WorkoutEvents.Added>()
+        val event = events[0].shouldBeInstanceOf<WorkoutEvent.Added>()
     }
 
 })
