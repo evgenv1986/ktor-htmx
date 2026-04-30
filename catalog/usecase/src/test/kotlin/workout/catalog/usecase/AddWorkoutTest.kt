@@ -1,5 +1,6 @@
 package workout.catalog.usecase
 
+import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -30,5 +31,17 @@ class AddWorkoutTest: StringSpec( {
         events.shouldHaveSize(1)
         val event = events[0].shouldBeInstanceOf<WorkoutEvent.Added>()
     }
-
+    "fail add empty workout"{
+        val idStore = MockIdStore()
+        val saveWorkout = MockSaveWorkout()
+        val alreadyExist = MockWorkoutAlreadyExist(result = false)
+        val addWorkout = AddWorkoutUseCase(
+            workoutAlreadyExist = alreadyExist,
+            saveWorkout = saveWorkout,
+            idStore = idStore
+        )
+        val workoutText = ""
+        val result = addWorkout(workoutText).shouldBeLeft()
+        result.shouldBeInstanceOf<WorkoutUseCaseError.EmptyWorkoutUseCase>()
+    }
 })

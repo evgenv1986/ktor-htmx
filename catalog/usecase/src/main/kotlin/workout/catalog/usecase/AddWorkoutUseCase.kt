@@ -22,8 +22,10 @@ class AddWorkoutUseCase(
 
 sealed interface WorkoutUseCaseError {
     object AlreadyExist: WorkoutUseCaseError
+    object EmptyWorkoutUseCase: WorkoutUseCaseError
 }
 
 fun WorkoutError.toUseCaseError() = when(this) {
     WorkoutError.AlreadyExist -> WorkoutUseCaseError.AlreadyExist
+    WorkoutError.EmptyWorkout -> WorkoutUseCaseError.EmptyWorkoutUseCase
 }

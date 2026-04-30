@@ -31,6 +31,9 @@ open class Workout(
             workoutAlreadyExist: MockWorkoutAlreadyExist,
             workoutText: String
         ) : Either<WorkoutError, Workout> = either {
+            ensure(workoutText != ""){
+                WorkoutError.EmptyWorkout
+            }
             ensure (!workoutAlreadyExist(workoutText)){
                 WorkoutError.AlreadyExist
             }
@@ -45,4 +48,5 @@ open class Workout(
 }
 sealed interface WorkoutError {
     object AlreadyExist : WorkoutError
+    object EmptyWorkout: WorkoutError
 }
