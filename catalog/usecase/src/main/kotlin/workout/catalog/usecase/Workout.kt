@@ -11,7 +11,8 @@ import workout.catalog.usecase.WorkoutStatus
 
 open class Workout(
     val status: WorkoutStatus,
-    val id: WorkoutId
+    val id: WorkoutId,
+    val taskText: String
 ) {
     private lateinit var event: WorkoutEvent
 
@@ -40,7 +41,8 @@ open class Workout(
             val id = idStore.generate()
             Workout(
                 status = WorkoutStatus.ADDED,
-                id = id
+                id = id,
+                taskText = workoutText
             ).apply{ addEvent(WorkoutEvent.Added(id)) }
         }
     }

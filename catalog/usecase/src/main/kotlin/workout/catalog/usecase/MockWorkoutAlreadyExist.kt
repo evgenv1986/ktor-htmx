@@ -1,9 +1,9 @@
 package workout.catalog.usecase
 
-open class MockWorkoutAlreadyExist(val result: Boolean) {
+open class MockWorkoutAlreadyExist(val result: Boolean): WorkoutAlreadyExist {
     private lateinit var captured: String
 
-    operator fun invoke(workoutText: String): Boolean{
+    override operator fun invoke(workoutText: String): Boolean{
         captured = workoutText
         return result
     }
