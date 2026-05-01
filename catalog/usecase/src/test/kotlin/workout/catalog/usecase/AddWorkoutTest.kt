@@ -29,7 +29,7 @@ class AddWorkoutTest: StringSpec( {
         savedWorkout.status shouldBe WorkoutStatus.ADDED
         val events: List<WorkoutEvent> = savedWorkout.popEvents()
         events.shouldHaveSize(1)
-        val event = events[0].shouldBeInstanceOf<WorkoutEvent.Added>()
+        events[0].shouldBeInstanceOf<WorkoutEvent.Added>()
     }
     "fail add empty workout"{
         val idStore = MockIdStore()

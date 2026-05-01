@@ -4,7 +4,7 @@ import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import workout.catalog.usecase.MockIdStore
-import workout.catalog.usecase.MockWorkoutAlreadyExist
+import workout.catalog.usecase.WorkoutAlreadyExist
 import workout.catalog.usecase.WorkoutEvent
 import workout.catalog.usecase.WorkoutId
 import workout.catalog.usecase.WorkoutStatus
@@ -29,7 +29,7 @@ open class Workout(
     companion object {
         fun add(
             idStore: MockIdStore,
-            workoutAlreadyExist: MockWorkoutAlreadyExist,
+            workoutAlreadyExist: WorkoutAlreadyExist,
             workoutText: String
         ) : Either<WorkoutError, Workout> = either {
             ensure(workoutText != ""){
