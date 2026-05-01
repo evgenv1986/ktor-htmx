@@ -62,8 +62,5 @@ class AddWorkoutTest: StringSpec( {
 
         val workoutId = addWorkout(workoutText).shouldBeLeft()
         workoutId.shouldBeInstanceOf<WorkoutUseCaseError.AlreadyExist>()
-
     }
-
-
 })
