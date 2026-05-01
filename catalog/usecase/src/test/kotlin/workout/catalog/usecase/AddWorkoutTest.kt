@@ -23,7 +23,9 @@ class AddWorkoutTest: StringSpec( {
             1. Подтягивания с 10 кг на 1 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ. 
             2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.
         """.trimIndent()
+
         val workoutId: WorkoutId = addWorkout(workoutText).shouldBeRight()
+
         workoutId.shouldBeEqual(idStore.generate())
         val savedWorkout: Workout = saveWorkout.captured()!!
         savedWorkout.status shouldBe WorkoutStatus.ADDED
@@ -44,4 +46,24 @@ class AddWorkoutTest: StringSpec( {
         val result = addWorkout(workoutText).shouldBeLeft()
         result.shouldBeInstanceOf<WorkoutUseCaseError.EmptyWorkoutUseCase>()
     }
+    "can not add already existed workout"{
+        val idStore = MockIdStore()
+        val saveWorkout = MockSaveWorkout()
+        val alreadyExist = MockWorkoutAlreadyExist(result = true)
+        val addWorkout = AddWorkoutUseCase(
+            workoutAlreadyExist = alreadyExist,
+            saveWorkout = saveWorkout,
+            idStore = idStore
+        )
+        val workoutText = """
+            1. Подтягивания с 10 кг на 1 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ. 
+            2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.
+        """.trimIndent()
+
+        val workoutId = addWorkout(workoutText).shouldBeLeft()
+        workoutId.shouldBeInstanceOf<WorkoutUseCaseError.AlreadyExist>()
+
+    }
+
+
 })

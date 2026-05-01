@@ -5,7 +5,7 @@ import arrow.core.Either
 import arrow.core.raise.either
 import workout.catalog.usecase.workout.WorkoutError
 
-class AddWorkoutUseCase(
+open class AddWorkoutUseCase(
     val workoutAlreadyExist: WorkoutAlreadyExist,
     val saveWorkout: MockSaveWorkout,
     val idStore: MockIdStore
