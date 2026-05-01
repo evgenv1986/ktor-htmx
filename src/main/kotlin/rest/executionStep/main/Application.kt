@@ -39,18 +39,6 @@ fun main() {
             // Регистрация маршрутов из внешнего класса
             registrationHandler.registerRoutes(this)
             // маршрут формы ввода выполнения сета упражнения
-            InputStepRoute(
-                this,
-                InputStepEndpoint(
-                    InputStepPerformView()
-                ))
-                .register()
-            StepCompleteRoute(
-                this,
-                StepCompleteEndpoint(
-                    SuccessStepCompleteViewResult()
-                )).register()
-
             get("/") {
                 call.respondHtml(HttpStatusCode.OK) {
                     lang = "ru"
@@ -106,4 +94,5 @@ fun main() {
                 call.respondHtml { body { +"👋 Привет, $name!" } }
             }
         }
+        ApplicationConfig(this).configureRoutes()
     }

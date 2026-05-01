@@ -12,7 +12,6 @@
             <option value="$PROJECT_DIR$/Workout.usecase" />
             <option value="$PROJECT_DIR$/catalog" />
             <option value="$PROJECT_DIR$/catalog/usecase" />
-            <option value="$PROJECT_DIR$/catalog/usecase/fixtures" />
           </set>
         </option>
       </GradleProjectSettings>
