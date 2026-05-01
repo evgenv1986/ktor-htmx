@@ -44,6 +44,7 @@ dependencies {
     testImplementation("io.ktor:ktor-client-resources-jvm:${ktor_version}")
 // Если используешь JSON в тестах:
     testImplementation("io.ktor:ktor-serialization-kotlinx-json-jvm:${ktor_version}")
+    testImplementation(project(":catalog:usecase"))
 }
 
 tasks.test {
