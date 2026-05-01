@@ -17,12 +17,10 @@ open class Workout(
     private lateinit var event: WorkoutEvent
 
     fun popEvents(): List<WorkoutEvent> {
-        val workoutId = 1
         return listOf(event)
     }
 
     fun addEvent(event: WorkoutEvent) {
-        val workoutId = 1
         this.event = WorkoutEvent.Added(id)
     }
 
