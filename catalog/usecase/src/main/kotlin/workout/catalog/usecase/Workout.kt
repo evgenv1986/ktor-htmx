@@ -21,7 +21,7 @@ open class Workout(
     }
 
     fun addEvent(event: WorkoutEvent) {
-        this.event = WorkoutEvent.Added(id)
+        this.event = event
     }
 
     companion object {
