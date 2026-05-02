@@ -85,6 +85,14 @@ fun main() {
                         }
                         hr{}
                         div { id = "form-inputExerciseStepPerformView" }
+
+                        button {
+                            attributes["hx-get"] = "/workouts/plannings/add"
+                            attributes["hx-target"] = "#form-workoutInputView"
+                            +"Добавить тренировку"
+                        }
+                        hr{}
+                        div { id = "form-workoutInputView" }
                     }
                 }
             }

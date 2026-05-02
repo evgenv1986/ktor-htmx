@@ -29,6 +29,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.kotest:kotest-framework-engine:5.9.1")
+    implementation(project(":catalog:usecase"))
+    implementation("io.arrow-kt:arrow-core:1.2.4")
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
