@@ -1,12 +1,6 @@
 package com.example.rest.executionStep.main
 
 import com.example.UserRegistrationHandler
-import com.example.rest.executionStep.main.input.InputStepEndpoint
-import com.example.rest.executionStep.main.input.InputStepPerformView
-import com.example.rest.executionStep.main.persist.StepCompleteEndpoint
-import com.example.rest.executionStep.main.step.InputStepRoute
-import com.example.rest.executionStep.main.persist.StepCompleteRoute
-import com.example.rest.executionStep.main.persist.SuccessStepCompleteViewResult
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*

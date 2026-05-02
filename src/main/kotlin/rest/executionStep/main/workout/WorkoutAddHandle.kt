@@ -29,7 +29,6 @@ class WorkoutAddHandleEndPoint(
         val input = call.receive<WorkoutInput>()
         val workoutId = addWorkoutUseCase.invoke(input.workoutText)
 
-        val workoutInput = WorkoutInput()
         call.respondHtml {
             body {
                 with(workoutAddHandleView) {
