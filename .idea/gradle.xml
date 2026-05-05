@@ -10,7 +10,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Workout.usecase" />
+            <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/catalog" />
+            <option value="$PROJECT_DIR$/catalog/domain" />
+            <option value="$PROJECT_DIR$/catalog/rest" />
             <option value="$PROJECT_DIR$/catalog/usecase" />
           </set>
         </option>

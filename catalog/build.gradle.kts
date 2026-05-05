@@ -1,8 +1,9 @@
+project.base.archivesName.set("workout-catalog")
 plugins {
     kotlin("jvm")
 }
 
-group = "com.example"
+group = "ru.workout"
 version = "0.0.1"
 
 repositories {

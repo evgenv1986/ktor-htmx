@@ -9,11 +9,11 @@ plugins {
     kotlin("plugin.serialization") version "2.0.0"
 }
 
-group = "com.example"
+group = "ru.workout"
 version = "0.0.1"
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("workout.ru.ApplicationKt")
 }
 
 repositories {
@@ -31,6 +31,8 @@ dependencies {
     implementation("io.kotest:kotest-framework-engine:5.9.1")
     implementation(project(":catalog:usecase"))
     implementation("io.arrow-kt:arrow-core:1.2.4")
+    implementation(project(":catalog:rest"))
+    implementation(project(":catalog:domain"))
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")

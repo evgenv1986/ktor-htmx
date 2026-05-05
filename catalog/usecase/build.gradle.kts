@@ -1,8 +1,9 @@
+project.base.archivesName.set("workout-usecase")
 plugins {
     kotlin("jvm")
 }
 
-group = "com.example"
+group = "ru.workout"
 version = "0.0.1"
 
 repositories {
@@ -12,6 +13,7 @@ repositories {
 dependencies {
     implementation("io.arrow-kt:arrow-core:2.2.1")
     implementation("io.arrow-kt:arrow-fx-coroutines:2.2.1")
+    implementation(project(":catalog:domain"))
     testImplementation(kotlin("test"))
     testImplementation("io.kotest:kotest-framework-engine:5.9.1")
     testImplementation("io.kotest:kotest-assertions-core:5.9.1")
