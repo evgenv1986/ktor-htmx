@@ -38,7 +38,8 @@ class Exercise(val name: String) {
 
 open class ParsedExercise(val value: String) {
     fun name(): String {
-        return value.replace("1. ", "").trim()
+        return value.replace(Regex("^\\d+\\.\\s*"), "")
+//        return value.replace("1. ", "").trim()
     }
 
     fun toExercise(): Exercise {
