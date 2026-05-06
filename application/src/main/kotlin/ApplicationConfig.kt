@@ -52,9 +52,7 @@ class ApplicationConfig(val app: Application) {
                     AddWorkoutUseCase(
                         InMemoryWorkoutAlreadyExits(
                             InMemoryWorkoutStore(
-                                mutableMapOf<WorkoutId, Workout>()
-                            )
-                        ),
+                                mutableMapOf<WorkoutId, Workout>())),
                         MockSaveWorkout(),
                         MockIdStore()
                     ),

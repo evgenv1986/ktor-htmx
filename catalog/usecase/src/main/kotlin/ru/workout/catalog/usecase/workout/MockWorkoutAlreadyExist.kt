@@ -1,12 +1,13 @@
 package ru.workout.catalog.usecase.workout
 
+import workout.catalog.domain.workout.Exercise
 import workout.catalog.domain.workout.WorkoutAlreadyExist
 
 open class MockWorkoutAlreadyExist(val result: Boolean): WorkoutAlreadyExist {
-    private lateinit var captured: String
+    private lateinit var captured: List<Exercise>
 
-    override operator fun invoke(workoutText: String): Boolean{
-        captured = workoutText
+    override operator fun invoke(exercises: List<Exercise>): Boolean{
+        captured = exercises
         return result
     }
 }

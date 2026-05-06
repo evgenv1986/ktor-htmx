@@ -1,18 +1,20 @@
-package ru.workout.rest.workout
+package ru.workout.rest
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import ru.workout.rest.workout.ValidWorkout
+import ru.workout.rest.workout.WorkoutInput
 
 class ParsedWorkoutTest: StringSpec({
     "should parse workout text with two exercises"{
-        val input =  """
+        val input = WorkoutInput(
+            """
             1. Подтягивания
             2. Отжимания
-        """.trimIndent()
-        val exercises = ParsedWorkout().parse(input)
+            """.trimIndent())
+        val exercises = ValidWorkout(input).exercises(input)
         exercises.size shouldBe 2
         exercises[0].name() shouldBe "Подтягивания"
         exercises[1].name() shouldBe "Отжимания"
     }
 })
-

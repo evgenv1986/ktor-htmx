@@ -27,23 +27,26 @@ class WorkoutAddHandleEndPoint(
     val workoutAddHandleView: WorkoutAddHandleView) {
     suspend fun handle(call: ApplicationCall) {
         val input = call.receive<WorkoutInput>()
-        val workoutId = addWorkoutUseCase.invoke(input.workoutText)
+        val validWorkout = ValidWorkout(input)
+        val workoutId = addWorkoutUseCase.invoke(validWorkout.exercises())
 
         call.respondHtml {
             body {
                 with(workoutAddHandleView) {
-                    invoke(input)
+                    invoke(validWorkout)
                 }
             }
         }
     }
 }
 class WorkoutAddHandleView {
-    fun FlowContent.invoke(input: WorkoutInput) {
+    fun FlowContent.invoke(validWorkout: ValidWorkout) {
         div {
             style = "color: green; font-weight: bold;"
             +"✅ Тренировка сохранена: "
-            +"текст тренировки: ${input.workoutText} "
+            +"текст тренировки: ${
+                validWorkout.exercises().map { it.name }
+            }, "
         }
     }
 }

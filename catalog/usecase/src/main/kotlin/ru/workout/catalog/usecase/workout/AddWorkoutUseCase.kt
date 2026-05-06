@@ -2,6 +2,7 @@ package ru.workout.catalog.usecase.workout
 
 import arrow.core.Either
 import arrow.core.raise.either
+import workout.catalog.domain.workout.Exercise
 import workout.catalog.domain.workout.Workout
 import workout.catalog.domain.workout.WorkoutAlreadyExist
 import workout.catalog.domain.workout.WorkoutError
@@ -12,9 +13,13 @@ open class AddWorkoutUseCase(
     val saveWorkout: MockSaveWorkout,
     val idStore: MockIdStore
 ) {
-    operator fun invoke(workoutText: String)
+    operator fun invoke(exercises: List<Exercise>)
     :Either<WorkoutUseCaseError, WorkoutId> = either {
-        val workout = Workout.add(idStore, workoutAlreadyExist, workoutText)
+        val workout = Workout.add(
+            idStore,
+            workoutAlreadyExist,
+            exercises
+        )
             .mapLeft{ it.toUseCaseError() }
             .bind()
         saveWorkout.invoke(workout)

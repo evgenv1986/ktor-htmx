@@ -17,42 +17,42 @@ fun main() {
         module()
     }.start(wait = true)
 }
-    fun Application.module() {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-                coerceInputValues = true
-            })
-        }
-        // Создаем экземпляр нашего вынесенного класса
-        val registrationHandler = UserRegistrationHandler()
+fun Application.module() {
+    install(ContentNegotiation) {
+        json(Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        })
+    }
+    // Создаем экземпляр нашего вынесенного класса
+    val registrationHandler = UserRegistrationHandler()
 
-        routing {
-            var counter = 0
-            // Регистрация маршрутов из внешнего класса
-            registrationHandler.registerRoutes(this)
-            // маршрут формы ввода выполнения сета упражнения
-            get("/") {
-                call.respondHtml(HttpStatusCode.OK) {
-                    lang = "ru"
-                    head {
-                        title("Ktor + HTMX")
-                        meta { charset = "UTF-8" }
-                        script { src = "https://unpkg.com/htmx.org@1.9.12" }
-                        script { src = "https://unpkg.com/htmx.org/dist/ext/json-enc.js" }
-                        style {
-                            unsafe {
-                                +"""
-                                body { font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
-                                input { display: block; width: calc(100% - 16px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
-                                button { padding: 10px 16px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; }
-                                hr { margin: 32px 0; border: none; border-top: 1px solid #e5e7eb; }
-                                .form-row { display: flex; gap: 8px; align-items: center; }
-                                """.trimIndent()
-                            }
+    routing {
+        var counter = 0
+        // Регистрация маршрутов из внешнего класса
+        registrationHandler.registerRoutes(this)
+        // маршрут формы ввода выполнения сета упражнения
+        get("/") {
+            call.respondHtml(HttpStatusCode.OK) {
+                lang = "ru"
+                head {
+                    title("Ktor + HTMX")
+                    meta { charset = "UTF-8" }
+                    script { src = "https://unpkg.com/htmx.org@1.9.12" }
+                    script { src = "https://unpkg.com/htmx.org/dist/ext/json-enc.js" }
+                    style {
+                        unsafe {
+                            +"""
+                            body { font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
+                            input { display: block; width: calc(100% - 16px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+                            button { padding: 10px 16px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; }
+                            hr { margin: 32px 0; border: none; border-top: 1px solid #e5e7eb; }
+                            .form-row { display: flex; gap: 8px; align-items: center; }
+                            """.trimIndent()
                         }
                     }
-                    body {
+                }
+                body {
 //                        h2 { +"Ktor + HTMX MVP" }
 //                        // Приветствие (старый код)
 //                        div {
@@ -67,33 +67,33 @@ fun main() {
 //                            div { id = "result" }
 //                        }
 //                        hr {}
-                        // Вызов отрисовки формы из нашего КЛАССА
+                    // Вызов отрисовки формы из нашего КЛАССА
 //                        with(registrationHandler) {
 //                            renderRegistrationForm()
 //                        }
-                       button {
-                            attributes["hx-get"] = "/workouts/performances/123"
-                            attributes["hx-target"] = "#form-inputExerciseStepPerformView"
-                            +"Начать выполнение подхода №3"
-                        }
-                        hr{}
-                        div { id = "form-inputExerciseStepPerformView" }
-
-                        button {
-                            attributes["hx-get"] = "/workouts/plannings/add"
-                            attributes["hx-target"] = "#form-workoutInputView"
-                            +"Добавить тренировку"
-                        }
-                        hr{}
-                        div { id = "form-workoutInputView" }
+                   button {
+                        attributes["hx-get"] = "/workouts/performances/123"
+                        attributes["hx-target"] = "#form-inputExerciseStepPerformView"
+                        +"Начать выполнение подхода №3"
                     }
+                    hr{}
+                    div { id = "form-inputExerciseStepPerformView" }
+
+                    button {
+                        attributes["hx-get"] = "/workouts/plannings/add"
+                        attributes["hx-target"] = "#form-workoutInputView"
+                        +"Добавить тренировку"
+                    }
+                    hr{}
+                    div { id = "form-workoutInputView" }
                 }
             }
-            // Другие мелкие маршруты
-            get("/hello") {
-                val name = call.request.queryParameters["name"] ?: "World"
-                call.respondHtml { body { +"👋 Привет, $name!" } }
-            }
         }
-        ApplicationConfig(this).configureRoutes()
+        // Другие мелкие маршруты
+        get("/hello") {
+            val name = call.request.queryParameters["name"] ?: "World"
+            call.respondHtml { body { +"👋 Привет, $name!" } }
+        }
     }
+    ApplicationConfig(this).configureRoutes()
+}

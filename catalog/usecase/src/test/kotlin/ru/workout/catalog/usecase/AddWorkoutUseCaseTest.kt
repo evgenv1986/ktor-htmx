@@ -12,6 +12,7 @@ import ru.workout.catalog.usecase.workout.MockIdStore
 import ru.workout.catalog.usecase.workout.MockSaveWorkout
 import ru.workout.catalog.usecase.workout.MockWorkoutAlreadyExist
 import ru.workout.catalog.usecase.workout.WorkoutUseCaseError
+import workout.catalog.domain.workout.Exercise
 import workout.catalog.domain.workout.Workout
 import workout.catalog.domain.workout.WorkoutEvent
 import workout.catalog.domain.workout.WorkoutId
@@ -22,7 +23,7 @@ class AddWorkoutUseCaseTest: StringSpec( {
         val idStore = MockIdStore()
         val saveWorkout = MockSaveWorkout()
         val alreadyExist = MockWorkoutAlreadyExist(result = false)
-        val addWorkout = AddWorkoutUseCase(
+        val usecase = AddWorkoutUseCase(
             workoutAlreadyExist = alreadyExist,
             saveWorkout = saveWorkout,
             idStore = idStore
@@ -31,8 +32,11 @@ class AddWorkoutUseCaseTest: StringSpec( {
             1. Подтягивания с 10 кг на 1 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ. 
             2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.
         """.trimIndent()
-
-        val workoutId: WorkoutId = addWorkout(workoutText).shouldBeRight()
+        val exercices = listOf<Exercise>(
+            Exercise("1. Подтягивания с 10 кг на 1 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ. "),
+            Exercise("2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.")
+        )
+        val workoutId: WorkoutId = usecase(exercices).shouldBeRight()
 
         workoutId.shouldBeEqual(idStore.generate())
         val savedWorkout: Workout = saveWorkout.captured()!!
@@ -45,20 +49,21 @@ class AddWorkoutUseCaseTest: StringSpec( {
         val idStore = MockIdStore()
         val saveWorkout = MockSaveWorkout()
         val alreadyExist = MockWorkoutAlreadyExist(result = false)
-        val addWorkout = AddWorkoutUseCase(
+        val usecase = AddWorkoutUseCase(
             workoutAlreadyExist = alreadyExist,
             saveWorkout = saveWorkout,
             idStore = idStore
         )
         val workoutText = ""
-        val result = addWorkout(workoutText).shouldBeLeft()
+        val exercices = listOf<Exercise>()
+        val result = usecase(exercices).shouldBeLeft()
         result.shouldBeInstanceOf<WorkoutUseCaseError.EmptyWorkoutUseCase>()
     }
     "can not add already existed workout"{
         val idStore = MockIdStore()
         val saveWorkout = MockSaveWorkout()
         val alreadyExist = MockWorkoutAlreadyExist(result = true)
-        val addWorkout = AddWorkoutUseCase(
+        val usecase = AddWorkoutUseCase(
             workoutAlreadyExist = alreadyExist,
             saveWorkout = saveWorkout,
             idStore = idStore
@@ -68,7 +73,12 @@ class AddWorkoutUseCaseTest: StringSpec( {
             2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.
         """.trimIndent()
 
-        val workoutId = addWorkout(workoutText).shouldBeLeft()
-        workoutId.shouldBeInstanceOf<WorkoutUseCaseError.AlreadyExist>()
+        val exercices = listOf<Exercise>(
+            Exercise("1. Подтягивания с 10 кг на 1 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ. "),
+            Exercise("2. Отжимания на брусьях с 16 кг на 2 повторов. 3 минуты работы. Максимальное число повторов в ТОТАЛ.")
+        )
+        val result = usecase(exercices).shouldBeLeft()
+
+        result.shouldBeInstanceOf<WorkoutUseCaseError.AlreadyExist>()
     }
 })

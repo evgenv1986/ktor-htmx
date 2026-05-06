@@ -7,7 +7,7 @@ import arrow.core.raise.ensure
 open class Workout(
     val status: WorkoutStatus,
     val id: WorkoutId,
-    val taskText: String
+    val exercises: List<Exercise>
 ) {
     private lateinit var event: WorkoutEvent
 
@@ -23,19 +23,19 @@ open class Workout(
         fun add(
             idStore: WorkoutIdStore,
             workoutAlreadyExist: WorkoutAlreadyExist,
-            workoutText: String
+            exercises: List<Exercise>
         ) : Either<WorkoutError, Workout> = either {
-            ensure(workoutText != ""){
+            ensure(exercises.size != 0){
                 WorkoutError.EmptyWorkout
             }
-            ensure (!workoutAlreadyExist(workoutText)){
+            ensure (!workoutAlreadyExist(exercises)){
                 WorkoutError.AlreadyExist
             }
             val id = idStore.generate()
             Workout(
                 status = WorkoutStatus.ADDED,
                 id = id,
-                taskText = workoutText
+                exercises = exercises
             ).apply{ addEvent(WorkoutEvent.Added(id)) }
         }
     }
