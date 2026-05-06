@@ -1,7 +1,9 @@
+package ru.workout.rest.workout
+
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-class WorkoutTest: StringSpec({
+class ParsedWorkoutTest: StringSpec({
     "should parse workout text with two exercises"{
         val input =  """
             1. Подтягивания
@@ -14,11 +16,3 @@ class WorkoutTest: StringSpec({
     }
 })
 
-open class ParsedWorkout {
-    fun parse(text: String): List<Exercise>{
-        return text.lines()
-            .filter { it.isNotBlank() }
-            .map { line -> ParsedExercise(line).toExercise() }
-    }
-
-}
