@@ -21,6 +21,7 @@ import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
 import ru.workout.catalog.usecase.workout.MockIdStore
 import ru.workout.catalog.usecase.workout.MockSaveWorkout
+import ru.workout.catalog.usecase.workout.MockWorkoutAlreadyExist
 import workout.catalog.domain.workout.Workout
 import workout.catalog.domain.workout.WorkoutId
 
@@ -50,9 +51,11 @@ class ApplicationConfig(val app: Application) {
                 this,
                 WorkoutAddHandleEndPoint(
                     AddWorkoutUseCase(
+//                        MockWorkoutAlreadyExist(true)
                         InMemoryWorkoutAlreadyExits(
                             InMemoryWorkoutStore(
-                                mutableMapOf<WorkoutId, Workout>())),
+                                mutableMapOf<WorkoutId, Workout>()))
+                        ,
                         MockSaveWorkout(),
                         MockIdStore()
                     ),

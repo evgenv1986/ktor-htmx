@@ -12,9 +12,17 @@ class ParsedWorkoutTest: StringSpec({
             1. Подтягивания
             2. Отжимания
             """.trimIndent())
-        val exercises = ValidWorkout(input).exercises(input)
+        val exercises = ValidWorkout(input).exercises()
         exercises.size shouldBe 2
         exercises[0].name() shouldBe "Подтягивания"
         exercises[1].name() shouldBe "Отжимания"
+    }
+    "should parse error on invalid text exercises"{
+        val input = WorkoutInput(
+            """
+            1
+            2.
+            """.trimIndent())
+        val result = ValidWorkout(input).exercises().shouldBeLeft()
     }
 })

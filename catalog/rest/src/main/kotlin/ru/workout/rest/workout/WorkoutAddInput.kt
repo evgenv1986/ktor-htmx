@@ -60,7 +60,7 @@ class WorkoutInputView {
                     rows = "5"
                     cols = "80"
                     placeholder = "Введите задание тренировки"
-                    required = true
+//                    required = true
                     id = "workout-text-input"
                 }
                 button {
