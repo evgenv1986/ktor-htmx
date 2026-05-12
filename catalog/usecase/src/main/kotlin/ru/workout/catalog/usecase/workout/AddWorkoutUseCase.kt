@@ -2,15 +2,15 @@ package ru.workout.catalog.usecase.workout
 
 import arrow.core.Either
 import arrow.core.raise.either
-import workout.catalog.domain.workout.Exercise
-import workout.catalog.domain.workout.Workout
-import workout.catalog.domain.workout.WorkoutAlreadyExist
-import workout.catalog.domain.workout.WorkoutError
-import workout.catalog.domain.workout.WorkoutId
+import workout.persistence.catalog.domain.workout.Exercise
+import workout.persistence.catalog.domain.workout.Workout
+import workout.persistence.catalog.domain.workout.WorkoutAlreadyExist
+import workout.persistence.catalog.domain.workout.WorkoutError
+import workout.persistence.catalog.domain.workout.WorkoutId
 
 open class AddWorkoutUseCase(
     val workoutAlreadyExist: WorkoutAlreadyExist,
-    val saveWorkout: MockSaveWorkout,
+    val saveWorkout: SaveWorkout,
     val idStore: MockIdStore
 ) {
     operator fun invoke(exercises: List<Exercise>)
@@ -22,7 +22,7 @@ open class AddWorkoutUseCase(
         )
             .mapLeft{ it.toUseCaseError() }
             .bind()
-        saveWorkout.invoke(workout)
+        saveWorkout.save(workout)
         workout.id
     }
 }

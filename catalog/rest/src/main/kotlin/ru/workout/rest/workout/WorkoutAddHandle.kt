@@ -15,7 +15,7 @@ import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import kotlinx.html.div
 import ru.workout.catalog.usecase.workout.WorkoutUseCaseError
-import workout.catalog.domain.workout.WorkoutId
+import workout.persistence.catalog.domain.workout.WorkoutId
 
 class WorkoutAddHandleRoute(
     private val routing: Routing,

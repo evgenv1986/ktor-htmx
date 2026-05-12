@@ -12,7 +12,7 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.testApplication
 import ru.workout.rest.step.input.InputExerciseStep
-import workout.application.module
+import workout.application.workout.app.module
 
 class ExecutionStepRoutesTest : StringSpec({
     "should return 200 OK on request active step"{

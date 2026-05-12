@@ -4,10 +4,10 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
-import workout.catalog.domain.workout.Exercise
-import workout.catalog.domain.workout.Workout
-import workout.catalog.domain.workout.WorkoutId
-import workout.catalog.domain.workout.WorkoutStatus
+import workout.persistence.catalog.domain.workout.Exercise
+import workout.persistence.catalog.domain.workout.Workout
+import workout.persistence.catalog.domain.workout.WorkoutId
+import workout.persistence.catalog.domain.workout.WorkoutStatus
 
 class WorkoutAlreadyExistTest: StringSpec( {
     "should return true on workout already exist"{

@@ -9,14 +9,13 @@ import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
 import ru.workout.catalog.usecase.workout.MockIdStore
-import ru.workout.catalog.usecase.workout.MockSaveWorkout
 import ru.workout.catalog.usecase.workout.MockWorkoutAlreadyExist
 import ru.workout.catalog.usecase.workout.WorkoutUseCaseError
-import workout.catalog.domain.workout.Exercise
-import workout.catalog.domain.workout.Workout
-import workout.catalog.domain.workout.WorkoutEvent
-import workout.catalog.domain.workout.WorkoutId
-import workout.catalog.domain.workout.WorkoutStatus
+import workout.persistence.catalog.domain.workout.Exercise
+import workout.persistence.catalog.domain.workout.Workout
+import workout.persistence.catalog.domain.workout.WorkoutEvent
+import workout.persistence.catalog.domain.workout.WorkoutId
+import workout.persistence.catalog.domain.workout.WorkoutStatus
 
 class AddWorkoutUseCaseTest: StringSpec( {
     "successfully added workout"{

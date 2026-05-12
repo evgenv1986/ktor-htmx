@@ -33,6 +33,9 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:1.2.4")
     implementation(project(":catalog:rest"))
     implementation(project(":catalog:domain"))
+    implementation(project(":catalog:usecase"))
+    implementation(project(":catalog:in-memory-persistence"))
+    implementation(project(":common"))
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")

@@ -1,7 +1,7 @@
 package ru.workout.catalog.usecase.workout
 
-import workout.catalog.domain.workout.Exercise
-import workout.catalog.domain.workout.WorkoutAlreadyExist
+import workout.persistence.catalog.domain.workout.Exercise
+import workout.persistence.catalog.domain.workout.WorkoutAlreadyExist
 
 class InMemoryWorkoutAlreadyExits(val store: InMemoryWorkoutStore) : WorkoutAlreadyExist {
     override fun invoke(workoutText: List<Exercise>): Boolean {

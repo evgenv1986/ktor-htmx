@@ -11,7 +11,7 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.testApplication
 import ru.workout.rest.workout.WorkoutInput
-import workout.application.module
+import workout.application.workout.app.module
 
 class AddWorkoutEndpointTest: StringSpec({
     "should return 201 ok on add a valid workout"{

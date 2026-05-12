@@ -1,4 +1,4 @@
-package workout.application
+package workout.application.workout.app
 
 import io.ktor.http.*
 import io.ktor.server.application.*

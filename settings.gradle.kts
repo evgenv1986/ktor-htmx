@@ -5,6 +5,8 @@ rootProject.name = "Workout"
 include("Workout.usecase")
 include("catalog")
 include("catalog:usecase")
+include("catalog:in-memory-persistence")
 include("catalog:domain")
 include("catalog:rest")
 include("application")
+include("common")

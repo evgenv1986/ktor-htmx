@@ -1,4 +1,4 @@
-package workout.catalog.domain.workout
+package workout.persistence.catalog.domain.workout
 
 import arrow.core.Either
 import arrow.core.raise.either
@@ -9,14 +9,17 @@ open class Workout(
     val id: WorkoutId,
     val exercises: List<Exercise>
 ) {
-    private lateinit var event: WorkoutEvent
+    private var events = ArrayList<DomainEvent>()
 
-    fun popEvents(): List<WorkoutEvent> {
-        return listOf(event)
+    fun popEvents(): List<DomainEvent> {
+        val res = events
+        events = ArrayList()
+        events.clear()
+        return res
     }
 
-    fun addEvent(event: WorkoutEvent) {
-        this.event = event
+    fun addEvent(event: DomainEvent) {
+        events.add(event)
     }
 
     companion object {
