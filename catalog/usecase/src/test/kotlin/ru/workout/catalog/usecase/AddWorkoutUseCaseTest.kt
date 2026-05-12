@@ -11,6 +11,7 @@ import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
 import ru.workout.catalog.usecase.workout.MockIdStore
 import ru.workout.catalog.usecase.workout.MockWorkoutAlreadyExist
 import ru.workout.catalog.usecase.workout.WorkoutUseCaseError
+import workout.persistence.catalog.domain.workout.DomainEvent
 import workout.persistence.catalog.domain.workout.Exercise
 import workout.persistence.catalog.domain.workout.Workout
 import workout.persistence.catalog.domain.workout.WorkoutEvent
@@ -40,7 +41,7 @@ class AddWorkoutUseCaseTest: StringSpec( {
         workoutId.shouldBeEqual(idStore.generate())
         val savedWorkout: Workout = saveWorkout.captured()!!
         savedWorkout.status shouldBe WorkoutStatus.ADDED
-        val events: List<WorkoutEvent> = savedWorkout.popEvents()
+        val events: List<DomainEvent> = savedWorkout.popEvents()
         events.shouldHaveSize(1)
         events[0].shouldBeInstanceOf<WorkoutEvent.Added>()
     }
