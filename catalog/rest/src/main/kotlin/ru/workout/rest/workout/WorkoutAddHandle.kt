@@ -35,7 +35,7 @@ class WorkoutAddHandleEndPoint(
         val validateExercises = ValidWorkout(input, "exercises").exercises()
         validateExercises.fold(
             ifLeft = { error ->
-                toInvalidParamsBadRequest(call, error)
+                toInvalidParamsUnprocessableEntity(call, error)
             },
             ifRight = {
                 handleUseCaseResult(
@@ -45,6 +45,14 @@ class WorkoutAddHandleEndPoint(
             }
         )
     }
+
+    private suspend fun toInvalidParamsUnprocessableEntity(
+        call: ApplicationCall,
+        error: ValidationError
+    ) {
+        call.respond(HttpStatusCode.UnprocessableEntity, "${error.field}: ${error.message}")
+    }
+
     private suspend fun handleUseCaseResult(
         call: ApplicationCall,
         result: Either<WorkoutUseCaseError, WorkoutId>

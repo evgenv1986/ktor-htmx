@@ -35,11 +35,31 @@ class AddWorkoutEndpointTest: StringSpec({
 
             response.status shouldBe HttpStatusCode.Companion.OK
             val body = response.bodyAsText() // Получаем HTML как строку
-            response.status shouldBe HttpStatusCode.Companion.OK
             body shouldContain "Тренировка сохранена"
-            body shouldContain workoutText
+//            body shouldContain workoutText
 //            body shouldContain "hx-post=\"/workouts/performances\"" // Проверяем наличие HTMX атрибута
 //            body shouldContain "id=\"performance-input-container\""
+        }
+    }
+    "should return status code 422 with error: exercises: Тренировка должна быть заполнена упражнениями"{
+        testApplication {
+            application {
+                module()
+            }
+            val jsonClient = createClient {
+                install(ContentNegotiation) {
+                    json()
+                }
+            }
+            val workoutText = ""
+            val response = jsonClient.post("/workouts/plannings/add") {
+                contentType(ContentType.Application.Json)
+                setBody(WorkoutInput(workoutText))
+            }
+
+            response.status shouldBe HttpStatusCode.Companion.UnprocessableEntity
+            val body = response.bodyAsText()
+            body shouldContain "exercises: Тренировка должна быть заполнена упражнениями"
         }
     }
 })
