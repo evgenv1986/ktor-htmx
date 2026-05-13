@@ -20,10 +20,10 @@ import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
 import ru.workout.catalog.usecase.workout.MockIdStore
-import workout.event.DomainPublisherImp
-import workout.persistence.WorkoutStorage
-import workout.persistence.catalog.domain.workout.Workout
-import workout.persistence.catalog.domain.workout.WorkoutId
+import workout.event.DomainEventPublisherImp
+import workout.persistence.SaveWorkoutStorage
+import workout.catalog.domain.Workout
+import workout.catalog.domain.WorkoutId
 
 class ApplicationConfig(val app: Application) {
     fun configureRoutes(){
@@ -56,7 +56,7 @@ class ApplicationConfig(val app: Application) {
                             InMemoryWorkoutStore(
                                 mutableMapOf<WorkoutId, Workout>()))
                         ,
-                        WorkoutStorage(DomainPublisherImp()),
+                        SaveWorkoutStorage(DomainEventPublisherImp()),
                         MockIdStore()
                     ),
                     WorkoutAddHandleView()

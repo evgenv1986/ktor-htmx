@@ -1,4 +1,4 @@
-package workout.persistence.catalog.domain.workout
+package workout.catalog.domain
 
 class Exercise(val name: String) {
     fun name(): String {

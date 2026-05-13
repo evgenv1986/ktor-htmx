@@ -1,7 +1,7 @@
 package workout.persistence.testFixtures
 
 import workout.common.event.DomainEventPublisher
-import workout.persistence.catalog.domain.workout.DomainEvent
+import workout.catalog.domain.DomainEvent
 
 open class TestEventPublisher: DomainEventPublisher {
     val storage = ArrayList<DomainEvent>()

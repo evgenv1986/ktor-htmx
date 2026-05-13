@@ -22,7 +22,8 @@ dependencies {
     testImplementation(project(":common"))
     testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
     testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
-
+    testImplementation(project(":catalog:domain"))
+    testImplementation(testFixtures(project(":catalog:domain")))
 }
 
 tasks.test {

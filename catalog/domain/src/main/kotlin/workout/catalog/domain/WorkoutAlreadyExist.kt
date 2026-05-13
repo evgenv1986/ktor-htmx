@@ -1,4 +1,4 @@
-package workout.persistence.catalog.domain.workout
+package workout.catalog.domain
 
 interface WorkoutAlreadyExist {
     operator fun invoke(workoutText: List<Exercise>): Boolean

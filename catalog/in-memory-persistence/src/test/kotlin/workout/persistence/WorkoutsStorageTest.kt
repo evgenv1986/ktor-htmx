@@ -5,14 +5,15 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import workout.persistence.testFixtures.TestEventPublisher
-import workout.persistence.testFixtures.workoutWithStatusAdd
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import workout.persistence.catalog.domain.workout.WorkoutEvent
+import workout.catalog.domain.WorkoutEvent
+import workout.catalog.domain.workoutWithStatusAdd
+
 
 class WorkoutsStorageTest: StringSpec ({
     "should save workout" {
         val publisher = TestEventPublisher()
-        val repository = WorkoutStorage(publisher)
+        val repository = SaveWorkoutStorage(publisher)
         val workout = workoutWithStatusAdd()
 
         repository.save(workout)

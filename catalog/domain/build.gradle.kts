@@ -1,6 +1,7 @@
 project.base.archivesName.set("workout-domain")
 plugins {
     kotlin("jvm")
+    id("java-test-fixtures")
 }
 
 group = "ru.workout"

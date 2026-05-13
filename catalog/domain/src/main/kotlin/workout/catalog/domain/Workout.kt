@@ -1,4 +1,4 @@
-package workout.persistence.catalog.domain.workout
+package workout.catalog.domain
 
 import arrow.core.Either
 import arrow.core.raise.either

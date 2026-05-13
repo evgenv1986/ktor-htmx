@@ -11,12 +11,12 @@ import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
 import ru.workout.catalog.usecase.workout.MockIdStore
 import ru.workout.catalog.usecase.workout.MockWorkoutAlreadyExist
 import ru.workout.catalog.usecase.workout.WorkoutUseCaseError
-import workout.persistence.catalog.domain.workout.DomainEvent
-import workout.persistence.catalog.domain.workout.Exercise
-import workout.persistence.catalog.domain.workout.Workout
-import workout.persistence.catalog.domain.workout.WorkoutEvent
-import workout.persistence.catalog.domain.workout.WorkoutId
-import workout.persistence.catalog.domain.workout.WorkoutStatus
+import workout.catalog.domain.DomainEvent
+import workout.catalog.domain.Exercise
+import workout.catalog.domain.Workout
+import workout.catalog.domain.WorkoutEvent
+import workout.catalog.domain.WorkoutId
+import workout.catalog.domain.WorkoutStatus
 
 class AddWorkoutUseCaseTest: StringSpec( {
     "successfully added workout"{

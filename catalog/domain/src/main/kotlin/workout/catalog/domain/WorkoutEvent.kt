@@ -1,4 +1,4 @@
-package workout.persistence.catalog.domain.workout
+package workout.catalog.domain
 
 sealed class WorkoutEvent(val workoutId: WorkoutId): DomainEvent {
     class Added(workoutId: WorkoutId) : WorkoutEvent(workoutId)

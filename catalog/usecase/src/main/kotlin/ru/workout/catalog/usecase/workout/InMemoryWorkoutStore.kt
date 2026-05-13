@@ -3,9 +3,9 @@ package ru.workout.catalog.usecase.workout
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensureNotNull
-import workout.persistence.catalog.domain.workout.Exercise
-import workout.persistence.catalog.domain.workout.Workout
-import workout.persistence.catalog.domain.workout.WorkoutId
+import workout.catalog.domain.Exercise
+import workout.catalog.domain.Workout
+import workout.catalog.domain.WorkoutId
 
 interface RestoreWorkout {
     operator fun invoke(exercises: List<Exercise>): Either<WorkoutStoreError, Workout>

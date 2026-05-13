@@ -3,7 +3,7 @@ package ru.workout.rest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import ru.workout.rest.exercise.ParsedExercise
-import workout.persistence.catalog.domain.workout.Exercise
+import workout.catalog.domain.Exercise
 
 class ParsedExerciseTest: StringSpec({
     "should extract name from simple string"{

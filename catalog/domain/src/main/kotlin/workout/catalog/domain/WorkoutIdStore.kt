@@ -1,4 +1,4 @@
-package workout.persistence.catalog.domain.workout
+package workout.catalog.domain
 
 interface WorkoutIdStore {
     fun generate(): WorkoutId

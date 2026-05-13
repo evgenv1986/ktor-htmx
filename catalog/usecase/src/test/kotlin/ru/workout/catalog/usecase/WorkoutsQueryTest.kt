@@ -4,8 +4,16 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.catalog.usecase.workout.WorkoutView
+import workout.catalog.domain.workoutWithStatusAdd
 
 class WorkoutsQueryTest: StringSpec( {
+    "extract workouts from persistence"{
+        val workouts = listOf(
+            workoutWithStatusAdd(),
+            workoutWithStatusAdd()
+        )
+
+    }
     "Workout query should return list workout view instance"{
         val query: WorkoutsQuery = MockWorkoutsQuery(
             listOf(
