@@ -4,14 +4,14 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
-import workout.catalog.domain.Exercise
+import workout.catalog.domain.TaskExercise
 import workout.catalog.domain.Workout
 import workout.catalog.domain.WorkoutId
 import workout.catalog.domain.WorkoutStatus
 
 class WorkoutAlreadyExistTest: StringSpec( {
     "should return true on workout already exist"{
-        val exercise = listOf(Exercise("text"))
+        val exercise = listOf(TaskExercise("text"))
         val workoutId = WorkoutId(1)
         val workout = Workout(
             WorkoutStatus.DRAFT,
@@ -26,7 +26,7 @@ class WorkoutAlreadyExistTest: StringSpec( {
         result shouldBe true
     }
     "should return false on workout not exist"{
-        val exercise = listOf(Exercise("text"))
+        val exercise = listOf(TaskExercise("text"))
         val workoutId = WorkoutId(1)
         val workout = Workout(
             WorkoutStatus.DRAFT,
@@ -38,7 +38,7 @@ class WorkoutAlreadyExistTest: StringSpec( {
         val store = InMemoryWorkoutStore(data)
         val workoutExist = InMemoryWorkoutAlreadyExits(store)
         val result = workoutExist.invoke(
-            listOf(Exercise("some text"))
+            listOf(TaskExercise("some text"))
         )
         result shouldBe false
     }

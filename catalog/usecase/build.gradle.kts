@@ -1,6 +1,7 @@
 project.base.archivesName.set("workout-usecase")
 plugins {
     kotlin("jvm")
+    id("java-test-fixtures")
 }
 
 group = "ru.workout"
@@ -23,7 +24,8 @@ dependencies {
     testImplementation(project(":catalog:in-memory-persistence"))
     testImplementation(project(":catalog:domain"))
     testImplementation(testFixtures(project(":catalog:domain")))
-
+    testImplementation(project(":catalog:domain"))
+    testFixturesImplementation(testFixtures(project(":catalog:domain")))
 }
 
 tasks.test {

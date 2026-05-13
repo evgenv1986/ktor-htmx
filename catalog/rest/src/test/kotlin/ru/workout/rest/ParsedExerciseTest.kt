@@ -3,7 +3,7 @@ package ru.workout.rest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import ru.workout.rest.exercise.ParsedExercise
-import workout.catalog.domain.Exercise
+import workout.catalog.domain.TaskExercise
 
 class ParsedExerciseTest: StringSpec({
     "should extract name from simple string"{
@@ -18,6 +18,6 @@ class ParsedExerciseTest: StringSpec({
             """.trimIndent()
         ).toExercise()
         exercise.name() shouldBe "Подтягивания"
-        exercise.equals(Exercise("Подтягивания"))
+        exercise.equals(TaskExercise("Подтягивания"))
     }
 })

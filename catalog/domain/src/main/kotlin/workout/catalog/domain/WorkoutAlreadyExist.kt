@@ -1,5 +1,5 @@
 package workout.catalog.domain
 
 interface WorkoutAlreadyExist {
-    operator fun invoke(workoutText: List<Exercise>): Boolean
+    operator fun invoke(workoutText: List<TaskExercise>): Boolean
 }

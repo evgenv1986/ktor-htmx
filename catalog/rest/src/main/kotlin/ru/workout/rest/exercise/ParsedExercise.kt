@@ -1,6 +1,6 @@
 package ru.workout.rest.exercise
 
-import workout.catalog.domain.Exercise
+import workout.catalog.domain.TaskExercise
 
 open class ParsedExercise(val value: String) {
     fun name(): String {
@@ -8,8 +8,8 @@ open class ParsedExercise(val value: String) {
 //        return value.replace("1. ", "").trim()
     }
 
-    fun toExercise(): Exercise {
-        return Exercise(name())
+    fun toExercise(): TaskExercise {
+        return TaskExercise(name())
     }
     override fun equals(other: Any?): Boolean{
         if (this === other) return true

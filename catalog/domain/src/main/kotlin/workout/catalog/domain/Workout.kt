@@ -7,7 +7,7 @@ import arrow.core.raise.ensure
 open class Workout(
     val status: WorkoutStatus,
     val id: WorkoutId,
-    val exercises: List<Exercise>
+    val tasks: List<TaskExercise>
 ) {
     private var events = ArrayList<DomainEvent>()
 
@@ -26,7 +26,7 @@ open class Workout(
         fun add(
             idStore: WorkoutIdStore,
             workoutAlreadyExist: WorkoutAlreadyExist,
-            exercises: List<Exercise>
+            exercises: List<TaskExercise>
         ) : Either<WorkoutError, Workout> = either {
             ensure(exercises.size != 0){
                 WorkoutError.EmptyWorkout
@@ -38,7 +38,7 @@ open class Workout(
             Workout(
                 status = WorkoutStatus.ADDED,
                 id = id,
-                exercises = exercises
+                tasks = exercises
             ).apply{ addEvent(WorkoutEvent.Added(id)) }
         }
     }
