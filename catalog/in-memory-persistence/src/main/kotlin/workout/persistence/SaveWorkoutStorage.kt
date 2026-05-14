@@ -6,7 +6,7 @@ import workout.catalog.domain.Workout
 import workout.catalog.domain.WorkoutId
 
 open class SaveWorkoutStorage(val publisher: DomainEventPublisher) : SaveWorkout {
-    internal val storage = LinkedHashMap<WorkoutId, Workout>()
+    val storage = LinkedHashMap<WorkoutId, Workout>()
 
     override fun save(workout: Workout) {
         publisher.publish(workout.popEvents())

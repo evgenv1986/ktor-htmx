@@ -1,6 +1,6 @@
-package workout.event
+package workout.application.event
 
 import workout.common.event.DomainEventPublisher
 
-class DomainEventPublisherImp: DomainEventPublisher {
+open class DomainEventPublisherImp: DomainEventPublisher {
 }

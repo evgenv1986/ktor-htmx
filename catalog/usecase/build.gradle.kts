@@ -25,7 +25,11 @@ dependencies {
     testImplementation(project(":catalog:domain"))
     testImplementation(testFixtures(project(":catalog:domain")))
     testImplementation(project(":catalog:domain"))
+    testImplementation(project(":application"))
     testFixturesImplementation(testFixtures(project(":catalog:domain")))
+    implementation(project(":common"))
+    testImplementation(project(":common"))
+
 }
 
 tasks.test {

@@ -20,7 +20,7 @@ import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
 import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
 import ru.workout.catalog.usecase.workout.MockIdStore
-import workout.event.DomainEventPublisherImp
+import workout.application.event.DomainEventPublisherImp
 import workout.persistence.SaveWorkoutStorage
 import workout.catalog.domain.Workout
 import workout.catalog.domain.WorkoutId
