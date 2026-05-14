@@ -8,19 +8,16 @@ import ru.workout.catalog.usecase.workout.WorkoutView
 import workout.catalog.domain.TaskExercise
 import workout.catalog.domain.Workout
 import workout.catalog.domain.workoutWithStatusAdd
-import workout.application.event.DomainEventPublisherImp
 import workout.catalog.domain.WorkoutId
-import workout.persistence.SaveWorkoutStorage
 
 class WorkoutsQueryTest: StringSpec( {
     "should return workouts from findWorkout and converted to view"{
         val task = TaskExercise("name111")
         val tasks = listOf(task)
         val workout = workoutWithStatusAdd(tasks = tasks)
-        val publisher = DomainEventPublisherImp()
-        val storage = SaveWorkoutStorage(publisher)
-        storage.save(workout)
-        val findWorkouts = FindWorkoutsImp(storage = storage.storage)
+        val storage = LinkedHashMap<WorkoutId, Workout>()
+        storage[workout.id] = workout
+        val findWorkouts = FindWorkoutsImp(storage = storage)
         val workoutsViewQuery = WorkoutsQueryImp(findWorkouts)
 
         val result = workoutsViewQuery.invoke()
