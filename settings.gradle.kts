@@ -11,4 +11,4 @@ include("catalog:rest")
 include("application")
 include("common")
 include("session")
-include("session
+include("session:usecase")
