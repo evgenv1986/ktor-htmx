@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/catalog/usecase" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/session" />
+            <option value="$PROJECT_DIR$/session/domain" />
             <option value="$PROJECT_DIR$/session/usecase" />
           </set>
         </option>

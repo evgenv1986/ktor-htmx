@@ -1,4 +1,4 @@
-package ru.workout.session
+package ru.workout.session.domain
 
 import java.util.UUID
 

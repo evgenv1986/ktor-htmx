@@ -1,9 +1,9 @@
 import arrow.core.Either
 import arrow.core.right
 import io.kotest.matchers.shouldBe
-import ru.workout.session.WorkoutPlan
-import ru.workout.session.WorkoutPlanProvider
-import ru.workout.session.WorkoutProviderError
+import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.usecase.WorkoutPlanProvider
+import ru.workout.session.usecase.usecase.WorkoutProviderError
 
 import java.util.UUID
 
