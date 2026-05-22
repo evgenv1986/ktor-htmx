@@ -29,12 +29,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.kotest:kotest-framework-engine:5.9.1")
     implementation("io.arrow-kt:arrow-core:1.2.4")
-    implementation(project(":common"))
-    implementation(project(":catalog:usecase"))
-    implementation(project(":catalog:rest"))
-    implementation(project(":catalog:domain"))
-    implementation(project(":catalog:in-memory-persistence"))
     implementation(project(":training:usecase"))
+    implementation(project(":training:domain"))
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
@@ -50,7 +46,6 @@ dependencies {
     testImplementation("io.ktor:ktor-client-resources-jvm:${ktor_version}")
 // Если используешь JSON в тестах:
     testImplementation("io.ktor:ktor-serialization-kotlinx-json-jvm:${ktor_version}")
-    testImplementation(project(":catalog:usecase"))
 }
 
 tasks.test {

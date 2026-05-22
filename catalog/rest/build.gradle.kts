@@ -14,9 +14,9 @@ val kotestVersion = "5.9.1"
 val arrowVersion = "1.2.4"
 val kotestArrowVersion = "1.4.0"
 
-base {
-    archivesName.set("workout-rest")
-}
+//base {
+//    archivesName.set("workout-rest")
+//}
 
 // Если нужно запускать приложение через Gradle, раскомментируй и проверь package
 // application {
@@ -28,9 +28,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":catalog:domain"))
-    implementation(project(":catalog:usecase"))
-
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-html-builder-jvm:$ktorVersion")
@@ -54,7 +51,6 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest.extensions:kotest-assertions-arrow:$kotestArrowVersion")
-    testImplementation(project(":application"))
 }
 
 tasks.withType<Test>().configureEach {

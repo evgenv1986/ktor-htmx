@@ -1,14 +1,20 @@
 package ru.workout
 
 import arrow.core.Either
+import ru.workout.training.domain.WorkoutPlan
 import ru.workout.training.usecase.WorkoutPlanProvider
+import ru.workout.training.usecase.WorkoutProviderError
 import java.util.UUID
 
 class CatalogWorkoutPlanProvider()
     : WorkoutPlanProvider
 {
     // пока оставим пустным
-//    override fun workoutPlanById(workoutPlanId: UUID): Either<WorkoutProviderError, WorkoutPlan> {
+    override fun workoutPlanById(workoutPlanId: UUID)
+    : Either<WorkoutProviderError, WorkoutPlan> {
+        TODO("Not yet implemented")
+    }
+//    override fun workoutPlanById(): WorkoutPlan {
 //        TODO("Not yet implemented")
 //    }
 }

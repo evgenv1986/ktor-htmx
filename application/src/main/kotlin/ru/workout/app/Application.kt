@@ -95,5 +95,5 @@ fun Application.module() {
             call.respondHtml { body { +"👋 Привет, $name!" } }
         }
     }
-    ApplicationConfig(this).configureRoutes()
+//    ApplicationConfig(this).configureRoutes()
 }

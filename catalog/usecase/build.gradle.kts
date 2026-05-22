@@ -19,15 +19,6 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:5.9.1")
     testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
     testImplementation("io.kotest.extensions:kotest-assertions-arrow:1.4.0")
-    implementation(project(":catalog:domain"))
-    testImplementation(project(":catalog:domain"))
-    testImplementation(project(":catalog:in-memory-persistence"))
-    testImplementation(project(":catalog:domain"))
-    testImplementation(project(":catalog:domain"))
-    testImplementation(testFixtures(project(":catalog:domain")))
-    testFixturesImplementation(testFixtures(project(":catalog:domain")))
-    implementation(project(":common"))
-    testImplementation(project(":common"))
 
 }
 
