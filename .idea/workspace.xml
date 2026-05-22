@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="перестройка проекта">
-      <change beforePath="$PROJECT_DIR$/training/usecase/src/main/kotlin/ru/workout/training/usecase/WorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/training/usecase/src/main/kotlin/ru/workout/training/usecase/WorkoutPlanProvider.kt" afterDir="false" />
+    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки">
+      <change afterPath="$PROJECT_DIR$/provider/src/main/kotlin/ru/workout/provider/workoutPlan/CatalogWorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/CatalogWorkoutPlanProvider.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/provider/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,11 +107,28 @@
       <option name="project" value="LOCAL" />
       <updated>1779467174371</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки">
+      <option name="closed" value="true" />
+      <created>1779470185641</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1779470185641</updated>
+    </task>
+    <task id="LOCAL-00003" summary="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки">
+      <option name="closed" value="true" />
+      <created>1779470304809</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779470304809</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="перестройка проекта" />
-    <option name="LAST_COMMIT_MESSAGE" value="перестройка проекта" />
+    <MESSAGE value="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки" />
+    <option name="LAST_COMMIT_MESSAGE" value="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки" />
   </component>
 </project>

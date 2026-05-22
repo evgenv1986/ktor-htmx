@@ -1,4 +1,4 @@
-package ru.workout
+package ru.workout.provider.workoutPlan
 
 import arrow.core.Either
 import ru.workout.training.domain.WorkoutPlan
@@ -14,7 +14,4 @@ class CatalogWorkoutPlanProvider()
     : Either<WorkoutProviderError, WorkoutPlan> {
         TODO("Not yet implemented")
     }
-//    override fun workoutPlanById(): WorkoutPlan {
-//        TODO("Not yet implemented")
-//    }
 }
