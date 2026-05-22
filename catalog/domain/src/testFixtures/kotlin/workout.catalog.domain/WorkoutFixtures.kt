@@ -1,4 +1,4 @@
-package workout.catalog.domain
+package ru.workout.catalog.domain
 
 fun workoutWithStatusAdd(
     status: WorkoutStatus = WorkoutStatus.ADDED,

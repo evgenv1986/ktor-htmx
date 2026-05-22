@@ -1,3 +1,5 @@
+project.base.archivesName.set("workout-common")
+
 plugins {
     kotlin("jvm")
 }
@@ -10,7 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":catalog:domain"))
     testImplementation(kotlin("test"))
 }
 

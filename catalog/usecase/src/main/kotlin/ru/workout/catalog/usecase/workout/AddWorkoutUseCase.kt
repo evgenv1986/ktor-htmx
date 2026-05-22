@@ -2,11 +2,11 @@ package ru.workout.catalog.usecase.workout
 
 import arrow.core.Either
 import arrow.core.raise.either
-import workout.catalog.domain.TaskExercise
-import workout.catalog.domain.Workout
-import workout.catalog.domain.WorkoutAlreadyExist
-import workout.catalog.domain.WorkoutError
-import workout.catalog.domain.WorkoutId
+import ru.workout.catalog.domain.TaskExercise
+import ru.workout.catalog.domain.Workout
+import ru.workout.catalog.domain.WorkoutAlreadyExist
+import ru.workout.catalog.domain.WorkoutError
+import ru.workout.catalog.domain.WorkoutId
 
 open class AddWorkoutUseCase(
     val workoutAlreadyExist: WorkoutAlreadyExist,

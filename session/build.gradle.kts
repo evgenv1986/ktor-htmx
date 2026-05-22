@@ -1,3 +1,5 @@
+project.base.archivesName.set("workout-session")
+
 plugins {
     kotlin("jvm")
 }

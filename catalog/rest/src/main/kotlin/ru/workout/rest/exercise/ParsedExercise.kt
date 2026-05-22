@@ -1,6 +1,6 @@
 package ru.workout.rest.exercise
 
-import workout.catalog.domain.TaskExercise
+import ru.workout.catalog.domain.TaskExercise
 
 open class ParsedExercise(val value: String) {
     fun name(): String {

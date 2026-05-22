@@ -5,10 +5,10 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.catalog.usecase.workout.WorkoutView
-import workout.catalog.domain.TaskExercise
-import workout.catalog.domain.Workout
-import workout.catalog.domain.workoutWithStatusAdd
-import workout.catalog.domain.WorkoutId
+import ru.workout.catalog.domain.TaskExercise
+import ru.workout.catalog.domain.Workout
+import ru.workout.catalog.domain.workoutWithStatusAdd
+import ru.workout.catalog.domain.WorkoutId
 
 class WorkoutsQueryTest: StringSpec( {
     "should return workouts from findWorkout and converted to view"{

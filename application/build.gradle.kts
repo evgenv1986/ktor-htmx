@@ -13,7 +13,7 @@ group = "ru.workout"
 version = "0.0.1"
 
 application {
-    mainClass.set("workout.ru.ApplicationKt")
+    mainClass.set("ru.workout.ApplicationKt")
 }
 
 repositories {
@@ -21,21 +21,20 @@ repositories {
 }
 
 dependencies {
-    // СЕРВЕРНЫЕ ОСНОВНЫЕ
+    implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-html-builder-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.kotest:kotest-framework-engine:5.9.1")
-    implementation(project(":catalog:usecase"))
     implementation("io.arrow-kt:arrow-core:1.2.4")
+    implementation(project(":common"))
+    implementation(project(":catalog:usecase"))
     implementation(project(":catalog:rest"))
     implementation(project(":catalog:domain"))
-    implementation(project(":catalog:usecase"))
     implementation(project(":catalog:in-memory-persistence"))
-    implementation(project(":common"))
+    implementation(project(":training:usecase"))
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")

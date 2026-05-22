@@ -5,11 +5,10 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Workout.usecase" />
             <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/catalog" />
             <option value="$PROJECT_DIR$/catalog/domain" />
@@ -17,9 +16,16 @@
             <option value="$PROJECT_DIR$/catalog/rest" />
             <option value="$PROJECT_DIR$/catalog/usecase" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/provider" />
             <option value="$PROJECT_DIR$/session" />
             <option value="$PROJECT_DIR$/session/domain" />
+            <option value="$PROJECT_DIR$/session/provider" />
             <option value="$PROJECT_DIR$/session/usecase" />
+            <option value="$PROJECT_DIR$/tempModule" />
+            <option value="$PROJECT_DIR$/training" />
+            <option value="$PROJECT_DIR$/training/domain" />
+            <option value="$PROJECT_DIR$/training/rest" />
+            <option value="$PROJECT_DIR$/training/usecase" />
           </set>
         </option>
       </GradleProjectSettings>
