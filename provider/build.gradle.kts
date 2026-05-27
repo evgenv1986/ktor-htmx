@@ -2,6 +2,7 @@ project.base.archivesName.set("workout-provider")
 
 plugins {
     kotlin("jvm")
+    id("java-test-fixtures")
 }
 
 group = "ru.workout"
@@ -21,6 +22,10 @@ dependencies {
     testImplementation("io.kotest.extensions:kotest-assertions-arrow:1.4.0")
     testImplementation("io.kotest:kotest-framework-engine:5.9.1")
     testImplementation(kotlin("test"))
+    testFixturesImplementation("io.kotest:kotest-assertions-core:5.9.1")
+    testFixturesImplementation("io.arrow-kt:arrow-core:2.2.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
 }
 
 tasks.test {

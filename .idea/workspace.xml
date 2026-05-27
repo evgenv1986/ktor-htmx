@@ -4,10 +4,65 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки">
-      <change afterPath="$PROJECT_DIR$/provider/src/main/kotlin/ru/workout/provider/workoutPlan/CatalogWorkoutPlanProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/CatalogWorkoutPlanProvider.kt" beforeDir="false" />
+    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="раскомментировал catalog.domain.workout, event, fixtures, common.event">
+      <change afterPath="$PROJECT_DIR$/provider/src/test/kotlin/ru/workout/application/provider/workoutPlan/CatalogWorkoutPlanProviderTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/provider/src/testFixtures/kotlin/ru/workout/application/provider/workoutPlan/MockWorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/app/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/app/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/app/ApplicationConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/app/ApplicationConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/app/UserRegistration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/app/UserRegistration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/event/DomainEventPublisherImp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/event/DomainEventPublisherImp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/TaskExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/TaskExercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/Workout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/Workout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/WorkoutAlreadyExist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/WorkoutAlreadyExist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/WorkoutEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/WorkoutEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/WorkoutId.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/WorkoutId.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/WorkoutIdStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/WorkoutIdStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/catalog/domain/WorkoutStatus.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/main/kotlin/ru/workout/application/catalog/domain/WorkoutStatus.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/domain/src/testFixtures/kotlin/workout.catalog.domain/WorkoutFixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/domain/src/testFixtures/kotlin/workout.catalog.domain/WorkoutFixtures.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/in-memory-persistence/src/main/kotlin/ru/workout/persistence/ExtractWorkoutStorage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/in-memory-persistence/src/main/kotlin/ru/workout/application/persistence/ExtractWorkoutStorage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/in-memory-persistence/src/main/kotlin/ru/workout/persistence/SaveWorkoutStorage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/in-memory-persistence/src/main/kotlin/ru/workout/application/persistence/SaveWorkoutStorage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/in-memory-persistence/src/test/kotlin/ru/workout/persistence/WorkoutsStorageTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/in-memory-persistence/src/test/kotlin/ru/workout/application/persistence/WorkoutsStorageTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/in-memory-persistence/src/test/kotlin/ru/workout/persistence/testFixtures/TestEventPublisher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/in-memory-persistence/src/test/kotlin/ru/workout/application/persistence/testFixtures/TestEventPublisher.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/exercise/ParsedExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/exercise/ParsedExercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/InputStepRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/InputStepRoute.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/input/InputExerciseStep.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/input/InputExerciseStep.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/input/InputStepEndpoint.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/input/InputStepEndpoint.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/input/InputStepPerformView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/input/InputStepPerformView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/persist/StepCompleteEndpoint.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/persist/StepCompleteEndpoint.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/persist/StepCompleteRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/persist/StepCompleteRoute.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/step/persist/SuccessStepCompleteViewResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/step/persist/SuccessStepCompleteViewResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/task/TaskOfStep.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/task/TaskOfStep.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/task/TaskOfStepById.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/task/TaskOfStepById.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/workout/ValidWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/workout/ValidWorkout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/workout/WorkoutAddHandle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/workout/WorkoutAddHandle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/workout/WorkoutAddInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/workout/WorkoutAddInput.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/rest/workout/WorkoutsView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/main/kotlin/ru/workout/application/rest/workout/WorkoutsView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/executionStep/TaskOfStepByIdTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/executionStep/TaskOfStepByIdTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/rest/AddWorkoutEndpointTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/application/rest/AddWorkoutEndpointTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/rest/ExecutionStepRoutesTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/application/rest/ExecutionStepRoutesTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/rest/ParsedExerciseTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/application/rest/ParsedExerciseTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/rest/ParsedWorkoutTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/application/rest/ParsedWorkoutTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/rest/WorkoutsEndpointTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/rest/src/test/kotlin/ru/workout/application/rest/WorkoutsEndpointTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/AddWorkoutUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/AddWorkoutUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/InMemoryWorkoutAlreadyExits.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/InMemoryWorkoutAlreadyExits.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/InMemoryWorkoutStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/InMemoryWorkoutStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/MockIdStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/MockIdStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/MockWorkoutAlreadyExist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/MockWorkoutAlreadyExist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/catalog/usecase/workout/Workout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/main/kotlin/ru/workout/application/catalog/usecase/workout/Workout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/catalog/usecase/AddWorkoutUseCaseTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/application/catalog/usecase/AddWorkoutUseCaseTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/catalog/usecase/MockSaveWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/application/catalog/usecase/MockSaveWorkout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/catalog/usecase/WorkoutAlreadyExistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/application/catalog/usecase/WorkoutAlreadyExistTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/catalog/usecase/WorkoutUsecaseFixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/application/catalog/usecase/WorkoutUsecaseFixtures.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/catalog/usecase/WorkoutsQueryTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/test/kotlin/ru/workout/application/catalog/usecase/WorkoutsQueryTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/usecase/src/testFixtures/kotlin/ru/workout/catalog/usecase/WorkoutFixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/usecase/src/testFixtures/kotlin/ru/workout/application/catalog/usecase/WorkoutFixtures.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/kotlin/ru/workout/common/event/DomainEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/kotlin/ru/workout/application/common/event/DomainEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/kotlin/ru/workout/common/event/DomainEventPublisher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/kotlin/ru/workout/application/common/event/DomainEventPublisher.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/provider/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/provider/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/src/main/kotlin/ru/workout/provider/workoutPlan/CatalogWorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/provider/src/main/kotlin/ru/workout/application/provider/workoutPlan/CatalogWorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/session/usecase/src/test/kotlin/ru/workout/session/usecase/WorkoutPlanProviderTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/session/usecase/src/test/kotlin/ru/workout/application/session/usecase/WorkoutPlanProviderTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training/domain/src/main/kotlin/ru/workout/training/domain/WorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/training/domain/src/main/kotlin/ru/workout/application/training/domain/WorkoutPlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training/usecase/src/main/kotlin/ru/workout/training/usecase/WorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/training/usecase/src/main/kotlin/ru/workout/application/training/usecase/WorkoutPlanProvider.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +79,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Workout" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -58,6 +118,11 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Build Workout.executor&quot;: &quot;Run&quot;,
+    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1).executor&quot;: &quot;Run&quot;,
+    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2).executor&quot;: &quot;Run&quot;,
+    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3).executor&quot;: &quot;Run&quot;,
+    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4).executor&quot;: &quot;Debug&quot;,
+    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor&quot;: &quot;Run&quot;,
     &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Debug&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -70,14 +135,18 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="ru.workout.provider.workoutPlan" />
+    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="ru.workout.provider.workoutPlan" />
+      <recent name="ru.workout.session.usecase" />
+      <recent name="ru.workout.session.domain" />
       <recent name="ru.workout.training.usecase" />
       <recent name="ru.workout.catalog.usecase.workout" />
-      <recent name="ru.workout.training.domain" />
-      <recent name="ru.workout.training" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.ApplicationKt">
     <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="workout.application.workout.app.ApplicationKt" />
       <module name="Workout.application.main" />
@@ -85,9 +154,73 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+      <module name="Workout.provider.test" />
+      <option name="jrePath" value="" />
+      <option name="jrePathEnabled" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
+      <option name="programParameters" value="" />
+      <option name="specName" value="ru.workout.provider.workoutPlan.CatalogWorkoutPlanProviderTest" />
+      <option name="testPath" value="mock workout plan provider should load workout plan by contract" />
+      <option name="packageName" value="" />
+      <option name="vmparams" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+      <module name="Workout.provider.test" />
+      <option name="jrePath" value="" />
+      <option name="jrePathEnabled" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
+      <option name="programParameters" value="" />
+      <option name="specName" value="ru.workout.provider.workoutPlan.CatalogWorkoutPlanProviderTest" />
+      <option name="testPath" value="mock workout plan provider should load workout plan by contract" />
+      <option name="packageName" value="" />
+      <option name="vmparams" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+      <module name="Workout.provider.test" />
+      <option name="jrePath" value="" />
+      <option name="jrePathEnabled" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
+      <option name="programParameters" value="" />
+      <option name="specName" value="ru.workout.provider.workoutPlan.CatalogWorkoutPlanProviderTest" />
+      <option name="testPath" value="mock workout plan provider should load workout plan by contract" />
+      <option name="packageName" value="" />
+      <option name="vmparams" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+      <module name="Workout.provider.test" />
+      <option name="jrePath" value="" />
+      <option name="jrePathEnabled" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
+      <option name="programParameters" value="" />
+      <option name="specName" value="ru.workout.provider.workoutPlan.CatalogWorkoutPlanProviderTest" />
+      <option name="testPath" value="mock workout plan provider should load workout plan by contract" />
+      <option name="packageName" value="" />
+      <option name="vmparams" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.ApplicationKt" />
+        <item itemvalue="Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4)" />
+        <item itemvalue="Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3)" />
+        <item itemvalue="Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2)" />
+        <item itemvalue="Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1)" />
       </list>
     </recent_temporary>
   </component>

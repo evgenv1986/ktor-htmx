@@ -2,7 +2,7 @@ package executionStep.executionStep
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import ru.workout.rest.task.TaskOfStepById
+import ru.workout.application.rest.task.TaskOfStepById
 
 class TaskOfStepByIdTest: StringSpec({
     "should returned task by id"{

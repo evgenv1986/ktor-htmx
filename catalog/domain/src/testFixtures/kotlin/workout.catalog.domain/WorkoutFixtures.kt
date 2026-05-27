@@ -1,5 +1,11 @@
 package ru.workout.catalog.domain
 
+import ru.workout.application.catalog.domain.TaskExercise
+import ru.workout.application.catalog.domain.Workout
+import ru.workout.application.catalog.domain.WorkoutEvent
+import ru.workout.application.catalog.domain.WorkoutId
+import ru.workout.application.catalog.domain.WorkoutStatus
+
 fun workoutWithStatusAdd(
     status: WorkoutStatus = WorkoutStatus.ADDED,
     id: WorkoutId = workoutId(),
