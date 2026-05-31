@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "2.0.0"
     id("io.ktor.plugin") version "2.3.12"
     kotlin("plugin.serialization") version "2.0.0"
+    id("java-test-fixtures")
 }
 
 group = "ru.workout"
@@ -28,7 +29,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.kotest:kotest-framework-engine:5.9.1")
-    implementation("io.arrow-kt:arrow-core:1.2.4")
+//    implementation("io.arrow-kt:arrow-core:1.2.4")
     implementation(project(":training:usecase"))
     implementation(project(":training:domain"))
 
@@ -46,6 +47,15 @@ dependencies {
     testImplementation("io.ktor:ktor-client-resources-jvm:${ktor_version}")
 // Если используешь JSON в тестах:
     testImplementation("io.ktor:ktor-serialization-kotlinx-json-jvm:${ktor_version}")
+
+    implementation("io.arrow-kt:arrow-core:2.2.1")
+    implementation("io.arrow-kt:arrow-fx-coroutines:2.2.1")
+    testImplementation(kotlin("test"))
+    testImplementation("io.kotest.extensions:kotest-assertions-arrow:1.4.0")
+
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
+    testImplementation(kotlin("test"))
+
 }
 
 tasks.test {
