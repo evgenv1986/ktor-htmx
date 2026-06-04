@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="восстановил работу приложения">
+    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="add to tracked xml file">
+      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/SessionRoutine.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/SessionRoutineTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/rest/CreateSessionEndpointTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/SubmitWorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/SubmitWorkoutPlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/ValidWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/ValidWorkout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/WorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/WorkoutPlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/Workout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/Workout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/provider/main/CatalogWorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/provider/main/CatalogWorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutPlan.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/CatalogWorkoutPlanProviderTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/CatalogWorkoutPlanProviderTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/WorkoutPlanProviderTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/WorkoutPlanProviderTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/usecase/PlanWorkoutSessionUseCaseTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/usecase/PlanWorkoutSessionUseCaseTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/provider/workoutPlan/MockWorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/provider/workoutPlan/MockWorkoutPlanProvider.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,11 +88,19 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Build Workout.executor": "Run",
+    "Gradle.SessionRoutineTest (1).executor": "Run",
+    "Gradle.SessionRoutineTest.executor": "Run",
     "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1).executor": "Run",
     "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2).executor": "Run",
     "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3).executor": "Run",
     "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4).executor": "Debug",
     "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor": "Run",
+    "Kotest.CreateSessionEndpointTest: Атлет хочет создать тренировочную сессию на основе плана из каталога..executor": "Run",
+    "Kotest.SessionRoutineTest: routine can not be empty (1).executor": "Debug",
+    "Kotest.SessionRoutineTest: routine can not be empty.executor": "Run",
+    "Kotest.SessionRoutineTest: routine create with exercises (1).executor": "Debug",
+    "Kotest.SessionRoutineTest: routine create with exercises (2).executor": "Run",
+    "Kotest.SessionRoutineTest: routine create with exercises.executor": "Run",
     "Kotest.WorkoutAlreadyExistTest: should return true on workout already exist.executor": "Run",
     "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (1).executor": "Run",
     "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2).executor": "Run",
@@ -111,76 +134,85 @@
       <recent name="ru.workout.provider.testFixture" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotest.WorkoutAlreadyExistTest: should return true on workout already exist">
-    <configuration name="WorkoutAlreadyExistTest: should return true on workout already exist" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+  <component name="RunManager">
+    <configuration name="SessionRoutineTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":application:test" />
+            <option value="--tests" />
+            <option value="&quot;ru.workout.session.domain.SessionRoutineTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="SessionRoutineTest: routine can not be empty (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.catalog.usecase.ru.workout.catalog.usecase.WorkoutAlreadyExistTest" />
-      <option name="testPath" value="should return true on workout already exist" />
+      <option name="specName" value="ru.workout.session.domain.SessionRoutineTest" />
+      <option name="testPath" value="routine can not be empty" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="SessionRoutineTest: routine can not be empty" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.WorkoutPlanProviderTest" />
-      <option name="testPath" value="catalog workout plan provider should return workout plan" />
+      <option name="specName" value="ru.workout.session.domain.SessionRoutineTest" />
+      <option name="testPath" value="routine can not be empty" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="SessionRoutineTest: routine create with exercises (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.WorkoutPlanProviderTest" />
-      <option name="testPath" value="catalog workout plan provider should return workout plan" />
+      <option name="specName" value="ru.workout.session.domain.SessionRoutineTest" />
+      <option name="testPath" value="routine create with exercises" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutPlanProviderTest: catalog workout plan provider should return workout plan" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="SessionRoutineTest: routine create with exercises" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.WorkoutPlanProviderTest" />
-      <option name="testPath" value="catalog workout plan provider should return workout plan" />
-      <option name="packageName" value="" />
-      <option name="vmparams" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
-      <module name="Workout.application.test" />
-      <option name="jrePath" value="" />
-      <option name="jrePathEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
-      <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.WorkoutPlanProviderTest" />
-      <option name="testPath" value="mock workout plan provider should load workout plan by contract" />
+      <option name="specName" value="ru.workout.session.domain.SessionRoutineTest" />
+      <option name="testPath" value="routine create with exercises" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
@@ -189,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotest.WorkoutAlreadyExistTest: should return true on workout already exist" />
-        <item itemvalue="Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2)" />
-        <item itemvalue="Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (1)" />
-        <item itemvalue="Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan" />
-        <item itemvalue="Kotest.WorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract" />
+        <item itemvalue="Gradle.SessionRoutineTest (1)" />
+        <item itemvalue="Kotest.SessionRoutineTest: routine create with exercises" />
+        <item itemvalue="Kotest.SessionRoutineTest: routine create with exercises (2)" />
+        <item itemvalue="Kotest.SessionRoutineTest: routine can not be empty (1)" />
+        <item itemvalue="Kotest.SessionRoutineTest: routine can not be empty" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +293,31 @@
       <option name="project" value="LOCAL" />
       <updated>1780393803078</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="untracked xml file">
+      <option name="closed" value="true" />
+      <created>1780566034597</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1780566034597</updated>
+    </task>
+    <task id="LOCAL-00009" summary="untracked xml file">
+      <option name="closed" value="true" />
+      <created>1780566166289</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1780566166289</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add to tracked xml file">
+      <option name="closed" value="true" />
+      <created>1780566205858</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1780566205858</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -269,6 +325,8 @@
     <MESSAGE value="закомментировал весь код, затем раскоментировал провайлер плана тренировки- интерфейс и реализацию, связал модули, все компилируется без ошибки" />
     <MESSAGE value="переименование каталогов, перемещение файлов" />
     <MESSAGE value="восстановил работу приложения" />
-    <option name="LAST_COMMIT_MESSAGE" value="восстановил работу приложения" />
+    <MESSAGE value="untracked xml file" />
+    <MESSAGE value="add to tracked xml file" />
+    <option name="LAST_COMMIT_MESSAGE" value="add to tracked xml file" />
   </component>
 </project>

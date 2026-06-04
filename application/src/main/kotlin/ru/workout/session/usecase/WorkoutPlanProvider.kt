@@ -1,7 +1,7 @@
 package ru.workout.session.usecase
 
 import arrow.core.Either
-import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.WorkoutPlan
 import java.util.UUID
 
 interface WorkoutPlanProvider {

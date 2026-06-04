@@ -2,7 +2,7 @@ package ru.workout.provider.workoutPlan
 import arrow.core.Either
 import arrow.core.right
 import io.kotest.matchers.shouldBe
-import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.WorkoutPlan
 import ru.workout.session.usecase.WorkoutPlanProvider
 import ru.workout.session.usecase.WorkoutProviderError
 import java.util.UUID

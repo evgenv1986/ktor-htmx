@@ -15,7 +15,7 @@ import kotlinx.html.body
 import kotlinx.html.div
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.rest.WORKOUT_PLANS
-import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.WorkoutPlan
 import ru.workout.session.usecase.PlanWorkoutUseCase
 import ru.workout.session.usecase.WorkoutUseCaseError
 

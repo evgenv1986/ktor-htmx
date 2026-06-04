@@ -6,7 +6,7 @@ import ru.workout.catalog.domain.Workout
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.catalog.domain.WorkoutStatus
 import ru.workout.catalog.in_memoty_persistence.WorkoutStoreError
-import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.WorkoutPlan
 
 fun interface SaveWorkout{
     fun save(workout: Workout)

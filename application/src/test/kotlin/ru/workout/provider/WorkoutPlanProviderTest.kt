@@ -9,7 +9,7 @@ import ru.workout.catalog.domain.workoutWithStatusAdd
 import ru.workout.catalog.in_memory_persistence.ExtractWorkoutStorageById
 import ru.workout.provider.workoutPlan.CatalogWorkoutPlanProvider
 import ru.workout.provider.workoutPlan.MockWorkoutPlanProvider
-import ru.workout.session.domain.WorkoutPlan
+import ru.workout.session.usecase.WorkoutPlan
 import java.util.UUID
 
 class WorkoutPlanProviderTest: StringSpec( {
