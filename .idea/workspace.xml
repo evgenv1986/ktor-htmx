@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="подготовленную сессию можно начать" />
+    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="подготовленную сессию можно начать">
+      <change afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/session/domain/WorkoutFixtures.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutSession.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutSession.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/WorkoutSessionTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/WorkoutSessionTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -95,6 +100,7 @@
     "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2).executor": "Run",
     "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan.executor": "Run",
     "Kotest.WorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor": "Run",
+    "Kotest.WorkoutSessionTest: can not begin session already in progress.executor": "Run",
     "Kotest.WorkoutSessionTest: planned session can be begun (1).executor": "Run",
     "Kotest.WorkoutSessionTest: planned session can be begun (2).executor": "Run",
     "Kotest.WorkoutSessionTest: planned session can be begun (3).executor": "Run",
@@ -143,8 +149,8 @@
       <recent name="ru.workout.catalog.in_memory_persistence.main" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotest.WorkoutSessionTest: prepared session can be begun (5)">
-    <configuration name="WorkoutSessionTest: prepared session can be begun (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+  <component name="RunManager" selected="Kotest.WorkoutSessionTest: can not begin session already in progress">
+    <configuration name="WorkoutSessionTest: can not begin session already in progress" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
@@ -152,22 +158,7 @@
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
       <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
-      <option name="testPath" value="prepared session can be begun" />
-      <option name="packageName" value="" />
-      <option name="vmparams" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkoutSessionTest: prepared session can be begun (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
-      <module name="Workout.application.test" />
-      <option name="jrePath" value="" />
-      <option name="jrePathEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
-      <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
-      <option name="testPath" value="prepared session can be begun" />
+      <option name="testPath" value="can not begin session already in progress" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
@@ -219,13 +210,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WorkoutSessionTest: prepared session can be begun" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+      <module name="Workout.application.test" />
+      <option name="jrePath" value="" />
+      <option name="jrePathEnabled" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
+      <option name="programParameters" value="" />
+      <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
+      <option name="testPath" value="prepared session can be begun" />
+      <option name="packageName" value="" />
+      <option name="vmparams" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotest.WorkoutSessionTest: can not begin session already in progress" />
+        <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun" />
         <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun (5)" />
         <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun (4)" />
         <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun (3)" />
-        <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun (2)" />
-        <item itemvalue="Kotest.WorkoutSessionTest: prepared session can be begun (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -349,7 +355,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780641695803</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="подготовленную сессию можно начать">
+      <option name="closed" value="true" />
+      <created>1780641848298</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1780641848298</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

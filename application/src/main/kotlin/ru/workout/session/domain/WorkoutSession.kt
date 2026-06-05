@@ -1,5 +1,8 @@
 package ru.workout.session.domain
 
+import arrow.core.Either
+import arrow.core.raise.either
+import arrow.core.raise.ensure
 import java.time.OffsetDateTime
 
 class WorkoutSession(
@@ -8,15 +11,18 @@ class WorkoutSession(
     var status: SessionStatus,
 ): AggregateRoot() {
     lateinit var startedAt: OffsetDateTime
-    fun begin(startedAt: OffsetDateTime) {
-        this.startedAt = startedAt
+    fun begin(startAt: OffsetDateTime
+    ): Either<WorkoutSessionError, Unit> = either {
+        ensure(status == SessionStatus.PREPARED){
+            WorkoutSessionError.StatusNotPreparedError
+        }
+        startedAt = startAt
         status = SessionStatus.IN_PROGRESS
         addEvent(SessionEvents.InProgress(
                 sessionId,
-                startedAt
+                startAt
         ))
     }
-
     companion object {
         fun prepare(routine: SessionRoutine, sessionId: Int): WorkoutSession {
             return WorkoutSession(
@@ -28,4 +34,8 @@ class WorkoutSession(
             }
         }
     }
+}
+
+interface WorkoutSessionError {
+    object StatusNotPreparedError: WorkoutSessionError
 }
