@@ -1,10 +1,14 @@
 package ru.workout.session.domain
 
 import ru.workout.common.event.DomainEvent
-import java.util.UUID
+import java.time.OffsetDateTime
 
-sealed class SessionEvents: DomainEvent {
-    class SessionCreatedEvent(val sessionId: Int): SessionEvents() {
-
+sealed class SessionEvents(val sessionId: Int): DomainEvent {
+    class SessionPreparedEvent(sessionId: Int): SessionEvents(sessionId) {
+    }
+    class InProgress(
+        sessionId: Int,
+        val startedAt: OffsetDateTime
+    ): SessionEvents(sessionId) {
     }
 }
