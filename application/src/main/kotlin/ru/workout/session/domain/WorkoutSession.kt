@@ -3,10 +3,13 @@ package ru.workout.session.domain
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
+import ru.workout.session.usecase.WorkoutProviderError
 import java.time.OffsetDateTime
 
 class WorkoutSession(
     val routine: SessionRoutine,
+    val planId: Int,
+    val exercises: List<String>,
     val sessionId: Int,
     var status: SessionStatus,
 ): AggregateRoot() {
@@ -24,15 +27,19 @@ class WorkoutSession(
         ))
     }
     companion object {
-        fun prepare(routine: SessionRoutine, sessionId: Int): WorkoutSession {
+        fun prepare(routine: SessionRoutine, sessionIdStore: SessionIdStore): WorkoutSession {
             return WorkoutSession(
                 routine = routine,
-                sessionId = sessionId,
+                planId = routine.planId,
+                exercises = routine.exercises,
+                sessionId = sessionIdStore.nextId(),
                 status = SessionStatus.PREPARED
             ).apply {
                 addEvent(SessionEvents.SessionPreparedEvent(sessionId))
             }
         }
+
+        fun from(plan: WorkoutPlan) {}
     }
 }
 

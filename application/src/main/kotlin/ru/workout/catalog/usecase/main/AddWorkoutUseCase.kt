@@ -1,4 +1,4 @@
-package ru.workout.session.usecase
+package ru.workout.catalog.usecase.main
 
 import arrow.core.Either
 import arrow.core.raise.either

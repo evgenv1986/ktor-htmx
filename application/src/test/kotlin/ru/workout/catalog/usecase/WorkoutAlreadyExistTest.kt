@@ -13,7 +13,7 @@ import java.util.UUID
 class WorkoutAlreadyExistTest: StringSpec( {
     "should return true on workout already exist"{
         val exercise = listOf(TaskExercise("text"))
-        val workoutId = WorkoutId(UUID.randomUUID())
+        val workoutId = WorkoutId(123)
         val workout = Workout(
             WorkoutStatus.DRAFT,
             workoutId,
@@ -28,7 +28,7 @@ class WorkoutAlreadyExistTest: StringSpec( {
     }
     "should return false on workout not exist"{
         val exercise = listOf(TaskExercise("text"))
-        val workoutId = WorkoutId(UUID.randomUUID())
+        val workoutId = WorkoutId(123)
         val workout = Workout(
             WorkoutStatus.DRAFT,
             workoutId,

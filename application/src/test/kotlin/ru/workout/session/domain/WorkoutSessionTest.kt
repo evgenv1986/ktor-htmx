@@ -9,14 +9,14 @@ import java.time.OffsetDateTime
 class WorkoutSessionTest: StringSpec({
     "session created from routine"{
         val routine = SessionRoutine(123, listOf("Приседания","Подтягивания"))
-        val session = WorkoutSession.prepare(routine, 1)
+        val session = WorkoutSession.prepare(routine, MockSessionIdStore())
         session.status == SessionStatus.PREPARED
         session.routine == routine
     }
     "session creation produce event"{
         val routine = SessionRoutine(123, listOf("Приседания","Подтягивания"))
         val sessionId = 1
-        val session = WorkoutSession.prepare(routine, sessionId)
+        val session = WorkoutSession.prepare(routine, MockSessionIdStore())
         val events = session.popEvents()
         events.count() shouldBe 1
         val event = events[0].shouldBeInstanceOf<SessionEvents.SessionPreparedEvent>()
@@ -26,7 +26,12 @@ class WorkoutSessionTest: StringSpec({
         val routine = SessionRoutine(123, listOf("Приседания","Подтягивания"))
         val sessionId = 1
         val startedAt = OffsetDateTime.parse("2026-06-05T10:00:00+00:00")
-        val session = WorkoutSession(routine, sessionId, SessionStatus.PREPARED)
+        val session = WorkoutSession(
+            routine,
+            planId = routine.planId,
+            exercises = routine.exercises,
+            sessionId, SessionStatus.PREPARED
+        )
         session.begin(startAt = startedAt)
         session.status shouldBe SessionStatus.IN_PROGRESS
         val events = session.popEvents()

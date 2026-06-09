@@ -14,7 +14,7 @@ import ru.workout.catalog.rest.WorkoutPlanView
 import ru.workout.catalog.rest.PlanWorkoutViewEndpoint
 import ru.workout.catalog.rest.PlanWorkoutViewRoute
 import ru.workout.catalog.rest.PlanWorkoutView
-import ru.workout.session.usecase.PlanWorkoutUseCase
+import ru.workout.catalog.usecase.main.PlanWorkoutUseCase
 import workout.application.event.DomainEventPublisherImp
 
 //import ru.workout.catalog.domain.Workout

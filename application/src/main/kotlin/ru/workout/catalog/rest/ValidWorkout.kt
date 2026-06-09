@@ -5,7 +5,7 @@ import arrow.core.raise.either
 import arrow.core.raise.ensure
 import ru.workout.catalog.domain.TaskExercise
 import ru.workout.rest.exercise.ParsedExercise
-import ru.workout.session.usecase.WorkoutPlan
+import ru.workout.session.domain.WorkoutPlan
 
 open class ValidWorkout(val input: WorkoutPlan, val field: String = "exercises") {
     fun exercises(): Either<ValidationError, List<TaskExercise>> = either {

@@ -6,6 +6,6 @@ import java.util.UUID
 
 open class MockIdStore: WorkoutIdStore {
     override fun generate(): WorkoutId {
-        return WorkoutId(UUID.randomUUID())
+        return WorkoutId(123)
     }
 }

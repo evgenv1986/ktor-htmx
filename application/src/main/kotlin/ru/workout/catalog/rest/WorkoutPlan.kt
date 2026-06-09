@@ -24,7 +24,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import ru.workout.session.usecase.WorkoutPlan
+import ru.workout.session.domain.WorkoutPlan
 import java.util.UUID
 
 class PlanWorkoutViewRoute(

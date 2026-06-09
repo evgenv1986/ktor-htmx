@@ -21,4 +21,4 @@ fun task(name: String = "pullups"): TaskExercise{
 fun tasks(input: List<TaskExercise> = listOf(task())): List<TaskExercise>{
     return input
 }
-fun workoutId(): WorkoutId = WorkoutId(UUID.randomUUID())
+fun workoutId(): WorkoutId = WorkoutId(123)

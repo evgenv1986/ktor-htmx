@@ -6,10 +6,13 @@ import ru.workout.catalog.domain.Workout
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.catalog.domain.WorkoutStatus
 import ru.workout.catalog.in_memoty_persistence.WorkoutStoreError
-import ru.workout.session.usecase.WorkoutPlan
+import ru.workout.session.domain.WorkoutPlan
 
 fun interface SaveWorkout{
     fun save(workout: Workout)
+}
+fun interface ExtractWorkout{
+    operator fun invoke(workoutPlanId: WorkoutId): Either<WorkoutStoreError, Workout>
 }
 
 open class WorkoutView(
@@ -19,6 +22,3 @@ open class WorkoutView(
 ) {
 }
 
-fun interface ExtractWorkout{
-    operator fun invoke(workoutPlanId: WorkoutId): Either<WorkoutStoreError, Workout>
-}

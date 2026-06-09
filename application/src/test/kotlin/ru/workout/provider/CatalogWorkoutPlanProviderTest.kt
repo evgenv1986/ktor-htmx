@@ -3,8 +3,9 @@ package ru.workout.provider
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import ru.workout.catalog.usecase.MockSaveWorkout
 import ru.workout.provider.workoutPlan.MockWorkoutPlanProvider
-import ru.workout.session.usecase.WorkoutPlan
+import ru.workout.session.domain.WorkoutPlan
 import java.util.UUID
 
 class CatalogWorkoutPlanProviderTest: StringSpec({
@@ -12,7 +13,7 @@ class CatalogWorkoutPlanProviderTest: StringSpec({
 
     }
     "load workout from catalog"{
-        var planId = UUID.randomUUID()
+        var planId = 123
         var expectedExercises = listOf("Подтягивания", "Отжимания")
         var mockProvider = MockWorkoutPlanProvider(
             WorkoutPlan(planId, expectedExercises)

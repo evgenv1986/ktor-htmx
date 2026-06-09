@@ -16,8 +16,8 @@ import ru.workout.catalog.usecase.MockSaveWorkout
 import ru.workout.catalog.usecase.MockWorkoutAlreadyExist
 import ru.workout.catalog.usecase.access.MockIdStore
 import ru.workout.common.event.DomainEvent
-import ru.workout.session.usecase.PlanWorkoutUseCase
-import ru.workout.session.usecase.WorkoutUseCaseError
+import ru.workout.catalog.usecase.main.PlanWorkoutUseCase
+import ru.workout.catalog.usecase.main.WorkoutUseCaseError
 
 class PlanWorkoutUseCaseTest: StringSpec( {
     "successfully added workout"{

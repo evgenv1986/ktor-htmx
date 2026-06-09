@@ -9,12 +9,12 @@ import ru.workout.catalog.domain.workoutWithStatusAdd
 import ru.workout.catalog.in_memory_persistence.ExtractWorkoutStorageById
 import ru.workout.provider.workoutPlan.CatalogWorkoutPlanProvider
 import ru.workout.provider.workoutPlan.MockWorkoutPlanProvider
-import ru.workout.session.usecase.WorkoutPlan
+import ru.workout.session.domain.WorkoutPlan
 import java.util.UUID
 
 class WorkoutPlanProviderTest: StringSpec( {
     "mock workout plan provider should load workout plan by contract"{
-        val planId = UUID.randomUUID()
+        val planId = 123
         val expectedExercises = listOf("Подтягивания", "Отжимания")
         val mockProvider =
             MockWorkoutPlanProvider(
@@ -26,7 +26,7 @@ class WorkoutPlanProviderTest: StringSpec( {
         mockProvider.verifyInvoked(planId)
     }
     "catalog workout plan provider should return workout plan"{
-        val planId = UUID.randomUUID()
+        val planId = 123
         val expectedExercises = listOf("Подтягивания", "Отжимания")
         val workout = workoutWithStatusAdd()
         val storage = LinkedHashMap<WorkoutId, Workout>()

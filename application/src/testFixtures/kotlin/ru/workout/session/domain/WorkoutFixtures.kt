@@ -7,6 +7,9 @@ fun session(
 ): WorkoutSession{
     return WorkoutSession(
         routine,
+        planId = routine.planId,
+        exercises = routine.exercises,
         sessionId,
-        status)
+        status,
+    )
 }
