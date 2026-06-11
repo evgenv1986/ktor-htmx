@@ -46,12 +46,11 @@ class WorkoutSession(
     fun completeStep(stepId: String, actualReps: Int) {
         addEvent(
             StepEvents.StepCompletedEvent(
-                stepId,
                 actualReps,
+                stepId,
                 status = StepStatus.COMPLETED
             ))
     }
-
 }
 open class SessionStep {
     val status: StepStatus = TODO()
@@ -63,11 +62,11 @@ sealed class StepEvents(
 ): DomainEvent {
     abstract val stepId: String
     abstract val status: StepStatus
-    open class StepCompletedEvent(
-        override val stepId: String,
+    data class StepCompletedEvent(
         val actualReps: Int,
+        override val stepId: String,
         override val status: StepStatus
-    ): StepEvents() {
+    ) : StepEvents() {
 
     }
 }
