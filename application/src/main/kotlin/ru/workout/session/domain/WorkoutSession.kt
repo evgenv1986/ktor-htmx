@@ -26,8 +26,6 @@ class WorkoutSession(
                 startAt
         ))
     }
-
-
     companion object {
         fun prepare(routine: SessionRoutine, sessionIdStore: SessionIdStore): WorkoutSession {
             return WorkoutSession(
@@ -43,7 +41,11 @@ class WorkoutSession(
 
         fun from(plan: WorkoutPlan) {}
     }
-    fun completeStep(stepId: String, actualReps: Int) {
+    fun completeStep(stepId: String, actualReps: Int
+    ): Either<SessionError, Unit> = either {
+        ensure(status == SessionStatus.IN_PROGRESS){
+            SessionError.StateIsNotInProgress
+        }
         addEvent(
             StepEvents.StepCompletedEvent(
                 actualReps,
@@ -52,6 +54,11 @@ class WorkoutSession(
             ))
     }
 }
+
+interface SessionError {
+    object StateIsNotInProgress : SessionError
+}
+
 open class SessionStep {
     val status: StepStatus = TODO()
 }
