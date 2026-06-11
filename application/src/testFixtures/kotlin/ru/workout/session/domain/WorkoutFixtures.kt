@@ -13,3 +13,16 @@ fun session(
         status,
     )
 }
+
+fun step(
+    stepId: String = "s1",
+    actualReps: Int = 20,
+    status: StepStatus = StepStatus.PLANNED
+): SessionStep {
+    val step = SessionStep(
+        stepId = stepId,
+        actualReps = actualReps,
+        status = status
+    )
+    return step
+}

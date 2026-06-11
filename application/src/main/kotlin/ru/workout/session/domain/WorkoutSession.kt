@@ -7,11 +7,11 @@ import ru.workout.common.event.DomainEvent
 import java.time.OffsetDateTime
 
 class WorkoutSession(
-    val routine: SessionRoutine,
-    val planId: Int,
-    val exercises: List<String>,
-    val sessionId: Int,
-    var status: SessionStatus,
+    val routine: SessionRoutine = SessionRoutine(planId = 0, exercises = listOf("empty")),
+    val planId: Int = 0,
+    val exercises: List<String> = listOf("empty"),
+    val sessionId: Int = 0,
+    var status: SessionStatus?,
 ): AggregateRoot() {
     lateinit var startedAt: OffsetDateTime
     fun begin(startAt: OffsetDateTime
@@ -59,11 +59,16 @@ interface SessionError {
     object StateIsNotInProgress : SessionError
 }
 
-open class SessionStep {
-    val status: StepStatus = TODO()
+open class SessionStep(
+    val stepId: String,
+    val actualReps: Int,
+    val status: StepStatus
+) {
+
 }
 enum class StepStatus {
-    COMPLETED
+    COMPLETED,
+    PLANNED
 }
 sealed class StepEvents(
 ): DomainEvent {
