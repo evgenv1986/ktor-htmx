@@ -4,45 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="невозможно начать тренировку которая уже начата">
-      <change afterPath="$PROJECT_DIR$/application/src/ADR/Детализация.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/ADR/Структура действий.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/ADR/Структура плана.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/ADR/Структура сессии.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/SessionIdStore.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutPlan.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutSession.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/prepareSession/PrepareSessionRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/prepareSession/PrepareSessionUseCase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/usecase/PrepareSessionUseCaseTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/catalog/usecase/MockExtractSessionStore.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/catalog/usecase/MockExtractWorkoutById.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/session/domain/MockSessionIdStore.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/session/usecase/MockSaveWorkoutSession.kt" afterDir="false" />
+    <list default="true" id="cec8ccec-85eb-451b-be3f-77a38a505d96" name="Changes" comment="поправил что бы проект собирался (пришлось сценарий создания сессиии закомментировать)">
+      <change afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/CompleteStepTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/main/ApplicationConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/application/main/ApplicationConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/domain/main/WorkoutId.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/domain/main/WorkoutId.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/domain/testFixtures/WorkoutFixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/domain/testFixtures/WorkoutFixtures.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/SubmitWorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/SubmitWorkoutPlan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/ValidWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/ValidWorkout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/WorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/rest/WorkoutPlan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/Workout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/Workout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/access/MockIdStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/access/MockIdStore.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/provider/main/CatalogWorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/provider/main/CatalogWorkoutPlanProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/ADR/Структура действий.md" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/ADR/Структура действий.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutSession.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/domain/WorkoutSession.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/AddWorkoutUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/usecase/main/AddWorkoutUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/PrepareWorkoutUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/usecase/AvailablePlansTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlan.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/session/usecase/WorkoutPlanProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/catalog/usecase/PlanWorkoutUseCaseTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/catalog/usecase/PlanWorkoutUseCaseTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/catalog/usecase/WorkoutAlreadyExistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/catalog/usecase/WorkoutAlreadyExistTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/CatalogWorkoutPlanProviderTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/CatalogWorkoutPlanProviderTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/WorkoutPlanProviderTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/provider/WorkoutPlanProviderTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/WorkoutSessionTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/domain/WorkoutSessionTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/kotlin/ru/workout/session/usecase/PlanWorkoutSessionUseCaseTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/catalog/usecase/MockSaveWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/catalog/usecase/MockSaveWorkout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/provider/workoutPlan/MockWorkoutPlanProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/provider/workoutPlan/MockWorkoutPlanProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/session/domain/WorkoutFixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/testFixtures/kotlin/ru/workout/session/domain/WorkoutFixtures.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -110,67 +76,73 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build Workout.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SessionRoutineTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SessionRoutineTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.WorkoutSessionTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.WorkoutSessionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4).executor&quot;: &quot;Debug&quot;,
-    &quot;Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.CreateSessionEndpointTest: Атлет хочет создать тренировочную сессию на основе плана из каталога..executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.PrepareSessionUseCaseTest: UseCase creates session from plan.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.PrepareSessionUseCaseTest: usecase creates session from plan.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.SessionRoutineTest: routine can not be empty (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Kotest.SessionRoutineTest: routine can not be empty.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.SessionRoutineTest: routine create with exercises (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Kotest.SessionRoutineTest: routine create with exercises (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.SessionRoutineTest: routine create with exercises.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.SessionRoutineTest: two routines with same data are equals.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutAlreadyExistTest: should return true on workout already exist.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: can not begin session already in progress (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: can not begin session already in progress (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: can not begin session already in progress.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: planned session can be begun (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: planned session can be begun (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: planned session can be begun (3).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: planned session can be begun (4).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: planned session can be begun.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun (3).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun (4).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun (5).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: prepared session can be begun.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session created from routine (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session created from routine.executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event (2).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event (3).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event (4).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event (5).executor&quot;: &quot;Run&quot;,
-    &quot;Kotest.WorkoutSessionTest: session creation produce event.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/evgeny/Documents/Projects/PetProjects/Workout/mvp/Workout/application/src/main/kotlin/ru/workout/catalog/domain&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2540107&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build Workout.executor": "Run",
+    "Gradle.SessionRoutineTest (1).executor": "Run",
+    "Gradle.SessionRoutineTest.executor": "Run",
+    "Gradle.WorkoutSessionTest (1).executor": "Run",
+    "Gradle.WorkoutSessionTest.executor": "Run",
+    "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (1).executor": "Run",
+    "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (2).executor": "Run",
+    "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (3).executor": "Run",
+    "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract (4).executor": "Debug",
+    "Kotest.CatalogWorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor": "Run",
+    "Kotest.CompleteStepTest: step can completed with actual reps (1).executor": "Run",
+    "Kotest.CompleteStepTest: step can completed with actual reps (2).executor": "Run",
+    "Kotest.CompleteStepTest: step can completed with actual reps (3).executor": "Debug",
+    "Kotest.CompleteStepTest: step can completed with actual reps (4).executor": "Run",
+    "Kotest.CompleteStepTest: step can completed with actual reps (5).executor": "Debug",
+    "Kotest.CompleteStepTest: step can completed with actual reps.executor": "Run",
+    "Kotest.CreateSessionEndpointTest: Атлет хочет создать тренировочную сессию на основе плана из каталога..executor": "Run",
+    "Kotest.PrepareSessionUseCaseTest: UseCase creates session from plan.executor": "Run",
+    "Kotest.PrepareSessionUseCaseTest: usecase creates session from plan.executor": "Run",
+    "Kotest.SessionRoutineTest: routine can not be empty (1).executor": "Debug",
+    "Kotest.SessionRoutineTest: routine can not be empty.executor": "Run",
+    "Kotest.SessionRoutineTest: routine create with exercises (1).executor": "Debug",
+    "Kotest.SessionRoutineTest: routine create with exercises (2).executor": "Run",
+    "Kotest.SessionRoutineTest: routine create with exercises.executor": "Run",
+    "Kotest.SessionRoutineTest: two routines with same data are equals.executor": "Run",
+    "Kotest.WorkoutAlreadyExistTest: should return true on workout already exist.executor": "Run",
+    "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (1).executor": "Run",
+    "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan (2).executor": "Run",
+    "Kotest.WorkoutPlanProviderTest: catalog workout plan provider should return workout plan.executor": "Run",
+    "Kotest.WorkoutPlanProviderTest: mock workout plan provider should load workout plan by contract.executor": "Run",
+    "Kotest.WorkoutSessionTest: can not begin session already in progress (1).executor": "Run",
+    "Kotest.WorkoutSessionTest: can not begin session already in progress (2).executor": "Run",
+    "Kotest.WorkoutSessionTest: can not begin session already in progress.executor": "Run",
+    "Kotest.WorkoutSessionTest: planned session can be begun (1).executor": "Run",
+    "Kotest.WorkoutSessionTest: planned session can be begun (2).executor": "Run",
+    "Kotest.WorkoutSessionTest: planned session can be begun (3).executor": "Run",
+    "Kotest.WorkoutSessionTest: planned session can be begun (4).executor": "Run",
+    "Kotest.WorkoutSessionTest: planned session can be begun.executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun (1).executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun (2).executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun (3).executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun (4).executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun (5).executor": "Run",
+    "Kotest.WorkoutSessionTest: prepared session can be begun.executor": "Run",
+    "Kotest.WorkoutSessionTest: session created from routine (1).executor": "Run",
+    "Kotest.WorkoutSessionTest: session created from routine.executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event (1).executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event (2).executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event (3).executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event (4).executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event (5).executor": "Run",
+    "Kotest.WorkoutSessionTest: session creation produce event.executor": "Run",
+    "Kotlin.ApplicationKt (1).executor": "Run",
+    "Kotlin.ApplicationKt.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/evgeny/Documents/Projects/PetProjects/Workout/mvp/Workout/application/src/main/kotlin/ru/workout/catalog/domain",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2540107",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/application/src/main/kotlin/ru/workout/catalog/domain" />
@@ -192,76 +164,76 @@
       <recent name="ru.workout.catalog.usecase" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotest.WorkoutSessionTest: session created from routine">
-    <configuration name="PrepareSessionUseCaseTest: UseCase creates session from plan" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+  <component name="RunManager" selected="Kotest.CompleteStepTest: step can completed with actual reps (5)">
+    <configuration name="CompleteStepTest: step can completed with actual reps (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.PrepareSessionUseCaseTest" />
-      <option name="testPath" value="UseCase creates session from plan" />
+      <option name="specName" value="ru.workout.session.domain.CompleteStepTest" />
+      <option name="testPath" value="step can completed with actual reps" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PrepareSessionUseCaseTest: usecase creates session from plan" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="CompleteStepTest: step can completed with actual reps (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.usecase.PrepareSessionUseCaseTest" />
-      <option name="testPath" value="usecase creates session from plan" />
+      <option name="specName" value="ru.workout.session.domain.CompleteStepTest" />
+      <option name="testPath" value="step can completed with actual reps" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutSessionTest: can not begin session already in progress (1)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="CompleteStepTest: step can completed with actual reps (3)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
-      <option name="testPath" value="can not begin session already in progress" />
+      <option name="specName" value="ru.workout.session.domain.CompleteStepTest" />
+      <option name="testPath" value="step can completed with actual reps" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutSessionTest: can not begin session already in progress (2)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="CompleteStepTest: step can completed with actual reps (4)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
-      <option name="testPath" value="can not begin session already in progress" />
+      <option name="specName" value="ru.workout.session.domain.CompleteStepTest" />
+      <option name="testPath" value="step can completed with actual reps" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkoutSessionTest: session created from routine" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
+    <configuration name="CompleteStepTest: step can completed with actual reps (5)" type="ioKotest" factoryName="Kotest" temporary="true" defaultName="singleModule">
       <module name="Workout.application.test" />
       <option name="jrePath" value="" />
       <option name="jrePathEnabled" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="workingDirectory" value="$MODULE_WORKING_DIR$" />
       <option name="programParameters" value="" />
-      <option name="specName" value="ru.workout.session.domain.WorkoutSessionTest" />
-      <option name="testPath" value="session created from routine" />
+      <option name="specName" value="ru.workout.session.domain.CompleteStepTest" />
+      <option name="testPath" value="step can completed with actual reps" />
       <option name="packageName" value="" />
       <option name="vmparams" value="" />
       <method v="2">
@@ -270,11 +242,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotest.WorkoutSessionTest: session created from routine" />
-        <item itemvalue="Kotest.PrepareSessionUseCaseTest: UseCase creates session from plan" />
-        <item itemvalue="Kotest.PrepareSessionUseCaseTest: usecase creates session from plan" />
-        <item itemvalue="Kotest.WorkoutSessionTest: can not begin session already in progress (2)" />
-        <item itemvalue="Kotest.WorkoutSessionTest: can not begin session already in progress (1)" />
+        <item itemvalue="Kotest.CompleteStepTest: step can completed with actual reps (5)" />
+        <item itemvalue="Kotest.CompleteStepTest: step can completed with actual reps (4)" />
+        <item itemvalue="Kotest.CompleteStepTest: step can completed with actual reps (3)" />
+        <item itemvalue="Kotest.CompleteStepTest: step can completed with actual reps (2)" />
+        <item itemvalue="Kotest.CompleteStepTest: step can completed with actual reps (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -414,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780651457104</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="поправил что бы проект собирался (пришлось сценарий создания сессиии закомментировать)">
+      <option name="closed" value="true" />
+      <created>1781000976171</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1781000976171</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -428,6 +408,7 @@
     <MESSAGE value="создать сессию можно из плана тренировки. после создания сессии, создается событие" />
     <MESSAGE value="подготовленную сессию можно начать" />
     <MESSAGE value="невозможно начать тренировку которая уже начата" />
-    <option name="LAST_COMMIT_MESSAGE" value="невозможно начать тренировку которая уже начата" />
+    <MESSAGE value="поправил что бы проект собирался (пришлось сценарий создания сессиии закомментировать)" />
+    <option name="LAST_COMMIT_MESSAGE" value="поправил что бы проект собирался (пришлось сценарий создания сессиии закомментировать)" />
   </component>
 </project>
