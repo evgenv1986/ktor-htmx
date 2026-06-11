@@ -3,7 +3,7 @@ package ru.workout.session.domain
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import ru.workout.session.usecase.WorkoutProviderError
+import ru.workout.common.event.DomainEvent
 import java.time.OffsetDateTime
 
 class WorkoutSession(
@@ -26,6 +26,8 @@ class WorkoutSession(
                 startAt
         ))
     }
+
+
     companion object {
         fun prepare(routine: SessionRoutine, sessionIdStore: SessionIdStore): WorkoutSession {
             return WorkoutSession(
@@ -40,6 +42,33 @@ class WorkoutSession(
         }
 
         fun from(plan: WorkoutPlan) {}
+    }
+    fun completeStep(stepId: String, actualReps: Int) {
+        addEvent(
+            StepEvents.StepCompletedEvent(
+                stepId,
+                actualReps,
+                status = StepStatus.COMPLETED
+            ))
+    }
+
+}
+open class SessionStep {
+    val status: StepStatus = TODO()
+}
+enum class StepStatus {
+    COMPLETED
+}
+sealed class StepEvents(
+): DomainEvent {
+    abstract val stepId: String
+    abstract val status: StepStatus
+    open class StepCompletedEvent(
+        override val stepId: String,
+        val actualReps: Int,
+        override val status: StepStatus
+    ): StepEvents() {
+
     }
 }
 
