@@ -11,6 +11,8 @@ import ru.workout.catalog.in_memory_persistence.main.SaveWorkoutStorage
 import ru.workout.catalog.rest.BeginWorkoutEndPoint
 import ru.workout.catalog.rest.BeginWorkoutRoute
 import ru.workout.catalog.rest.BeginWorkoutUseCase
+import ru.workout.catalog.rest.CompleteStepEndPoint
+import ru.workout.catalog.rest.CompleteStepRoute
 import ru.workout.catalog.rest.SubmitWorkoutPlanEndPoint
 import ru.workout.catalog.rest.SubmitWorkoutPlanRoute
 import ru.workout.catalog.rest.WorkoutPlanView
@@ -86,6 +88,11 @@ class ApplicationConfig(val app: Application) {
                 BeginWorkoutEndPoint(
                     BeginWorkoutUseCase()
                 )
+            ).register()
+
+            CompleteStepRoute(
+                routing = this,
+                CompleteStepEndPoint()
             ).register()
         }
     }
