@@ -2,14 +2,11 @@ package ru.workout.session.rest
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.contentType
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.testing.testApplication
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.testing.*
 import ru.workout.application.module
 
 class CreateSessionEndpointTest: StringSpec({
@@ -34,4 +31,10 @@ class CreateSessionEndpointTest: StringSpec({
             response.status shouldBe HttpStatusCode.Created
         }
     }
+    "write parameter value into url string"{
+        val workoutId = "w1"
+        val url = "/workouts/sessions/${workoutId}/preparation"
+        url shouldBe "/workouts/sessions/w1/preparation"
+    }
+
 })

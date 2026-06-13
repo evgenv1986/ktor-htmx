@@ -80,7 +80,10 @@ class SubmitWorkoutPlanEndPoint(
             }
     )
     private suspend fun toInvalidParamsBadRequest(call: ApplicationCall, error: ValidationError) {
-        call.respond(HttpStatusCode.BadRequest, "${error.field}: ${error.message}")
+        call.respond(
+            HttpStatusCode.BadRequest,
+            "${error.field}: ${error.message}"
+        )
     }
 }
 private fun WorkoutUseCaseError.toRestError() = when(this) {
