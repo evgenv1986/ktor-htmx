@@ -15,6 +15,7 @@ import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
 import ru.workout.application.module
 import ru.workout.catalog.rest.CompleteStepRequest
+import ru.workout.catalog.rest.StepCompletionResponse
 import ru.workout.rest.COMPLETE_STEP
 
 private suspend fun ApplicationTestBuilder.putJson(
@@ -48,9 +49,14 @@ class CompleteStepEndpointTest: StringSpec({
             response.status shouldBe HttpStatusCode.Created
             response.status.value shouldBe 201
 
-            val responseBody = response.body<Map<String, String>>()
-            val actualStepId = responseBody["step completed successfully"]
-            actualStepId shouldBe stepId
+//            val responseBody = response.body<Map<String, String>>()
+            val stepResponse = response.body<StepCompletionResponse>()
+            stepResponse.status shouldBe "COMPLETED"
+            stepResponse.actualReps shouldBe 30
+            stepResponse.stepId shouldBe stepId
+
+//            val actualStepId = responseBody["step completed successfully"]
+//            actualStepId shouldBe stepId
         }
     }
 })
