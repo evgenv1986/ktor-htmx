@@ -8,6 +8,9 @@ import ru.workout.catalog.in_memoty_persistence.WorkoutAlreadyExitsInMemory
 import ru.workout.catalog.in_memoty_persistence.FindWorkoutByExercisesImp
 import ru.workout.catalog.usecase.access.MockIdStore
 import ru.workout.catalog.in_memory_persistence.main.SaveWorkoutStorage
+import ru.workout.catalog.rest.BeginWorkoutEndPoint
+import ru.workout.catalog.rest.BeginWorkoutRoute
+import ru.workout.catalog.rest.BeginWorkoutUseCase
 import ru.workout.catalog.rest.SubmitWorkoutPlanEndPoint
 import ru.workout.catalog.rest.SubmitWorkoutPlanRoute
 import ru.workout.catalog.rest.WorkoutPlanView
@@ -56,12 +59,14 @@ class ApplicationConfig(val app: Application) {
 //                    SuccessStepCompleteViewResult()
 //                )
 //            ).register()
+
             PlanWorkoutViewRoute(
                 this,
                 PlanWorkoutViewEndpoint(
                     PlanWorkoutView()
                 )
             ).register()
+
             SubmitWorkoutPlanRoute(
                 this,
                 SubmitWorkoutPlanEndPoint(
@@ -73,6 +78,13 @@ class ApplicationConfig(val app: Application) {
                         MockIdStore()
                     ),
                     WorkoutPlanView()
+                )
+            ).register()
+
+            BeginWorkoutRoute(
+                routing = this,
+                BeginWorkoutEndPoint(
+                    BeginWorkoutUseCase()
                 )
             ).register()
         }
