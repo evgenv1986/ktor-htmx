@@ -27,7 +27,6 @@ class AdditionalSessionTest: StringSpec({
             AdditionalStep(
                 stepId = "step1",
                 actualTime = 14,
-                status = StepStatus.COMPLETED,
         ))
         result.shouldBeLeft()
     }
@@ -38,7 +37,6 @@ class AdditionalSessionTest: StringSpec({
             AdditionalStep(
                 stepId = "step1",
                 actualTime = 14,
-                status = StepStatus.COMPLETED,
             ))
         result.shouldBeRight()
     }
@@ -50,14 +48,23 @@ class AdditionalSessionTest: StringSpec({
             AdditionalStep(
                 stepId = "step1",
                 actualTime = 14,
-                status = StepStatus.COMPLETED,
             )).shouldBeRight()
         taskHandstand.remainsCompleted() shouldBe 30-14
     }
 
+    "task complete after completing all reps by task"{
+        val taskHandstand = taskHandstand(
+            status = AdditionalTaskStatus.IN_PROGRESS,
+            targetTime = 30)
+        taskHandstand.completeStep(
+            AdditionalStep(
+                stepId = "step1",
+                actualTime = 30,
+            ))
+        taskHandstand.status() shouldBe AdditionalTaskStatus.COMPLETED
+    }
 
-
-    "могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{
+    "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{
         val handStand = taskHandstand(targetTime = 300)
         handStand.remainsCompleted() shouldBe 300
         handStand.status() shouldBe AdditionalTaskStatus.PLANNED
@@ -75,7 +82,7 @@ class AdditionalSessionTest: StringSpec({
 open class AdditionalStep(
     val stepId: String,
     val actualTime: Int,
-    val status: Any,
+//    val status: Any,
 //    val task: AdditionalTask
 ) {
 
