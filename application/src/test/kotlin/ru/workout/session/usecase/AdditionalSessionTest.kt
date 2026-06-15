@@ -8,7 +8,6 @@ import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import ru.workout.session.domain.SessionStatus
-import ru.workout.session.domain.StepStatus
 
 class AdditionalSessionTest: StringSpec({
     "can planned additional task"{
@@ -64,6 +63,12 @@ class AdditionalSessionTest: StringSpec({
         taskHandstand.status() shouldBe AdditionalTaskStatus.COMPLETED
     }
 
+    "proposed execution quantity for next step"{
+        val taskWithFirstStepCompleted = taskWithFirstStepCompleted(actualTime = 30)
+        val proposedExecutionQuantity = taskWithFirstStepCompleted.proposedQuantity()
+        proposedExecutionQuantity shouldBe 28
+    }
+
     "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{
         val handStand = taskHandstand(targetTime = 300)
         handStand.remainsCompleted() shouldBe 300
@@ -78,6 +83,18 @@ class AdditionalSessionTest: StringSpec({
 //        )
     }
 })
+
+private fun taskWithFirstStepCompleted(actualTime: Int): AdditionalTask {
+    val taskHandstand = taskHandstand(
+        status = AdditionalTaskStatus.IN_PROGRESS,
+        targetTime = actualTime * 2)
+    taskHandstand.completeStep(
+        AdditionalStep(
+            stepId = "step1",
+            actualTime = actualTime,
+        ))
+    return taskHandstand
+}
 
 open class AdditionalStep(
     val stepId: String,
@@ -138,6 +155,15 @@ class AdditionalTask(
     fun targetTimeWillBeCompletedWithStep(step: AdditionalStep): Boolean{
         return steps.sumOf { it.actualTime } >= targetTime
     }
+
+    fun proposedQuantity(): Int {
+        return kotlin.math.floor(lastActualTime() * percent(5.0)).toInt()
+    }
+
+    private fun lastActualTime(): Int = steps.last().actualTime
+    private fun percent(percent: Double): Double =
+        (1 - percent / 100)
+
 }
 
 sealed interface AdditionalTaskError {
