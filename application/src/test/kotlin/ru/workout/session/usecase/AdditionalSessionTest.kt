@@ -64,9 +64,8 @@ class AdditionalSessionTest: StringSpec({
     }
 
     "proposed execution quantity for next step"{
-        val taskWithFirstStepCompleted = taskWithFirstStepCompleted(actualTime = 30)
-        val proposedExecutionQuantity = taskWithFirstStepCompleted.proposedQuantity()
-        proposedExecutionQuantity shouldBe 28
+        val task = taskWithFirstStepCompleted(actualTime = 30)
+            task.proposedQuantity() shouldBe 28
     }
 
     "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{
