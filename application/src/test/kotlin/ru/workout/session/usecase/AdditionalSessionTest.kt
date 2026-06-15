@@ -11,7 +11,7 @@ import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.StepStatus
 
 class AdditionalSessionTest: StringSpec({
-    "can create additional task in planned status"{
+    "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",
             exerciseName = "стойка на руках",
