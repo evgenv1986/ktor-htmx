@@ -1,7 +1,12 @@
-package ru.workout.session.domain
+package ru.workout.session.usecase
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import ru.workout.session.domain.SessionStatus
+import ru.workout.session.domain.SessionStep
+import ru.workout.session.domain.StepEvents
+import ru.workout.session.domain.StepStatus
+import ru.workout.session.domain.WorkoutSession
 
 class CompleteStepTest: StringSpec({
     //35. test_step_created_as_planned
@@ -106,7 +111,7 @@ class CompleteStepTest: StringSpec({
 //    )
 //}
 
-fun session(): WorkoutSession{
+fun session(): WorkoutSession {
     return WorkoutSession(
         stepsTemplate = null,
         status = null

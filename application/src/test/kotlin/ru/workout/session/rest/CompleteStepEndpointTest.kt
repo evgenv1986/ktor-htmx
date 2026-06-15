@@ -41,7 +41,7 @@ class CompleteStepEndpointTest: StringSpec({
     }
     "complete step of workout session"{
         val stepId = "stepId1"
-        val step = CompleteStepRequest(actualReps = 30)
+        val step = CompleteStepRequest(actualReps = 30, sessionId = "session1", stepTemplateId = "stepTemplateId-1")
         testApplication {
             application { module() }
 

@@ -2,6 +2,8 @@ package ru.workout.application
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import ru.workout.application.main.rout.completeStepRoute
+import ru.workout.application.main.rout.registerAllRoutes
 import ru.workout.catalog.domain.Workout
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.catalog.in_memoty_persistence.WorkoutAlreadyExitsInMemory
@@ -13,6 +15,7 @@ import ru.workout.catalog.rest.BeginWorkoutRoute
 import ru.workout.catalog.rest.BeginWorkoutUseCase
 import ru.workout.catalog.rest.CompleteStepEndPoint
 import ru.workout.catalog.rest.CompleteStepRoute
+import ru.workout.catalog.rest.CompleteStepUseCase
 import ru.workout.catalog.rest.SubmitWorkoutPlanEndPoint
 import ru.workout.catalog.rest.SubmitWorkoutPlanRoute
 import ru.workout.catalog.rest.WorkoutPlanView
@@ -22,32 +25,11 @@ import ru.workout.catalog.rest.PlanWorkoutView
 import ru.workout.catalog.usecase.main.PlanWorkoutUseCase
 import workout.application.event.DomainEventPublisherImp
 
-//import ru.workout.catalog.domain.Workout
-//import ru.workout.catalog.domain.WorkoutId
-//import ru.workout.catalog.usecase.workout.AddWorkoutUseCase
-//import ru.workout.catalog.usecase.workout.InMemoryWorkoutAlreadyExits
-//import ru.workout.catalog.usecase.workout.InMemoryWorkoutStore
-//import ru.workout.catalog.usecase.workout.MockIdStore
-//
-//import ru.workout.rest.step.InputStepRoute
-//import ru.workout.rest.step.input.InputStepEndpoint
-//import ru.workout.rest.step.input.InputStepPerformView
-//import ru.workout.rest.step.persist.StepCompleteEndpoint
-//import ru.workout.rest.step.persist.StepCompleteRoute
-//import ru.workout.rest.step.persist.SuccessStepCompleteViewResult
-//import ru.workout.rest.workout.WorkoutAddHandleEndPoint
-//import ru.workout.rest.workout.WorkoutAddHandleRoute
-//import ru.workout.rest.workout.WorkoutAddHandleView
-//import ru.workout.rest.workout.WorkoutInputEndpoint
-//import ru.workout.rest.workout.WorkoutInputRoute
-//import ru.workout.rest.workout.WorkoutInputView
-//
-//import workout.application.event.DomainEventPublisherImp
-////import ru.workout.persistence.SaveWorkoutStorage
-//
+
 class ApplicationConfig(val app: Application) {
-    fun     configureRoutes(){
+    fun configureRoutes(){
         app.routing {
+            registerAllRoutes()
 //                InputStepRoute(
 //                this,
 //                InputStepEndpoint(
@@ -90,10 +72,12 @@ class ApplicationConfig(val app: Application) {
                 )
             ).register()
 
-            CompleteStepRoute(
-                routing = this,
-                CompleteStepEndPoint()
-            ).register()
+//            CompleteStepRoute(
+//                routing = this,
+//                CompleteStepEndPoint(
+//                    CompleteStepUseCase()
+//                )
+//            ).register()
         }
     }
 }

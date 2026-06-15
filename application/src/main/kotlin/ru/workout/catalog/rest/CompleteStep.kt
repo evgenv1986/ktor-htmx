@@ -10,7 +10,7 @@ import io.ktor.server.routing.put
 import kotlinx.serialization.Serializable
 import ru.workout.rest.COMPLETE_STEP
 import ru.workout.session.domain.SessionStep
-import ru.workout.session.domain.StepStatus
+import ru.workout.session.usecase.ICompleteStepUseCase
 
 class CompleteStepRoute(
     private val routing: Routing,
@@ -24,24 +24,47 @@ class CompleteStepRoute(
 }
 
 class CompleteStepEndPoint(
-//    private val beginWorkoutUseCase: IBeginWorkoutUseCase
+    private val completeStepUseCase: ICompleteStepUseCase
 ) {
     suspend fun handle(call: ApplicationCall) {
         val stepRequest = call.receive<CompleteStepRequest>()
-        val stepId = call.parameters["stepId"] !!
-        val step = SessionStep(
-            stepId,
-            stepRequest.actualReps,
-            StepStatus.COMPLETED
+        val requestStepTemplateId = call.parameters["stepTemplateId"] !!
 
-            )
+//        val validatedStepTemplateId: StepTemplateId = ValidateStepTemplateId(requestStepTemplateId).StepTemplateId()
+//        val validatedSessionId: SessionId = ValidatedSessionId(stepRequest.sessionId).SessionId()
+//        val validatedActualReps: ActualReps = ValidatedActualReps(validatedActualReps).ActualReps()
+//
+//        val completeStepCommand = CompleteStepCommand(
+//            validatedStepTemplateId,
+//            validatedSessionId,
+//            validatedActualReps
+//        )
 
-        val response = StepCompletionResponse.from(step)
-        call.respond(
-            HttpStatusCode.Created,
-//            mapOf("step" to response)
-            response
-        )
+//        val stepId = completeStepUseCase.invoke(completeStepCommand)
+
+//        val response = StepCompletionResponse.from(
+//            completeStepCommand,
+//            stepId
+//        )
+//        call.respond(
+//            HttpStatusCode.Created,
+//            response
+//        )
+    }
+}
+
+
+
+
+class MockCompleteStepUseCase: ICompleteStepUseCase {
+    override fun invoke(completeStepCommand: CompleteStepCommand) {
+        TODO("Not yet implemented")
+    }
+}
+
+class CompleteStepUseCase: ICompleteStepUseCase {
+    override fun invoke(completeStepCommand: CompleteStepCommand) {
+        TODO("Not yet implemented")
     }
 }
 
@@ -49,7 +72,8 @@ private fun SessionStep.toResponse(): StepCompletionResponse {
     return StepCompletionResponse(
         stepId,
         status.toString(),
-        actualReps
+        actualReps,
+        "sessionId-1"
     )
 }
 
@@ -57,18 +81,30 @@ private fun SessionStep.toResponse(): StepCompletionResponse {
 data class StepCompletionResponse(
     val stepId: String,
     val status: String,
-    val actualReps: Int
+    val actualReps: Int,
+    val sessionId: String
 ) {
     companion object {
-        fun from(step: SessionStep) = StepCompletionResponse(
-            step.stepId,
-            step.status.toString(),
-            step.actualReps
-        )
+        fun from(completeStepCommand: CompleteStepCommand, stepId: Unit) {
+            TODO()
+        }
+//            StepCompletionResponse(
+//            stepId,
+//            step.status.toString(),
+//            step.actualReps
+//        )
     }
 }
 
 @Serializable
 data class CompleteStepRequest(
-    val actualReps: Int
+    val actualReps: Int,
+    val sessionId: String,
+    val stepTemplateId: String
 )
+
+class CompleteStepCommand(
+    validatedStepTemplateId: Any,
+    validatedSessionId: Any,
+    validatedActualReps: Any
+) {}
