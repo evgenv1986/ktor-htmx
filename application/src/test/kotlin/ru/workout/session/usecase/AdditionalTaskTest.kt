@@ -88,30 +88,4 @@ class AdditionalTaskTest: StringSpec({
     }
 })
 
-private fun taskWithFirstStepCompleted(actualTime: Int): AdditionalTask {
-    val taskHandstand = taskHandstand(
-        status = AdditionalTaskStatus.IN_PROGRESS,
-        targetTime = actualTime * 2)
-    taskHandstand.completeStep(
-        AdditionalStep(
-            stepId = "step1",
-            actualTime = actualTime,
-        )
-    )
-    return taskHandstand
-}
-
-fun taskHandstand(
-    targetTime: Int = 300,
-    exerciseName: String = "стойка на руках",
-    taskId: String = "task-1",
-    steps: MutableList<AdditionalStep> = mutableListOf<AdditionalStep>(),
-    status: AdditionalTaskStatus = AdditionalTaskStatus.PLANNED
-) = AdditionalTask(
-    taskId = taskId,
-    exerciseName = exerciseName,
-    targetTime = targetTime,
-    steps = steps,
-    status = status
-)
 
