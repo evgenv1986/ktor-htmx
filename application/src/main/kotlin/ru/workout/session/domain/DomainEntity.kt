@@ -7,7 +7,7 @@ open class DomainEntity {
     open fun addEvent(event: DomainEvent){
         events.add(event)
     }
-    fun popEvents(): List<DomainEvent> {
+    open fun popEvents(): List<DomainEvent> {
         val result = events
         events = ArrayList()
         events.clear()
