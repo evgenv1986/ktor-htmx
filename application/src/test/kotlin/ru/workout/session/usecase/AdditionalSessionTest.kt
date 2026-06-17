@@ -1,5 +1,6 @@
 package ru.workout.session.usecase
 
+import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -12,7 +13,8 @@ import ru.workout.session.usecase.additional.AdditionalTask
 import ru.workout.session.usecase.additional.AdditionalTaskStatus
 
 class AdditionalSessionTest: StringSpec({
-//    "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"
+//    "думаю сессию делать отдельно, в другом классе теста.
+    //    могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"
     "can complete step" {
 //        val handStand = taskHandstand(targetTime = 300)
 //        handStand.remainsCompleted() shouldBe 300

@@ -1,6 +1,8 @@
 package ru.workout.session.usecase.additional
 
 import arrow.core.Either
+import arrow.core.raise.context.bind
+import arrow.core.raise.context.either
 import ru.workout.common.event.DomainEvent
 import ru.workout.session.domain.AggregateRoot
 import ru.workout.session.domain.SessionError
@@ -13,9 +15,14 @@ open class AdditionalSession(tasks: Any, status: SessionStatus
     fun completeStep(
         step: AdditionalStep,
         task: AdditionalTask
-    ): Either<AdditionalSessionStepCompletionError, Unit> {
-        task.completeStep(step)
-
+    ): Either<AdditionalSessionStepCompletionError, Unit> = either {
+        val result = task.completeStep(step)
+            .mapLeft {
+                when(it) {
+                    is AdditionalTaskError.TaskNotInProgress ->
+                        AdditionalSessionStepCompletionError.TaskNotInProgress
+                }
+            }.bind()
             .apply{
                 addEvent(StepEvents.StepCompletedEvent(
                     step.actualTime,
@@ -23,6 +30,16 @@ open class AdditionalSession(tasks: Any, status: SessionStatus
                     StepStatus.COMPLETED
                 ))
             }
+
+//        val result = task.completeStep(step).fold(
+//            ifLeft = {error ->
+//                when(error){
+//                    is AdditionalTaskError.TaskNotInProgress -> AdditionalSessionStepCompletionError.TaskNotInProgress
+//                }
+//            },
+//            ifRight = {}
+//        )
+
     }
 
     override fun popEvents(): List<DomainEvent> {
