@@ -1,5 +1,7 @@
 package ru.workout.session.usecase
 
+import ru.workout.session.domain.SessionStatus
+import ru.workout.session.usecase.additional.AdditionalSession
 import ru.workout.session.usecase.additional.AdditionalStep
 import ru.workout.session.usecase.additional.AdditionalTask
 import ru.workout.session.usecase.additional.AdditionalTaskStatus
@@ -31,5 +33,21 @@ fun taskHandstand(
     exerciseName = exerciseName,
     targetTime = targetTime,
     steps = steps,
+    status = status
+)
+
+fun step(
+    stepId: String = "step1",
+    actualTime: Int = 14
+) = AdditionalStep(
+        stepId = stepId,
+        actualTime = actualTime,
+    )
+
+fun additionalSession(
+    tasks: List<AdditionalTask> = listOf(taskHandstand()),
+    status: SessionStatus = SessionStatus.IN_PROGRESS
+) = AdditionalSession(
+    tasks = tasks,
     status = status
 )

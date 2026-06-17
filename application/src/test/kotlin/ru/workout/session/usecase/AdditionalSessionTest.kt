@@ -37,4 +37,13 @@ class AdditionalSessionTest: StringSpec({
         val stepCompleted = events.first()
         stepCompleted.shouldBeInstanceOf<StepEvents.StepCompletedEvent>()
     }
+    "can not complete step in task status is planned or other (not in progress)"{
+        val session = additionalSession(status = SessionStatus.IN_PROGRESS)
+        val task = taskHandstand(status = AdditionalTaskStatus.PLANNED)
+        val step = step()
+
+        val result = session.completeStep(step, task)
+
+        result.shouldBeLeft()
+    }
 })
