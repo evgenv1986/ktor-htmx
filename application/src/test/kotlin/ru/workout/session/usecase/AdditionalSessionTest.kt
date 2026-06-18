@@ -9,17 +9,12 @@ import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.StepEvents
 import ru.workout.session.usecase.additional.AdditionalSession
 import ru.workout.session.usecase.additional.AdditionalStep
-import ru.workout.session.usecase.additional.AdditionalTask
 import ru.workout.session.usecase.additional.AdditionalTaskStatus
 
 class AdditionalSessionTest: StringSpec({
 //    "думаю сессию делать отдельно, в другом классе теста.
     //    могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"
     "can complete step" {
-//        val handStand = taskHandstand(targetTime = 300)
-//        handStand.remainsCompleted() shouldBe 300
-//        handStand.status() shouldBe AdditionalTaskStatus.PLANNED
-
         val session = AdditionalSession(
             tasks = listOf(taskHandstand()),
             status = SessionStatus.IN_PROGRESS
@@ -47,5 +42,19 @@ class AdditionalSessionTest: StringSpec({
         val result = session.completeStep(step, task)
 
         result.shouldBeLeft()
+    }
+    "session status should be completed after task completed"{
+        val session = additionalSession(status = SessionStatus.IN_PROGRESS)
+        val task = taskHandstand(
+            status = AdditionalTaskStatus.IN_PROGRESS,
+            targetTime = 30)
+        val step = step(actualTime = 30)
+
+        session.completeStep(step, task)
+
+        val events  = session.popEvents()
+        val sessionCompleted = events.first()
+        sessionCompleted.shouldBeInstanceOf<StepEvents.StepCompletedEvent>()
+        session.status() shouldBe SessionStatus.COMPLETED
     }
 })

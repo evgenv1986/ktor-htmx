@@ -40,7 +40,6 @@ class AdditionalTask(
         } else {
             status = AdditionalTaskStatus.IN_PROGRESS
         }
-
     }
     fun targetTimeWillBeCompletedWithStep(step: AdditionalStep): Boolean{
         return steps.sumOf { it.actualTime } >= targetTime
