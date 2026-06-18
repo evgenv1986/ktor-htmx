@@ -23,7 +23,7 @@ class AdditionalSessionTest: StringSpec({
         val stepId = "s1"
         val step = AdditionalStep(
             stepId = stepId,
-            actualTime = 14,
+            actualReps = 14,
         )
         val task = taskHandstand(status = AdditionalTaskStatus.IN_PROGRESS)
         session.completeStep(

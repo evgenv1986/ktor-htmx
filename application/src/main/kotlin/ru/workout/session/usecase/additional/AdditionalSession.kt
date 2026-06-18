@@ -28,7 +28,7 @@ open class AdditionalSession(
             }.bind()
             .apply{
                 addEvent(StepEvents.StepCompletedEvent(
-                    step.actualTime,
+                    step.actualReps,
                     step.stepId,
                     StepStatus.COMPLETED
                 ))

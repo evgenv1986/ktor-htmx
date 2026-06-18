@@ -4,20 +4,47 @@ import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.SessionStatus
 import ru.workout.session.usecase.additional.AdditionalSession
 import ru.workout.session.usecase.additional.AdditionalStep
 import ru.workout.session.usecase.additional.AdditionalTask
+import ru.workout.session.usecase.additional.AdditionalTaskEvents
 import ru.workout.session.usecase.additional.AdditionalTaskStatus
+import ru.workout.session.usecase.additional.Reps
 
 class AdditionalTaskTest: StringSpec({
+    "can add completed reps for task"{
+        val taskId = "task1"
+        val task: AdditionalTask = taskInProgress(
+            "handstand",
+            300,
+            taskId
+        )
+        val repsCompleted = 14
+        task.completeReps(Reps(repsCompleted))
+        val repsCompletedEvent = task.popEvents().last()
+        repsCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
+        repsCompletedEvent.taskId shouldBe taskId
+    }
+    "the status of a partially completed task should be in progress"{
+        val task: AdditionalTask = taskInProgress()
+        task.completeReps(Reps(10))
+        task.status() shouldBe AdditionalTaskStatus.IN_PROGRESS
+    }
+    "task with fully completed target reps must have status completed"{
+        val task: AdditionalTask = taskInProgress(targetReps = 30)
+        task.completeReps(Reps(30))
+        task.status() shouldBe AdditionalTaskStatus.COMPLETED
+    }
+
     "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",
             exerciseName = "стойка на руках",
-            targetTime = 300,
+            targetReps = Reps(300),
             steps = mutableListOf<AdditionalStep>(),
-            status = AdditionalTaskStatus.PLANNED
+            completedReps = mutableListOf()
         )
         handstandTask.status() shouldBe AdditionalTaskStatus.PLANNED
     }
@@ -26,7 +53,7 @@ class AdditionalTaskTest: StringSpec({
         val result = taskHandstand.completeStep(
             AdditionalStep(
                 stepId = "step1",
-                actualTime = 14,
+                actualReps = 14,
             )
         )
         result.shouldBeLeft()
@@ -37,7 +64,7 @@ class AdditionalTaskTest: StringSpec({
         val result = taskHandstand.completeStep(
             AdditionalStep(
                 stepId = "step1",
-                actualTime = 14,
+                actualReps = 14,
             )
         )
         result.shouldBeRight()
@@ -49,7 +76,7 @@ class AdditionalTaskTest: StringSpec({
         taskHandstand.completeStep(
             AdditionalStep(
                 stepId = "step1",
-                actualTime = 14,
+                actualReps = 14,
             )
         ).shouldBeRight()
         taskHandstand.remainsCompleted() shouldBe 30-14
@@ -62,7 +89,7 @@ class AdditionalTaskTest: StringSpec({
         taskHandstand.completeStep(
             AdditionalStep(
                 stepId = "step1",
-                actualTime = 30,
+                actualReps = 30,
             )
         )
         taskHandstand.status() shouldBe AdditionalTaskStatus.COMPLETED

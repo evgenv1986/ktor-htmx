@@ -3,55 +3,83 @@ package ru.workout.session.usecase.additional
 import arrow.core.Either
 import arrow.core.raise.context.either
 import arrow.core.raise.ensure
+import ru.workout.common.event.DomainEvent
+import ru.workout.common.types.base.ValueObject
+import ru.workout.session.domain.DomainEntity
 import kotlin.math.floor
 
 open class AdditionalStep(
     val stepId: String,
-    val actualTime: Int,
-//    val status: Any,
-//    val task: AdditionalTask
-) {
-
+    val actualReps: Int,
+)
+open class Reps(
+    val value: Int
+): ValueObject {
+    fun isReachedBy(other: List<Reps>): Boolean {
+        return value <= other.sumOf { it.value }
+    }
 }
 
 class AdditionalTask(
-    val taskId: Any,
-    val exerciseName: Any,
-    val targetTime: Int,
+    val taskId: String,
+    val exerciseName: String,
+    val targetReps: Reps,
     val steps: MutableList<AdditionalStep>,
-    var status: AdditionalTaskStatus
-) {
+    val completedReps: MutableList<Reps>
+): DomainEntity() {
     fun remainsCompleted(): Int {
-        return targetTime - steps.sumOf { it.actualTime }
+        TODO()
+//        return targetReps - steps.sumOf { it.actualReps }
     }
 
     fun status(): AdditionalTaskStatus {
-        return status
+        return when{
+            targetReps.isReachedBy(completedReps) -> AdditionalTaskStatus.COMPLETED
+            completedRepsIsNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
+            else -> AdditionalTaskStatus.PLANNED
+        }
+
+//        val status = targetReps.moreThan(completedReps)
+//            : AdditionalTaskStatus.IN_PROGRESS
+//            ? AdditionalTaskStatus.COMPLETED
+//        return status
+//        if (targetTimeWillBeCompletedWithStep(step)) {
+//            return AdditionalTaskStatus.COMPLETED
+//        } else {
+//            return AdditionalTaskStatus.IN_PROGRESS
+//        }
     }
+
+    private fun completedRepsIsNotEmpty(): Boolean
+        = completedReps.sumOf { it.value } > 0
 
     fun completeStep(step: AdditionalStep)
     : Either<AdditionalTaskError, Unit> = either {
-        ensure(status == AdditionalTaskStatus.IN_PROGRESS) {
+        ensure(status() == AdditionalTaskStatus.IN_PROGRESS) {
             AdditionalTaskError.TaskNotInProgress
         }
         steps.add(step)
-        if (targetTimeWillBeCompletedWithStep(step)) {
-            status = AdditionalTaskStatus.COMPLETED
-        } else {
-            status = AdditionalTaskStatus.IN_PROGRESS
-        }
+
     }
     fun targetTimeWillBeCompletedWithStep(step: AdditionalStep): Boolean{
-        return steps.sumOf { it.actualTime } >= targetTime
+        TODO()
+    //        return steps.sumOf { it.actualReps } >= targetReps
     }
 
     fun proposedQuantity(): Int {
         return floor(lastActualTime() * percent(5.0)).toInt()
     }
 
-    private fun lastActualTime(): Int = steps.last().actualTime
+    private fun lastActualTime(): Int = steps.last().actualReps
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
+
+    fun completeReps(reps: Reps) {
+        completedReps.add(reps)
+            .apply{addEvent(AdditionalTaskEvents
+                .RepsCompletedEvent(taskId) )
+            }
+    }
 
 }
 
@@ -63,6 +91,11 @@ enum class AdditionalTaskStatus {
     PLANNED,
     IN_PROGRESS,
     COMPLETED
+}
+sealed class AdditionalTaskEvents(val taskId: String
+): DomainEvent {
+    class RepsCompletedEvent(taskId: String
+    ) : AdditionalTaskEvents(taskId)
 }
 
 class TaskTemplate(

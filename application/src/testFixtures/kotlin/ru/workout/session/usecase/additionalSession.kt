@@ -5,6 +5,7 @@ import ru.workout.session.usecase.additional.AdditionalSession
 import ru.workout.session.usecase.additional.AdditionalStep
 import ru.workout.session.usecase.additional.AdditionalTask
 import ru.workout.session.usecase.additional.AdditionalTaskStatus
+import ru.workout.session.usecase.additional.Reps
 
 
 fun taskWithFirstStepCompleted(
@@ -16,7 +17,7 @@ fun taskWithFirstStepCompleted(
     taskHandstand.completeStep(
         AdditionalStep(
             stepId = "step1",
-            actualTime = actualTime,
+            actualReps = actualTime,
         )
     )
     return taskHandstand
@@ -31,9 +32,9 @@ fun taskHandstand(
 ) = AdditionalTask(
     taskId = taskId,
     exerciseName = exerciseName,
-    targetTime = targetTime,
+    targetReps = Reps(targetTime),
     steps = steps,
-    status = status
+    completedReps = mutableListOf()
 )
 
 fun step(
@@ -41,7 +42,7 @@ fun step(
     actualTime: Int = 14
 ) = AdditionalStep(
         stepId = stepId,
-        actualTime = actualTime,
+        actualReps = actualTime,
     )
 
 fun additionalSession(
@@ -50,4 +51,15 @@ fun additionalSession(
 ) = AdditionalSession(
     tasks = tasks,
     status = status
+)
+fun taskInProgress (
+    exerciseName: String = "handstand",
+    targetReps: Int = 300,
+    taskId: String = "task1"
+): AdditionalTask = AdditionalTask(
+    taskId = taskId,
+    exerciseName = exerciseName,
+    targetReps = Reps(targetReps),
+    steps = mutableListOf<AdditionalStep>(),
+    completedReps = mutableListOf<Reps>()
 )
