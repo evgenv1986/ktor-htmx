@@ -1,10 +1,9 @@
-package ru.workout.session.usecase.additional
+package ru.workout.session.domain.additional
 
 import arrow.core.Either
 import arrow.core.raise.context.either
 import arrow.core.raise.ensure
 import ru.workout.common.event.DomainEvent
-import ru.workout.common.types.base.ValueObject
 import ru.workout.session.domain.DomainEntity
 import kotlin.math.floor
 
@@ -12,20 +11,14 @@ open class AdditionalStep(
     val stepId: String,
     val actualReps: Int,
 )
-open class Reps(
-    val value: Int
-): ValueObject {
-    fun isReachedBy(other: List<Reps>): Boolean {
-        return value <= other.sumOf { it.value }
-    }
-}
 
 class AdditionalTask(
     val taskId: String,
     val exerciseName: String,
-    val targetReps: Reps,
+    val targetReps: Rep,
     val steps: MutableList<AdditionalStep>,
-    val completedReps: MutableList<Reps>
+    val completedRepsList: MutableList<Rep>,
+//    val completedReps: Reps
 ): DomainEntity() {
     fun remainsCompleted(): Int {
         TODO()
@@ -34,24 +27,13 @@ class AdditionalTask(
 
     fun status(): AdditionalTaskStatus {
         return when{
-            targetReps.isReachedBy(completedReps) -> AdditionalTaskStatus.COMPLETED
+            targetReps.isReachedBy(completedRepsList) -> AdditionalTaskStatus.COMPLETED
             completedRepsIsNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
             else -> AdditionalTaskStatus.PLANNED
         }
-
-//        val status = targetReps.moreThan(completedReps)
-//            : AdditionalTaskStatus.IN_PROGRESS
-//            ? AdditionalTaskStatus.COMPLETED
-//        return status
-//        if (targetTimeWillBeCompletedWithStep(step)) {
-//            return AdditionalTaskStatus.COMPLETED
-//        } else {
-//            return AdditionalTaskStatus.IN_PROGRESS
-//        }
     }
-
     private fun completedRepsIsNotEmpty(): Boolean
-        = completedReps.sumOf { it.value } > 0
+        = completedRepsList.sumOf { it.value } > 0
 
     fun completeStep(step: AdditionalStep)
     : Either<AdditionalTaskError, Unit> = either {
@@ -59,26 +41,22 @@ class AdditionalTask(
             AdditionalTaskError.TaskNotInProgress
         }
         steps.add(step)
-
     }
-    fun targetTimeWillBeCompletedWithStep(step: AdditionalStep): Boolean{
-        TODO()
-    //        return steps.sumOf { it.actualReps } >= targetReps
-    }
-
     fun proposedQuantity(): Int {
-        return floor(lastActualTime() * percent(5.0)).toInt()
+        return floor(lastCompletedRepsCount() * percent(5.0)).toInt()
     }
-
-    private fun lastActualTime(): Int = steps.last().actualReps
+    private fun lastCompletedRepsCount(): Int = steps.last().actualReps
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
 
-    fun completeReps(reps: Reps) {
-        completedReps.add(reps)
+    fun completeReps(reps: Rep) {
+        completedRepsList.add(reps)
             .apply{addEvent(AdditionalTaskEvents
                 .RepsCompletedEvent(taskId) )
             }
+    }
+    fun repsRemaining() {
+//        Difference(targetReps, completedRepsList)
     }
 
 }

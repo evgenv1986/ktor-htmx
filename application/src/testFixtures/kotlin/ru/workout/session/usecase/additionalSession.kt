@@ -1,11 +1,11 @@
 package ru.workout.session.usecase
 
 import ru.workout.session.domain.SessionStatus
-import ru.workout.session.usecase.additional.AdditionalSession
-import ru.workout.session.usecase.additional.AdditionalStep
-import ru.workout.session.usecase.additional.AdditionalTask
-import ru.workout.session.usecase.additional.AdditionalTaskStatus
-import ru.workout.session.usecase.additional.Reps
+import ru.workout.session.domain.additional.AdditionalSession
+import ru.workout.session.domain.additional.AdditionalStep
+import ru.workout.session.domain.additional.AdditionalTask
+import ru.workout.session.domain.additional.AdditionalTaskStatus
+import ru.workout.session.domain.additional.Rep
 
 
 fun taskWithFirstStepCompleted(
@@ -32,9 +32,9 @@ fun taskHandstand(
 ) = AdditionalTask(
     taskId = taskId,
     exerciseName = exerciseName,
-    targetReps = Reps(targetTime),
+    targetReps = Rep(targetTime),
     steps = steps,
-    completedReps = mutableListOf()
+    completedRepsList = mutableListOf()
 )
 
 fun step(
@@ -59,7 +59,7 @@ fun taskInProgress (
 ): AdditionalTask = AdditionalTask(
     taskId = taskId,
     exerciseName = exerciseName,
-    targetReps = Reps(targetReps),
+    targetReps = Rep(targetReps),
     steps = mutableListOf<AdditionalStep>(),
-    completedReps = mutableListOf<Reps>()
+    completedRepsList = mutableListOf<Rep>()
 )

@@ -1,4 +1,4 @@
-package ru.workout.session.usecase.additional
+package ru.workout.session.domain.additional
 
 import arrow.core.Either
 import arrow.core.left

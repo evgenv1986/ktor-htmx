@@ -6,12 +6,12 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.SessionStatus
-import ru.workout.session.usecase.additional.AdditionalSession
-import ru.workout.session.usecase.additional.AdditionalStep
-import ru.workout.session.usecase.additional.AdditionalTask
-import ru.workout.session.usecase.additional.AdditionalTaskEvents
-import ru.workout.session.usecase.additional.AdditionalTaskStatus
-import ru.workout.session.usecase.additional.Reps
+import ru.workout.session.domain.additional.AdditionalSession
+import ru.workout.session.domain.additional.AdditionalStep
+import ru.workout.session.domain.additional.AdditionalTask
+import ru.workout.session.domain.additional.AdditionalTaskEvents
+import ru.workout.session.domain.additional.AdditionalTaskStatus
+import ru.workout.session.domain.additional.Rep
 
 class AdditionalTaskTest: StringSpec({
     "can add completed reps for task"{
@@ -22,29 +22,34 @@ class AdditionalTaskTest: StringSpec({
             taskId
         )
         val repsCompleted = 14
-        task.completeReps(Reps(repsCompleted))
+        task.completeReps(Rep(repsCompleted))
         val repsCompletedEvent = task.popEvents().last()
         repsCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
         repsCompletedEvent.taskId shouldBe taskId
     }
     "the status of a partially completed task should be in progress"{
         val task: AdditionalTask = taskInProgress()
-        task.completeReps(Reps(10))
+        task.completeReps(Rep(10))
         task.status() shouldBe AdditionalTaskStatus.IN_PROGRESS
     }
     "task with fully completed target reps must have status completed"{
         val task: AdditionalTask = taskInProgress(targetReps = 30)
-        task.completeReps(Reps(30))
+        task.completeReps(Rep(30))
         task.status() shouldBe AdditionalTaskStatus.COMPLETED
+    }
+    "in progress task should return remaining reps"{
+        val task: AdditionalTask = taskInProgress(targetReps = 30)
+        task.completeReps(Rep(10))
+        task.repsRemaining() shouldBe Rep(30-10)
     }
 
     "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",
             exerciseName = "стойка на руках",
-            targetReps = Reps(300),
+            targetReps = Rep(300),
             steps = mutableListOf<AdditionalStep>(),
-            completedReps = mutableListOf()
+            completedRepsList = mutableListOf()
         )
         handstandTask.status() shouldBe AdditionalTaskStatus.PLANNED
     }

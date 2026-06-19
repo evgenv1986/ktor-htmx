@@ -7,9 +7,9 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.common.event.DomainEvent
 import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.StepEvents
-import ru.workout.session.usecase.additional.AdditionalSession
-import ru.workout.session.usecase.additional.AdditionalStep
-import ru.workout.session.usecase.additional.AdditionalTaskStatus
+import ru.workout.session.domain.additional.AdditionalSession
+import ru.workout.session.domain.additional.AdditionalStep
+import ru.workout.session.domain.additional.AdditionalTaskStatus
 
 class AdditionalSessionTest: StringSpec({
 //    "думаю сессию делать отдельно, в другом классе теста.
