@@ -51,8 +51,18 @@ class AdditionalTask(
                 .RepsCompletedEvent(taskId) )
             }
     }
-    fun repsRemaining() {
-//        Difference(targetReps, completedRepsList)
+    fun repsRemaining(): Rep {
+        return Difference(targetReps, completedReps).calc()
+    }
+
+}
+
+class Difference(
+    val targetReps: Rep,
+    val completedReps: Reps
+) {
+    fun calc(): Rep {
+        return targetReps.minus(completedReps)
     }
 
 }

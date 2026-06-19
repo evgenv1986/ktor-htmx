@@ -41,7 +41,8 @@ class AdditionalTaskTest: StringSpec({
     "in progress task should return remaining reps"{
         val task: AdditionalTask = taskInProgress(targetReps = 30)
         task.completeReps(Rep(10))
-        task.repsRemaining() shouldBe Rep(30-10)
+        var remain = task.repsRemaining() shouldBe Rep(30-10)
+        remain.intValue() shouldBe 30-10
     }
 
     "can planned additional task"{
