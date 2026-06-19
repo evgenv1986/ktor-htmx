@@ -12,6 +12,7 @@ import ru.workout.session.domain.additional.AdditionalTask
 import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
+import ru.workout.session.domain.additional.Reps
 
 class AdditionalTaskTest: StringSpec({
     "can add completed reps for task"{
@@ -49,7 +50,7 @@ class AdditionalTaskTest: StringSpec({
             exerciseName = "стойка на руках",
             targetReps = Rep(300),
             steps = mutableListOf<AdditionalStep>(),
-            completedRepsList = mutableListOf()
+            completedReps = Reps(mutableListOf<Rep>())
         )
         handstandTask.status() shouldBe AdditionalTaskStatus.PLANNED
     }

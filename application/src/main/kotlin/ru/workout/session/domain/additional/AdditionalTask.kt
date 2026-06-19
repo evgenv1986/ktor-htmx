@@ -17,8 +17,7 @@ class AdditionalTask(
     val exerciseName: String,
     val targetReps: Rep,
     val steps: MutableList<AdditionalStep>,
-    val completedRepsList: MutableList<Rep>,
-//    val completedReps: Reps
+    val completedReps: Reps
 ): DomainEntity() {
     fun remainsCompleted(): Int {
         TODO()
@@ -27,14 +26,11 @@ class AdditionalTask(
 
     fun status(): AdditionalTaskStatus {
         return when{
-            targetReps.isReachedBy(completedRepsList) -> AdditionalTaskStatus.COMPLETED
-            completedRepsIsNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
+            targetReps.isReachedBy(completedReps) -> AdditionalTaskStatus.COMPLETED
+            completedReps.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
             else -> AdditionalTaskStatus.PLANNED
         }
     }
-    private fun completedRepsIsNotEmpty(): Boolean
-        = completedRepsList.sumOf { it.value } > 0
-
     fun completeStep(step: AdditionalStep)
     : Either<AdditionalTaskError, Unit> = either {
         ensure(status() == AdditionalTaskStatus.IN_PROGRESS) {
@@ -49,8 +45,8 @@ class AdditionalTask(
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
 
-    fun completeReps(reps: Rep) {
-        completedRepsList.add(reps)
+    fun completeReps(rep: Rep) {
+        completedReps.add(rep)
             .apply{addEvent(AdditionalTaskEvents
                 .RepsCompletedEvent(taskId) )
             }
