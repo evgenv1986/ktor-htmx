@@ -11,17 +11,19 @@ import ru.workout.session.domain.additional.Reps
 
 fun taskWithFirstStepCompleted(
     actualTime: Int = 14)
-        : AdditionalTask {
-    val taskHandstand = taskHandstand(
-        status = AdditionalTaskStatus.IN_PROGRESS,
-        targetTime = actualTime * 2)
-    taskHandstand.completeStep(
-        AdditionalStep(
-            stepId = "step1",
-            actualReps = actualTime,
-        )
-    )
-    return taskHandstand
+        : AdditionalTask
+{
+//    val taskHandstand = taskHandstand(
+//        status = AdditionalTaskStatus.IN_PROGRESS,
+//        targetTime = actualTime * 2)
+//    taskHandstand.completeStep(
+//        AdditionalStep(
+//            stepId = "step1",
+//            actualReps = actualTime,
+//        )
+//    )
+//    return taskHandstand
+    TODO()
 }
 
 fun taskHandstand(
@@ -34,7 +36,6 @@ fun taskHandstand(
     taskId = taskId,
     exerciseName = exerciseName,
     targetReps = Rep(targetTime),
-    steps = steps,
     completedReps = Reps(mutableListOf<Rep>())
 )
 
@@ -61,6 +62,5 @@ fun taskInProgress (
     taskId = taskId,
     exerciseName = exerciseName,
     targetReps = Rep(targetReps),
-    steps = mutableListOf<AdditionalStep>(),
     completedReps = Reps(mutableListOf<Rep>())
 )

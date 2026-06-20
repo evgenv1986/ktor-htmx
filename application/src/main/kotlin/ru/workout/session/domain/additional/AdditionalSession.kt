@@ -19,30 +19,31 @@ open class AdditionalSession(
         task: AdditionalTask
     ): Either<AdditionalSessionStepCompletionError, Unit> = either {
 //        val step = findStep(stepId).bind()
-        task.completeStep(step)
-            .mapLeft {
-                when(it) {
-                    is AdditionalTaskError.TaskNotInProgress ->
-                        AdditionalSessionStepCompletionError.StepNotFound
-                }
-            }.bind()
-            .apply{
-                addEvent(StepEvents.StepCompletedEvent(
-                    step.actualReps,
-                    step.stepId,
-                    StepStatus.COMPLETED
-                ))
-            }
-        if (task.status() == AdditionalTaskStatus.COMPLETED){
-            status = SessionStatus.COMPLETED
-        }
+//        task.completeStep(step)
+//            .mapLeft {
+//                when(it) {
+//                    is AdditionalTaskError.TaskNotInProgress ->
+//                        AdditionalSessionStepCompletionError.StepNotFound
+//                }
+//            }.bind()
+//            .apply{
+//                addEvent(StepEvents.StepCompletedEvent(
+//                    step.actualReps,
+//                    step.stepId,
+//                    StepStatus.COMPLETED
+//                ))
+//            }
+//        if (task.status() == AdditionalTaskStatus.COMPLETED){
+//            status = SessionStatus.COMPLETED
+//        }
     }
     fun findStep(stepId: String)
-    :Either<AdditionalSessionStepCompletionError, AdditionalStep>{
-        return tasks.flatMap { it.steps }
-            .find { it.stepId == stepId }
-            ?.right()
-            ?: AdditionalSessionStepCompletionError.StepNotFound.left()
+    :Either<AdditionalSessionStepCompletionError, AdditionalStep> = either {
+        TODO()
+//        return tasks.flatMap { it.steps }
+//            .find { it.stepId == stepId }
+//            ?.right()
+//            ?: AdditionalSessionStepCompletionError.StepNotFound.left()
     }
     override fun popEvents(): List<DomainEvent> {
         val res = events

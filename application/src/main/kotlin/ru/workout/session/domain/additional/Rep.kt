@@ -26,4 +26,5 @@ open class Reps(val repList: MutableList<Rep>){
         repList.add(rep)
     }
     fun isNotEmpty(): Boolean = totalReps() > 0
+    fun lastActualRep(): Rep = repList.last()
 }
