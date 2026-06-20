@@ -1,5 +1,8 @@
 package ru.workout.session.domain.additional
 
+import arrow.core.Either
+import arrow.core.raise.either
+import arrow.core.raise.ensure
 import ru.workout.common.event.DomainEvent
 import ru.workout.session.domain.DomainEntity
 import kotlin.math.floor
@@ -10,10 +13,10 @@ open class AdditionalStep(
 )
 
 class AdditionalTask(
-    val taskId: String,
-    val exerciseName: String,
-    val repsTarget: Rep,
-    val repsCompleted: Reps
+    private val taskId: String,
+    private val exerciseName: String,
+    private val repsTarget: Rep,
+    private val repsCompleted: Reps
 ): DomainEntity() {
        fun status(): AdditionalTaskStatus {
         return when{
@@ -29,7 +32,11 @@ class AdditionalTask(
         repsCompleted.lastActualRep().intValue()
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
-    fun completeReps(rep: Rep) {
+    fun completeReps(rep: Rep)
+    : Either<AdditionalTaskError, Unit> = either {
+        ensure(status() != AdditionalTaskStatus.COMPLETED){
+            AdditionalTaskError.CompleteRepsOfTaskCompleted
+        }
         repsCompleted.add(rep)
             .apply{ addEvent(
                 AdditionalTaskEvents
@@ -38,6 +45,9 @@ class AdditionalTask(
     }
     fun repsRemaining(): Rep {
         return Difference(repsTarget, repsCompleted).calc()
+    }
+    fun repsCompleted(): Int{
+        return repsCompleted.totalReps()
     }
 }
 
@@ -50,7 +60,7 @@ class Difference(
     }
 }
 sealed interface AdditionalTaskError {
-    object NotInProgress: AdditionalTaskError
+    object CompleteRepsOfTaskCompleted: AdditionalTaskError
 }
 enum class AdditionalTaskStatus {
     PLANNED,

@@ -1,5 +1,6 @@
 package ru.workout.session.usecase
 
+import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -44,8 +45,10 @@ class AdditionalTaskTest: StringSpec({
         val task = taskHandstand(targetReps = 30)
         task.completeReps(Rep(30))
         val completionResult = task.completeReps(Rep(10))
-//        completionResult.shouldBeLeft()
-//        completionResult.shouldBeInstanceOf<AdditionalTaskError.NotInProgress>
+        val errorType = completionResult.shouldBeLeft()
+        errorType.shouldBeInstanceOf<
+                AdditionalTaskError.CompleteRepsOfTaskCompleted>()
+        task.repsCompleted() shouldBe (30)
     }
     "can planned additional task"{
         val handstandTask = AdditionalTask(
