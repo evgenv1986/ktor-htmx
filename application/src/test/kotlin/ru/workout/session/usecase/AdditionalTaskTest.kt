@@ -50,6 +50,14 @@ class AdditionalTaskTest: StringSpec({
                 AdditionalTaskError.CompleteRepsOfTaskCompleted>()
         task.repsCompleted() shouldBe (30)
     }
+    "can cancel task in progress state or in planned state"{
+        val task = taskHandstand(targetReps = 30)
+        task.status() shouldBe AdditionalTaskStatus.PLANNED
+        task.cancel()
+        task.status() shouldBe AdditionalTaskStatus.CANCELLED
+        task.popEvents().last()
+            .shouldBeInstanceOf<AdditionalTaskEvents.CanceledEvent>()
+    }
     "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",

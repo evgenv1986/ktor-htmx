@@ -49,6 +49,10 @@ class AdditionalTask(
     fun repsCompleted(): Int{
         return repsCompleted.totalReps()
     }
+
+    fun cancel() {
+        TODO("Not yet implemented")
+    }
 }
 
 class Difference(
