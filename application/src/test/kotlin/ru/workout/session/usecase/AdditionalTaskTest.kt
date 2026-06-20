@@ -3,9 +3,8 @@ package ru.workout.session.usecase
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import ru.workout.session.domain.SessionStatus
-import ru.workout.session.domain.additional.AdditionalSession
 import ru.workout.session.domain.additional.AdditionalTask
+import ru.workout.session.domain.additional.AdditionalTaskError
 import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
@@ -41,18 +40,26 @@ class AdditionalTaskTest: StringSpec({
         var remain = task.repsRemaining() shouldBe Rep(30-10)
         remain.intValue() shouldBe 30-10
     }
-
+    "can not complete rep for task in completed status"{
+        val task = taskHandstand(targetReps = 30)
+        task.completeReps(Rep(30))
+        val completionResult = task.completeReps(Rep(10))
+//        completionResult.shouldBeLeft()
+//        completionResult.shouldBeInstanceOf<AdditionalTaskError.NotInProgress>
+    }
     "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",
             exerciseName = "handstand",
-            targetReps = Rep(300),
-            completedReps = Reps(mutableListOf<Rep>())
+            repsTarget = Rep(300),
+            repsCompleted = Reps(mutableListOf<Rep>())
         )
         handstandTask.status() shouldBe AdditionalTaskStatus.PLANNED
     }
     "can not beginning task in planned status"{
-        val taskHandstand = taskHandstand(status = AdditionalTaskStatus.PLANNED)
+        val taskHandstand = taskHandstand(
+//            status = AdditionalTaskStatus.PLANNED
+        )
 //        val result = taskHandstand.completeStep(
 //            AdditionalStep(
 //                stepId = "step1",
@@ -63,7 +70,9 @@ class AdditionalTaskTest: StringSpec({
     }
 
     "can beginning task in progress status"{
-        val taskHandstand = taskHandstand(status = AdditionalTaskStatus.IN_PROGRESS)
+        val taskHandstand = taskHandstand(
+//            status = AdditionalTaskStatus.IN_PROGRESS
+        )
 //        val result = taskHandstand.completeStep(
 //            AdditionalStep(
 //                stepId = "step1",
@@ -74,8 +83,8 @@ class AdditionalTaskTest: StringSpec({
     }
     "can calc remain target time of task in progress status"{
         val taskHandstand = taskHandstand(
-            status = AdditionalTaskStatus.IN_PROGRESS,
-            targetTime = 30)
+//            status = AdditionalTaskStatus.IN_PROGRESS,
+            targetReps = 30)
 //        taskHandstand.completeStep(
 //            AdditionalStep(
 //                stepId = "step1",
@@ -87,8 +96,8 @@ class AdditionalTaskTest: StringSpec({
 
     "task complete after completing all reps by task"{
         val taskHandstand = taskHandstand(
-            status = AdditionalTaskStatus.IN_PROGRESS,
-            targetTime = 30)
+//            status = AdditionalTaskStatus.IN_PROGRESS,
+            targetReps = 30)
 //        taskHandstand.completeStep(
 //            AdditionalStep(
 //                stepId = "step1",

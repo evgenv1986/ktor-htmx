@@ -12,13 +12,13 @@ open class AdditionalStep(
 class AdditionalTask(
     val taskId: String,
     val exerciseName: String,
-    val targetReps: Rep,
-    val completedReps: Reps
+    val repsTarget: Rep,
+    val repsCompleted: Reps
 ): DomainEntity() {
        fun status(): AdditionalTaskStatus {
         return when{
-            targetReps.isReachedBy(completedReps) -> AdditionalTaskStatus.COMPLETED
-            completedReps.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
+            repsTarget.isReachedBy(repsCompleted) -> AdditionalTaskStatus.COMPLETED
+            repsCompleted.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
             else -> AdditionalTaskStatus.PLANNED
         }
     }
@@ -26,18 +26,18 @@ class AdditionalTask(
         return floor(lastCompletedRepsCount() * percent(5.0)).toInt()
     }
     private fun lastCompletedRepsCount(): Int =
-        completedReps.lastActualRep().intValue()
+        repsCompleted.lastActualRep().intValue()
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
     fun completeReps(rep: Rep) {
-        completedReps.add(rep)
+        repsCompleted.add(rep)
             .apply{ addEvent(
                 AdditionalTaskEvents
                 .RepsCompletedEvent(taskId) )
             }
     }
     fun repsRemaining(): Rep {
-        return Difference(targetReps, completedReps).calc()
+        return Difference(repsTarget, repsCompleted).calc()
     }
 }
 
@@ -50,7 +50,7 @@ class Difference(
     }
 }
 sealed interface AdditionalTaskError {
-    object TaskNotInProgress: AdditionalTaskError
+    object NotInProgress: AdditionalTaskError
 }
 enum class AdditionalTaskStatus {
     PLANNED,

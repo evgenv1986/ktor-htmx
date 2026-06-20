@@ -4,7 +4,6 @@ import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.additional.AdditionalSession
 import ru.workout.session.domain.additional.AdditionalStep
 import ru.workout.session.domain.additional.AdditionalTask
-import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
 
@@ -26,17 +25,15 @@ fun taskWithFirstStepCompleted(
     TODO()
 }
 
-fun taskHandstand(
-    targetTime: Int = 300,
-    exerciseName: String = "стойка на руках",
-    taskId: String = "task-1",
-    steps: MutableList<AdditionalStep> = mutableListOf<AdditionalStep>(),
-    status: AdditionalTaskStatus = AdditionalTaskStatus.PLANNED
-) = AdditionalTask(
+fun taskHandstand (
+    exerciseName: String = "handstand",
+    targetReps: Int = 300,
+    taskId: String = "task1"
+): AdditionalTask = AdditionalTask(
     taskId = taskId,
     exerciseName = exerciseName,
-    targetReps = Rep(targetTime),
-    completedReps = Reps(mutableListOf<Rep>())
+    repsTarget = Rep(targetReps),
+    repsCompleted = Reps(mutableListOf<Rep>())
 )
 
 fun step(
@@ -61,6 +58,6 @@ fun taskInProgress (
 ): AdditionalTask = AdditionalTask(
     taskId = taskId,
     exerciseName = exerciseName,
-    targetReps = Rep(targetReps),
-    completedReps = Reps(mutableListOf<Rep>())
+    repsTarget = Rep(targetReps),
+    repsCompleted = Reps(mutableListOf<Rep>())
 )

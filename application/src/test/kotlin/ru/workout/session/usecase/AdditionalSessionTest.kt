@@ -25,7 +25,9 @@ class AdditionalSessionTest: StringSpec({
             stepId = stepId,
             actualReps = 14,
         )
-        val task = taskHandstand(status = AdditionalTaskStatus.IN_PROGRESS)
+        val task = taskHandstand(
+//            status = AdditionalTaskStatus.IN_PROGRESS
+        )
         session.completeStep(
             step = step,
             task = task
@@ -36,7 +38,9 @@ class AdditionalSessionTest: StringSpec({
     }
     "can not complete step in task status is planned or other (not in progress)"{
         val session = additionalSession(status = SessionStatus.IN_PROGRESS)
-        val task = taskHandstand(status = AdditionalTaskStatus.PLANNED)
+        val task = taskHandstand(
+//            status = AdditionalTaskStatus.PLANNED
+        )
         val step = step()
 
         val result = session.completeStep(step, task)
@@ -46,8 +50,8 @@ class AdditionalSessionTest: StringSpec({
     "session status should be completed after task completed"{
         val session = additionalSession(status = SessionStatus.IN_PROGRESS)
         val task = taskHandstand(
-            status = AdditionalTaskStatus.IN_PROGRESS,
-            targetTime = 30)
+//            status = AdditionalTaskStatus.IN_PROGRESS,
+            targetReps = 30)
         val step = step(actualTime = 30)
 
         session.completeStep(step, task)
