@@ -10,8 +10,42 @@ import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
+import ru.workout.session.domain.additional.TaskProgressStatus
 
 class AdditionalTaskTest: StringSpec({
+    "created task should be in planned state"{
+        val task = taskHandstand()
+        task.status() shouldBe AdditionalTaskStatus.PLANNED
+    }
+    "created task has no completed repeats"{
+        val task = taskHandstand()
+        task.repsCompleted() shouldBe 0
+    }
+    "created task should progress not started"{
+        val task = taskHandstand()
+        task.progress() shouldBe TaskProgressStatus.NOT_STARTED
+    }
+    "completion repetitions increases task progress"{
+        val task = taskHandstand()
+        task.completeReps(Rep(30))
+        task.progress() shouldBe TaskProgressStatus.IN_PROGRESS
+    }
+    "reps completed reaches reps target, progress state should be done"{
+        val task = taskHandstand(targetReps = 300)
+        task.completeReps(Rep(300))
+        task.progress() shouldBe TaskProgressStatus.DONE
+    }
+    "planned task can starting"{
+        val task = taskHandstand()
+        task.begin()
+        task.status() shouldBe AdditionalTaskStatus.IN_PROGRESS
+    }
+
+
+
+
+
+
     "can add completed reps for task in progress state"{
         val taskId = "task1"
         val task: AdditionalTask = taskInProgress(
@@ -50,14 +84,37 @@ class AdditionalTaskTest: StringSpec({
                 AdditionalTaskError.CompleteRepsOfTaskCompleted>()
         task.repsCompleted() shouldBe (30)
     }
+    "can not complete rep for task in cancelled status"{
+        val task = taskHandstand(targetReps = 30)
+        task.completeReps(Rep(30))
+        val completionResult = task.completeReps(Rep(10))
+        val errorType = completionResult.shouldBeLeft()
+        errorType.shouldBeInstanceOf<
+                AdditionalTaskError.CompleteRepsOfCancelledTask>()
+        task.repsCompleted() shouldBe (30)
+    }
     "can cancel task in progress state or in planned state"{
         val task = taskHandstand(targetReps = 30)
         task.status() shouldBe AdditionalTaskStatus.PLANNED
         task.cancel()
         task.status() shouldBe AdditionalTaskStatus.CANCELLED
         task.popEvents().last()
-            .shouldBeInstanceOf<AdditionalTaskEvents.CanceledEvent>()
+            .shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
     }
+    " Automatically complete the task when " +
+        "the completed repetitions reach the target repetitions"{
+
+    }
+
+
+
+
+
+
+
+
+
+
     "can planned additional task"{
         val handstandTask = AdditionalTask(
             taskId = "task-1",

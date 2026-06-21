@@ -18,13 +18,42 @@ class AdditionalTask(
     private val repsTarget: Rep,
     private val repsCompleted: Reps
 ): DomainEntity() {
-       fun status(): AdditionalTaskStatus {
-        return when{
-            repsTarget.isReachedBy(repsCompleted) -> AdditionalTaskStatus.COMPLETED
-            repsCompleted.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
-            else -> AdditionalTaskStatus.PLANNED
+    private var status: AdditionalTaskStatus = AdditionalTaskStatus.PLANNED
+
+    fun status(): AdditionalTaskStatus {
+        return status
+//        return when{
+//            repsTarget.isReachedBy(repsCompleted) -> AdditionalTaskStatus.COMPLETED
+//            repsCompleted.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
+//            else -> AdditionalTaskStatus.PLANNED
+//        }
+    }
+    fun progress(): TaskProgressStatus{
+        return when {
+            repsTarget.isReachedBy(repsCompleted) ->
+                TaskProgressStatus.DONE
+            repsCompleted.isNotEmpty() -> TaskProgressStatus.IN_PROGRESS
+            else -> TaskProgressStatus.NOT_STARTED
         }
     }
+    fun completeReps(rep: Rep)
+            : Either<AdditionalTaskError, Unit> = either {
+        ensure(status() != AdditionalTaskStatus.COMPLETED){
+            AdditionalTaskError.CompleteRepsOfTaskCompleted
+        }
+        repsCompleted.add(rep)
+            .apply{ addEvent(
+                AdditionalTaskEvents
+                    .RepsCompletedEvent(taskId) )
+            }
+//        tryCompleteTask()
+    }
+//    fun tryCompleteTask(){
+//        if (repsTarget.isReachedBy(repsCompleted)){
+//            completeTask()
+//        }
+//        changeStatus(AdditionalTaskStatus.COMPLETED)
+//    }
     fun proposedQuantity(): Int {
         return floor(lastCompletedRepsCount() * percent(5.0)).toInt()
     }
@@ -32,17 +61,7 @@ class AdditionalTask(
         repsCompleted.lastActualRep().intValue()
     private fun percent(percent: Double): Double =
         (1 - percent / 100)
-    fun completeReps(rep: Rep)
-    : Either<AdditionalTaskError, Unit> = either {
-        ensure(status() != AdditionalTaskStatus.COMPLETED){
-            AdditionalTaskError.CompleteRepsOfTaskCompleted
-        }
-        repsCompleted.add(rep)
-            .apply{ addEvent(
-                AdditionalTaskEvents
-                .RepsCompletedEvent(taskId) )
-            }
-    }
+
     fun repsRemaining(): Rep {
         return Difference(repsTarget, repsCompleted).calc()
     }
@@ -51,8 +70,26 @@ class AdditionalTask(
     }
 
     fun cancel() {
-        TODO("Not yet implemented")
+        changeStatus(
+            AdditionalTaskStatus.CANCELLED,
+            AdditionalTaskEvents.TaskCancelledEvent(taskId)
+        )
     }
+
+   private fun changeStatus(
+        newStatus: AdditionalTaskStatus,
+        event: DomainEvent
+   ) {
+        this.status = newStatus
+        addEvent(event)
+   }
+
+   fun begin() {
+        changeStatus(
+            AdditionalTaskStatus.IN_PROGRESS,
+            AdditionalTaskEvents.TaskBeginningEvent(taskId)
+        )
+   }
 }
 
 class Difference(
@@ -64,15 +101,25 @@ class Difference(
     }
 }
 sealed interface AdditionalTaskError {
+    object CompleteRepsOfCancelledTask: AdditionalTaskError
     object CompleteRepsOfTaskCompleted: AdditionalTaskError
 }
 enum class AdditionalTaskStatus {
     PLANNED,
     IN_PROGRESS,
-    COMPLETED
+    COMPLETED,
+    CANCELLED
 }
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
-    class RepsCompletedEvent(taskId: String
-    ) : AdditionalTaskEvents(taskId)
+    class TaskBeginningEvent(taskId: String): AdditionalTaskEvents(taskId)
+    class RepsCompletedEvent(taskId: String): AdditionalTaskEvents(taskId)
+    class TaskCancelledEvent(taskId: String): AdditionalTaskEvents(taskId)
+}
+
+enum class TaskProgressStatus {
+    NOT_STARTED,
+    DONE,
+    IN_PROGRESS,
+
 }
