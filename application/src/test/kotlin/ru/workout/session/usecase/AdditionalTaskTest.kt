@@ -92,7 +92,12 @@ class AdditionalTaskTest: StringSpec({
         task.status() shouldBe AdditionalTaskStatus.COMPLETED
         task.progress() shouldBe TaskProgressStatus.NOT_STARTED
     }
-
+    "can not cancelled completed task"{
+        val task = taskCompleted()
+        val result = task.cancel()
+        val error = result.shouldBeLeft()
+        error.shouldBeInstanceOf<AdditionalTaskError.CanNotCancelledTaskError>()
+    }
 
 
 
