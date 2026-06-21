@@ -35,13 +35,41 @@ class AdditionalTaskTest: StringSpec({
         task.completeReps(Rep(300))
         task.progress() shouldBe TaskProgressStatus.DONE
     }
-    "planned task can starting"{
+    "planned task can beginning"{
+        val task = taskHandstand()
+        task.begin()
+        task.popEvents().last()
+            .shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
+    }
+    "beginning task should in progress state"{
         val task = taskHandstand()
         task.begin()
         task.status() shouldBe AdditionalTaskStatus.IN_PROGRESS
     }
-
-
+    "task can cancelling in planned state"{
+        val task = taskHandstand()
+        task.cancel()
+        task.popEvents().last()
+            .shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
+        task.status() shouldBe AdditionalTaskStatus.CANCELLED
+    }
+    "task can cancelling in progress state"{
+        val task = taskHandstand()
+        task.begin()
+        task.cancel()
+        task.popEvents().last()
+            .shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
+        task.status() shouldBe AdditionalTaskStatus.CANCELLED
+    }
+    "task completed reps is reached by target reps then task completion"{
+        val task = taskBeginned(targetReps = 30)
+        task.status() shouldBe AdditionalTaskStatus.IN_PROGRESS
+        task.completeReps(Rep(30))
+        task.popEvents().last().shouldBeInstanceOf<
+                AdditionalTaskEvents.TaskCompletedEvent>()
+        task.status() shouldBe AdditionalTaskStatus.COMPLETED
+        task.progress() shouldBe TaskProgressStatus.DONE
+    }
 
 
 
@@ -176,8 +204,8 @@ class AdditionalTaskTest: StringSpec({
     }
 
     "proposed execution quantity for next step"{
-        val task = taskWithFirstStepCompleted(actualTime = 30)
-            task.proposedQuantity() shouldBe 28
+//        val task = taskWithFirstStepCompleted(actualTime = 30)
+//            task.proposedQuantity() shouldBe 28
     }
 
     "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{

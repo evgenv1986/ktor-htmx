@@ -46,14 +46,20 @@ class AdditionalTask(
                 AdditionalTaskEvents
                     .RepsCompletedEvent(taskId) )
             }
-//        tryCompleteTask()
+        tryCompleteTask()
     }
-//    fun tryCompleteTask(){
-//        if (repsTarget.isReachedBy(repsCompleted)){
-//            completeTask()
-//        }
-//        changeStatus(AdditionalTaskStatus.COMPLETED)
-//    }
+    fun tryCompleteTask(){
+        if (repsTarget.isReachedBy(repsCompleted)){
+            complete()
+        }
+    }
+    public fun complete() {
+        changeStatus(
+            AdditionalTaskStatus.COMPLETED,
+            AdditionalTaskEvents.TaskCompletedEvent(taskId)
+        )
+    }
+
     fun proposedQuantity(): Int {
         return floor(lastCompletedRepsCount() * percent(5.0)).toInt()
     }
@@ -112,6 +118,7 @@ enum class AdditionalTaskStatus {
 }
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
+    class TaskCompletedEvent(taskId: String) : AdditionalTaskEvents(taskId)
     class TaskBeginningEvent(taskId: String): AdditionalTaskEvents(taskId)
     class RepsCompletedEvent(taskId: String): AdditionalTaskEvents(taskId)
     class TaskCancelledEvent(taskId: String): AdditionalTaskEvents(taskId)
