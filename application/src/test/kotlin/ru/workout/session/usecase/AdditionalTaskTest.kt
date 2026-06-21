@@ -70,7 +70,16 @@ class AdditionalTaskTest: StringSpec({
         task.status() shouldBe AdditionalTaskStatus.COMPLETED
         task.progress() shouldBe TaskProgressStatus.DONE
     }
-
+    "task in progress state " +
+    "and has been completed reps " +
+    "can be completed manually"{
+        val task = taskInProgressWithRepsCompleted()
+        task.complete()
+        val eventCompletion = task.popEvents().last()
+        eventCompletion.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
+        task.status() shouldBe AdditionalTaskStatus.COMPLETED
+        task.progress() shouldBe TaskProgressStatus.IN_PROGRESS
+    }
 
 
 

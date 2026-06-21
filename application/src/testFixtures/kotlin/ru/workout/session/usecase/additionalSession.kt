@@ -57,3 +57,19 @@ fun taskBeginned(
     task.begin()
     return task
 }
+fun taskInProgressWithRepsCompleted(
+    exerciseName: String = "handstand",
+    targetReps: Int = 300,
+    taskId: String = "task1",
+    repsCompleted: Rep = Rep(10)
+): AdditionalTask {
+    val task = AdditionalTask(
+        taskId = taskId,
+        exerciseName = exerciseName,
+        repsTarget = Rep(targetReps),
+        repsCompleted = Reps(mutableListOf<Rep>())
+    )
+    task.begin()
+    task.completeReps(repsCompleted)
+    return task
+}
