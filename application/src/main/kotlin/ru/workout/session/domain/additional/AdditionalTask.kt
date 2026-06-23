@@ -13,10 +13,10 @@ open class AdditionalStep(
 )
 
 class AdditionalTask(
-    private val taskId: String,
-    private val exerciseName: String,
-    private val repsTarget: Rep,
-    private val repsCompleted: Reps
+    internal val taskId: String,
+    internal val exerciseName: String,
+    internal val repsTarget: Rep,
+    internal val repsCompleted: Reps
 ): DomainEntity() {
     private var status: AdditionalTaskStatus = AdditionalTaskStatus.PLANNED
 
@@ -38,15 +38,21 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
             : Either<AdditionalTaskError, Unit> = either {
-        ensure(status() == AdditionalTaskStatus.ACTIVE){
-            AdditionalTaskError.TaskNotInActive
+        ensure(status != AdditionalTaskStatus.CANCELLED){
+            AdditionalTaskError.TaskIsCancelled
+        }
+        ensure (status != AdditionalTaskStatus.COMPLETED)
+        {
+            AdditionalTaskError.TaskIsCompleted
         }
         repsCompleted.add(rep)
             .apply{ addEvent(
                 AdditionalTaskEvents
                     .RepsCompletedEvent(taskId) )
             }
-        tryCompleteTask()
+        TaskStatus2.PlannedStatus()
+            .tryToSetNextStep(this@AdditionalTask, rep)
+//        tryCompleteTask()
     }
     fun tryCompleteTask(){
         if (repsTarget.isReachedBy(repsCompleted)){
@@ -57,6 +63,12 @@ class AdditionalTask(
         changeStatus(
             AdditionalTaskStatus.COMPLETED,
             AdditionalTaskEvents.TaskCompletedEvent(taskId)
+        )
+    }
+    fun activate(){
+        changeStatus(
+            AdditionalTaskStatus.ACTIVE,
+            AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
     }
 
@@ -77,8 +89,11 @@ class AdditionalTask(
 
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
-        ensure(status == AdditionalTaskStatus.ACTIVE){
-            AdditionalTaskError.TaskNotInActive
+        ensure(status != AdditionalTaskStatus.CANCELLED){
+            AdditionalTaskError.TaskAlreadyCancelled
+        }
+        ensure(status != AdditionalTaskStatus.COMPLETED){
+            AdditionalTaskError.TaskIsCompleted
         }
         changeStatus(
             AdditionalTaskStatus.CANCELLED,
@@ -86,19 +101,12 @@ class AdditionalTask(
         )
     }
 
-   private fun changeStatus(
+   internal fun changeStatus(
         newStatus: AdditionalTaskStatus,
         event: DomainEvent
    ) {
         this.status = newStatus
         addEvent(event)
-   }
-
-   fun begin() {
-        changeStatus(
-            AdditionalTaskStatus.ACTIVE,
-            AdditionalTaskEvents.TaskBeginningEvent(taskId)
-        )
    }
 }
 
@@ -111,14 +119,34 @@ class Difference(
     }
 }
 sealed interface AdditionalTaskError {
-    object TaskNotInActive: AdditionalTaskError
     object CompleteRepsOfCancelledTask: AdditionalTaskError
+    object TaskIsCancelled: AdditionalTaskError
+    object TaskIsCompleted: AdditionalTaskError
+    object TaskAlreadyCancelled: AdditionalTaskError
 }
-enum class AdditionalTaskStatus {
-    PLANNED,
-    ACTIVE,
-    COMPLETED,
-    CANCELLED
+enum class AdditionalTaskStatus(
+    private val nextStates: Set<AdditionalTaskStatus> = emptySet()
+) {
+    COMPLETED(),
+    CANCELLED(),
+    ACTIVE(nextStates = setOf(COMPLETED, CANCELLED)),
+    PLANNED(nextStates = setOf(ACTIVE, COMPLETED, CANCELLED));
+    private fun canChangeTo (state: AdditionalTaskStatus) = nextStates.contains(state)
+}
+sealed interface TaskStatus2{
+    fun tryToSetNextStep(task: AdditionalTask, rep: Rep)
+    class PlannedStatus(): TaskStatus2{
+        override fun tryToSetNextStep(task: AdditionalTask, rep: Rep) {
+            if (task.repsTarget.isReachedBy(Reps(mutableListOf(rep)))) {
+                task.changeStatus(
+                    AdditionalTaskStatus.COMPLETED,
+                    ru.workout.session.domain.additional.AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
+                )
+            } else {
+                task.activate()
+            }
+        }
+    }
 }
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {

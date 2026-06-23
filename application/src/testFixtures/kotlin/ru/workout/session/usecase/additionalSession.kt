@@ -54,7 +54,6 @@ fun taskBeginned(
         repsTarget = Rep(targetReps),
         repsCompleted = Reps(mutableListOf<Rep>())
     )
-    task.begin()
     return task
 }
 fun taskInActiveWithRepsCompleted(
@@ -71,7 +70,6 @@ fun taskInActiveWithRepsCompleted(
             Rep(repsCompleted)
         ))
     )
-    task.begin()
     return task
 }
 fun taskCompleted(
@@ -85,7 +83,6 @@ fun taskCompleted(
             repsTarget = Rep(repsTarget),
             repsCompleted = Reps(mutableListOf<Rep>())
         )
-        task.begin()
         task.completeReps(Rep(repsTarget))
         return task
     }

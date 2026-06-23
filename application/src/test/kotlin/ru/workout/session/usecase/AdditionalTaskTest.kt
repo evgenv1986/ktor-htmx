@@ -16,6 +16,9 @@ class AdditionalTaskTest: StringSpec({
     "created task should be in planned state"{
         val task = taskHandstand()
         task.status() shouldBe AdditionalTaskStatus.PLANNED
+        task.completeReps(Rep(30))
+        val beginningEvent = task.popEvents().last()
+        beginningEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
     }
     "created task has no completed repeats"{
         val task = taskHandstand()
@@ -37,13 +40,11 @@ class AdditionalTaskTest: StringSpec({
     }
     "planned task can beginning"{
         val task = taskHandstand()
-        task.begin()
         task.popEvents().last()
             .shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
     }
     "beginning task should in active state"{
         val task = taskHandstand()
-        task.begin()
         task.status() shouldBe AdditionalTaskStatus.ACTIVE
     }
     "task can cancelling in planned state"{
@@ -55,7 +56,6 @@ class AdditionalTaskTest: StringSpec({
     }
     "task can cancelling in active state"{
         val task = taskHandstand()
-        task.begin()
         task.cancel()
         task.popEvents().last()
             .shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
@@ -84,7 +84,7 @@ class AdditionalTaskTest: StringSpec({
             task.progress() shouldBe TaskProgressStatus.IN_PROGRESS
             task.repsRemaining() shouldBe Rep(300 - 10)
         }
-    "task in planned state and has тще been completed reps can be completed manually"{
+    "task in planned state and has not been completed reps can be completed manually"{
         val task = taskInPlanned()
         task.complete()
         val eventCompletion = task.popEvents().last()
@@ -98,7 +98,7 @@ class AdditionalTaskTest: StringSpec({
         val result = task.cancel()
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<
-                AdditionalTaskError.TaskNotInActive>()
+                AdditionalTaskError.TaskIsCompleted>()
     }
     "can not complete reps in cancelled task state"{
         val task = taskHandstand()
@@ -106,18 +106,28 @@ class AdditionalTaskTest: StringSpec({
         val result = task.completeReps(Rep(10))
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<
-                AdditionalTaskError.TaskNotInActive>()
+                AdditionalTaskError.TaskIsCancelled>()
     }
     "can not complete reps in completed task state"{
         val task = taskCompleted()
         val result = task.completeReps(Rep(10))
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<
-                AdditionalTaskError.TaskNotInActive>()
+                AdditionalTaskError.TaskIsCompleted>()
     }
 
     "task in planned state can be cancelled"{}
-    "planned task becomes active after first completed reps"{}
+    "planned task becomes active after first completed reps"{
+        val task = taskInPlanned()
+        task.completeReps(Rep(30))
+        task.status() shouldBe AdditionalTaskStatus.ACTIVE
+
+    }
+    "planned task becomes completed after first completed reps their reaches target reps"{
+        val task = taskInPlanned(targetReps = 30)
+        task.completeReps(Rep(30))
+        task.status() shouldBe AdditionalTaskStatus.COMPLETED
+    }
     "completed reps are accumulated"{}
     "task becomes completed when target reps are reached"{}
     "task in active state can be completed before target reps reached"{}
@@ -163,7 +173,7 @@ class AdditionalTaskTest: StringSpec({
         val completionResult = task.completeReps(Rep(10))
         val errorType = completionResult.shouldBeLeft()
         errorType.shouldBeInstanceOf<
-                AdditionalTaskError.TaskNotInActive>()
+                AdditionalTaskError.TaskIsCompleted>()
         task.repsCompleted() shouldBe (30)
     }
     "can not complete rep for task in cancelled status"{
