@@ -33,7 +33,7 @@ fun additionalSession(
     tasks = tasks,
     status = status
 )
-fun taskInProgress (
+fun taskInPlanned (
     exerciseName: String = "handstand",
     targetReps: Int = 300,
     taskId: String = "task1"
@@ -57,7 +57,7 @@ fun taskBeginned(
     task.begin()
     return task
 }
-fun taskInProgressWithRepsCompleted(
+fun taskInActiveWithRepsCompleted(
     exerciseName: String = "handstand",
     repsTarget: Int = 300,
     taskId: String = "task1",
@@ -74,3 +74,18 @@ fun taskInProgressWithRepsCompleted(
     task.begin()
     return task
 }
+fun taskCompleted(
+    exerciseName: String = "handstand",
+    repsTarget: Int = 300,
+    taskId: String = "task1"
+): AdditionalTask {
+        val task = AdditionalTask(
+            taskId = taskId,
+            exerciseName = exerciseName,
+            repsTarget = Rep(repsTarget),
+            repsCompleted = Reps(mutableListOf<Rep>())
+        )
+        task.begin()
+        task.completeReps(Rep(repsTarget))
+        return task
+    }

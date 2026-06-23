@@ -38,8 +38,8 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
             : Either<AdditionalTaskError, Unit> = either {
-        ensure(status() != AdditionalTaskStatus.COMPLETED){
-            AdditionalTaskError.CompleteRepsOfTaskCompleted
+        ensure(status() == AdditionalTaskStatus.ACTIVE){
+            AdditionalTaskError.TaskNotInActive
         }
         repsCompleted.add(rep)
             .apply{ addEvent(
@@ -75,7 +75,11 @@ class AdditionalTask(
         return repsCompleted.totalReps()
     }
 
-    fun cancel() {
+    fun cancel()
+    :Either<AdditionalTaskError, Unit> = either {
+        ensure(status == AdditionalTaskStatus.ACTIVE){
+            AdditionalTaskError.TaskNotInActive
+        }
         changeStatus(
             AdditionalTaskStatus.CANCELLED,
             AdditionalTaskEvents.TaskCancelledEvent(taskId)
@@ -92,7 +96,7 @@ class AdditionalTask(
 
    fun begin() {
         changeStatus(
-            AdditionalTaskStatus.IN_PROGRESS,
+            AdditionalTaskStatus.ACTIVE,
             AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
    }
@@ -107,12 +111,12 @@ class Difference(
     }
 }
 sealed interface AdditionalTaskError {
+    object TaskNotInActive: AdditionalTaskError
     object CompleteRepsOfCancelledTask: AdditionalTaskError
-    object CompleteRepsOfTaskCompleted: AdditionalTaskError
 }
 enum class AdditionalTaskStatus {
     PLANNED,
-    IN_PROGRESS,
+    ACTIVE,
     COMPLETED,
     CANCELLED
 }
@@ -126,7 +130,6 @@ sealed class AdditionalTaskEvents(val taskId: String
 
 enum class TaskProgressStatus {
     NOT_STARTED,
-    DONE,
     IN_PROGRESS,
-
+    DONE,
 }
