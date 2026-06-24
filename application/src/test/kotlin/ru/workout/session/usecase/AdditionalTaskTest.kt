@@ -2,10 +2,12 @@ package ru.workout.session.usecase
 
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.additional.AdditionalTaskError
 import ru.workout.session.domain.additional.Rep
+import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
 import ru.workout.session.domain.additional.TaskStatus
 
@@ -152,6 +154,13 @@ class AdditionalTaskTest: StringSpec({
         val result = task.completeReps(Rep(10))
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCancelled>()
+    }
+
+    "the amount of completed repetitions reached the target reps"{
+        val repsCompleted = Reps(mutableListOf(Rep(2)))
+        val targetReps = Rep(5)
+        repsCompleted.add(Rep(3))
+        repsCompleted.isReachedBy(targetReps).shouldBeTrue()
     }
 })
 
