@@ -1,15 +1,8 @@
 package ru.workout.session.usecase
 
-import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
-import ru.workout.session.domain.additional.AdditionalTask
-import ru.workout.session.domain.additional.AdditionalTaskError
-import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.Rep
-import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
 import ru.workout.session.domain.additional.TaskStatus
 
@@ -80,6 +73,47 @@ class AdditionalTaskTest: StringSpec({
         task.complete()
         task.status() shouldBe TaskStatus.Completed
         task.progress() shouldBe TaskProgressStatus.NOT_STARTED
+    }
+
+
+
+
+
+    // Создание ACTIVE (через completeReps из PLANNED)
+    "task completed reps is reached by target reps then task completion and progress is done"{
+        val task = taskActive(repsTarget = 30)  // уже ACTIVE
+        task.completeReps(Rep(30))
+        task.status() shouldBe TaskStatus.Completed
+        task.progress() shouldBe TaskProgressStatus.DONE
+    }
+
+// Переход ACTIVE → COMPLETED (автоматически)
+    "in progress task should return remaining reps"{
+        val task = taskInPlanned(targetReps = 30)
+        task.completeReps(Rep(10))  // теперь ACTIVE
+        task.repsRemaining() shouldBe Rep(20)
+    }
+
+// Переход ACTIVE → COMPLETED (вручную)
+    "task in active state and has been completed reps can be completed manually"{
+        val task = taskActive(repsTarget = 300, repsCompleted = 10)
+        task.complete()
+        task.status() shouldBe TaskStatus.Completed
+        task.progress() shouldBe TaskProgressStatus.IN_PROGRESS
+        task.repsRemaining() shouldBe Rep(290)
+    }
+
+// Переход ACTIVE → CANCELLED
+    "task can cancelling in active state"{
+        val task = taskHandstand()
+        task.cancel()  // из PLANNED, но cancel работает из любого состояния
+        task.status() shouldBe TaskStatus.Cancelled
+    }
+
+// Дополнительная проверка для ACTIVE
+    "proposed execution quantity for next step"{
+        val task = taskActive(repsTarget = 30)
+        task.proposedQuantity() shouldBe 9
     }
 })
 
