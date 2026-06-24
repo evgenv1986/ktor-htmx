@@ -43,20 +43,7 @@ fun taskInPlanned (
     repsTarget = Rep(targetReps),
     repsCompleted = Reps(mutableListOf<Rep>())
 )
-fun taskBeginned(
-    exerciseName: String = "handstand",
-    targetReps: Int = 300,
-    taskId: String = "task1"
-): AdditionalTask {
-    val task = AdditionalTask(
-        taskId = taskId,
-        exerciseName = exerciseName,
-        repsTarget = Rep(targetReps),
-        repsCompleted = Reps(mutableListOf<Rep>())
-    )
-    return task
-}
-fun taskInActiveWithRepsCompleted(
+fun taskActive(
     exerciseName: String = "handstand",
     repsTarget: Int = 300,
     taskId: String = "task1",

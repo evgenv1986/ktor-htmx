@@ -17,10 +17,7 @@ import ru.workout.session.domain.additional.TaskStatus
 class AdditionalTaskTest: StringSpec({
     "created task should be in planned state"{
         val task = taskHandstand()
-        task.status() shouldBe AdditionalTaskStatus.PLANNED
-        task.completeReps(Rep(30))
-        val beginningEvent = task.popEvents().last()
-        beginningEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
+        task.status() shouldBe TaskStatus.Planned
     }
     "created task has no completed repeats"{
         val task = taskHandstand()
@@ -40,15 +37,7 @@ class AdditionalTaskTest: StringSpec({
         task.completeReps(Rep(300))
         task.progress() shouldBe TaskProgressStatus.DONE
     }
-    "planned task can beginning"{
-        val task = taskHandstand()
-        task.popEvents().last()
-            .shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
-    }
-    "beginning task should in active state"{
-        val task = taskHandstand()
-        task.status() shouldBe AdditionalTaskStatus.ACTIVE
-    }
+
     "task can cancelling in planned state"{
         val task = taskHandstand()
         task.cancel()
@@ -64,7 +53,7 @@ class AdditionalTaskTest: StringSpec({
         task.status() shouldBe AdditionalTaskStatus.CANCELLED
     }
     "task completed reps is reached by target reps then task completion and progress is done"{
-        val task = taskBeginned(targetReps = 30)
+        val task = taskActive(repsTarget = 30)
         task.status() shouldBe AdditionalTaskStatus.ACTIVE
         task.completeReps(Rep(30))
         task.popEvents().last().shouldBeInstanceOf<
@@ -75,7 +64,7 @@ class AdditionalTaskTest: StringSpec({
     "task in active state " +
         "and has been completed reps " +
         "can be completed manually"{
-            val task = taskInActiveWithRepsCompleted(
+            val task = taskActive(
                 repsTarget = 300,
                 repsCompleted = 10
             )
@@ -102,7 +91,7 @@ class AdditionalTaskTest: StringSpec({
         error.shouldBeInstanceOf<
                 AdditionalTaskError.TaskIsCompleted>()
     }
-    "can not complete reps in cancelled task state"{
+    "cancelled task cannot complete reps"{
         val task = taskHandstand()
         task.cancel()
         val result = task.completeReps(Rep(10))
@@ -123,7 +112,6 @@ class AdditionalTaskTest: StringSpec({
         repsComleted.add(Rep(3))
         repsComleted.isReachedBy(targetReps).shouldBeTrue()
     }
-    "task in planned state can be cancelled"{}
     "planned task becomes active after first completed reps"{
         val task = taskInPlanned()
         task.status() == TaskStatus.Planned
@@ -139,10 +127,7 @@ class AdditionalTaskTest: StringSpec({
     "completed reps are accumulated"{}
     "task becomes completed when target reps are reached"{}
     "task in active state can be completed before target reps reached"{}
-    "task in cancelled state can not complete reps"{}
     "task in completed state can not complete reps"{}
-    "task in completed state can not cancelled"{}
-    "task in activated state can cancelled"{}
     "task progress should be done reps reaches target reps"{}
 
 
@@ -193,105 +178,14 @@ class AdditionalTaskTest: StringSpec({
                 AdditionalTaskError.CompleteRepsOfCancelledTask>()
         task.repsCompleted() shouldBe (30)
     }
-    "can cancel task in progress state or in planned state"{
-        val task = taskHandstand(targetReps = 30)
-        task.status() shouldBe AdditionalTaskStatus.PLANNED
-        task.cancel()
-        task.status() shouldBe AdditionalTaskStatus.CANCELLED
-        task.popEvents().last()
-            .shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
-    }
+
     " Automatically complete the task when " +
         "the completed repetitions reach the target repetitions"{
 
     }
-
-
-
-
-
-
-
-
-
-
-    "can planned additional task"{
-        val handstandTask = AdditionalTask(
-            taskId = "task-1",
-            exerciseName = "handstand",
-            repsTarget = Rep(300),
-            repsCompleted = Reps(mutableListOf<Rep>())
-        )
-        handstandTask.status() shouldBe AdditionalTaskStatus.PLANNED
-    }
-    "can not beginning task in planned status"{
-        val taskHandstand = taskHandstand(
-//            status = AdditionalTaskStatus.PLANNED
-        )
-//        val result = taskHandstand.completeStep(
-//            AdditionalStep(
-//                stepId = "step1",
-//                actualReps = 14,
-//            )
-//        )
-//        result.shouldBeLeft()
-    }
-
-    "can beginning task in progress status"{
-        val taskHandstand = taskHandstand(
-//            status = AdditionalTaskStatus.IN_PROGRESS
-        )
-//        val result = taskHandstand.completeStep(
-//            AdditionalStep(
-//                stepId = "step1",
-//                actualReps = 14,
-//            )
-//        )
-//        result.shouldBeRight()
-    }
-    "can calc remain target time of task in progress status"{
-        val taskHandstand = taskHandstand(
-//            status = AdditionalTaskStatus.IN_PROGRESS,
-            targetReps = 30)
-//        taskHandstand.completeStep(
-//            AdditionalStep(
-//                stepId = "step1",
-//                actualReps = 14,
-//            )
-//        ).shouldBeRight()
-//        taskHandstand.remainsCompleted() shouldBe 30-14
-    }
-
-    "task complete after completing all reps by task"{
-        val taskHandstand = taskHandstand(
-//            status = AdditionalTaskStatus.IN_PROGRESS,
-            targetReps = 30)
-//        taskHandstand.completeStep(
-//            AdditionalStep(
-//                stepId = "step1",
-//                actualReps = 30,
-//            )
-//        )
-//        taskHandstand.status() shouldBe AdditionalTaskStatus.COMPLETED
-    }
-
     "proposed execution quantity for next step"{
-//        val task = taskWithFirstStepCompleted(actualTime = 30)
-//            task.proposedQuantity() shouldBe 28
-    }
-
-    "думаю сессию делать отдельно, в другом классе теста. могу посмотреть количество оставшегося времени выполнения упражнения - через сессию"{
-//        val handStand = taskHandstand(targetTime = 300)
-//        handStand.remainsCompleted() shouldBe 300
-//        handStand.status() shouldBe AdditionalTaskStatus.PLANNED
-
-//        val session = AdditionalSession(
-//            tasks = listOf(taskHandstand()),
-//            status = SessionStatus.IN_PROGRESS
-//        )
-//        session.completeStep(
-//            taskId = handstand
-//        )
+        val task = taskActive()
+            task.proposedQuantity() shouldBe 28
     }
 })
 
