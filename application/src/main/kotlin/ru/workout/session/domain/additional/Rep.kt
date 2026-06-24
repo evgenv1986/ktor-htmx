@@ -27,4 +27,8 @@ open class Reps(val repList: MutableList<Rep>){
     }
     fun isNotEmpty(): Boolean = totalReps() > 0
     fun lastActualRep(): Rep = repList.last()
+    fun isReachedBy(target: Rep): Boolean {
+        return totalReps() >= target.intValue()
+    }
+
 }

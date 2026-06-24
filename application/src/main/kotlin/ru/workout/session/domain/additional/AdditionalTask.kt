@@ -18,15 +18,10 @@ class AdditionalTask(
     internal val repsTarget: Rep,
     internal val repsCompleted: Reps
 ): DomainEntity() {
-    private var status: AdditionalTaskStatus = AdditionalTaskStatus.PLANNED
+    private var status: TaskStatus2 = TaskStatus2.Planned
 
-    fun status(): AdditionalTaskStatus {
+    fun status(): TaskStatus2 {
         return status
-//        return when{
-//            repsTarget.isReachedBy(repsCompleted) -> AdditionalTaskStatus.COMPLETED
-//            repsCompleted.isNotEmpty()  -> AdditionalTaskStatus.IN_PROGRESS
-//            else -> AdditionalTaskStatus.PLANNED
-//        }
     }
     fun progress(): TaskProgressStatus{
         return when {
@@ -38,20 +33,26 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
             : Either<AdditionalTaskError, Unit> = either {
-        ensure(status != AdditionalTaskStatus.CANCELLED){
+        ensure(status != TaskStatus2.Cancelled()){
             AdditionalTaskError.TaskIsCancelled
         }
-        ensure (status != AdditionalTaskStatus.COMPLETED)
+        ensure (status != TaskStatus2.Completed())
         {
             AdditionalTaskError.TaskIsCompleted
         }
+
         repsCompleted.add(rep)
             .apply{ addEvent(
                 AdditionalTaskEvents
                     .RepsCompletedEvent(taskId) )
             }
-        TaskStatus2.PlannedStatus()
-            .tryToSetNextStep(this@AdditionalTask, rep)
+
+        val statusAndEvent = status.tryToSetNextStep(this@AdditionalTask, rep)
+
+        changeStatus(
+            statusAndEvent.status,
+            statusAndEvent.event
+        )
 //        tryCompleteTask()
     }
     fun tryCompleteTask(){
@@ -61,13 +62,13 @@ class AdditionalTask(
     }
     public fun complete() {
         changeStatus(
-            AdditionalTaskStatus.COMPLETED,
+            TaskStatus2.Completed(),
             AdditionalTaskEvents.TaskCompletedEvent(taskId)
         )
     }
     fun activate(){
         changeStatus(
-            AdditionalTaskStatus.ACTIVE,
+            TaskStatus2.Active(),
             AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
     }
@@ -89,20 +90,20 @@ class AdditionalTask(
 
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
-        ensure(status != AdditionalTaskStatus.CANCELLED){
+        ensure(status != TaskStatus2.Cancelled()){
             AdditionalTaskError.TaskAlreadyCancelled
         }
-        ensure(status != AdditionalTaskStatus.COMPLETED){
+        ensure(status != TaskStatus2.Completed()){
             AdditionalTaskError.TaskIsCompleted
         }
         changeStatus(
-            AdditionalTaskStatus.CANCELLED,
+            TaskStatus2.Cancelled(),
             AdditionalTaskEvents.TaskCancelledEvent(taskId)
         )
     }
 
    internal fun changeStatus(
-        newStatus: AdditionalTaskStatus,
+        newStatus: TaskStatus2,
         event: DomainEvent
    ) {
         this.status = newStatus
@@ -134,20 +135,79 @@ enum class AdditionalTaskStatus(
     private fun canChangeTo (state: AdditionalTaskStatus) = nextStates.contains(state)
 }
 sealed interface TaskStatus2{
-    fun tryToSetNextStep(task: AdditionalTask, rep: Rep)
-    class PlannedStatus(): TaskStatus2{
-        override fun tryToSetNextStep(task: AdditionalTask, rep: Rep) {
-            if (task.repsTarget.isReachedBy(Reps(mutableListOf(rep)))) {
-                task.changeStatus(
-                    AdditionalTaskStatus.COMPLETED,
-                    ru.workout.session.domain.additional.AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
+
+    fun tryToSetNextStep(task: AdditionalTask, rep: Rep): StatusTransition
+    object Planned: TaskStatus2{
+        override fun tryToSetNextStep(task: AdditionalTask, rep: Rep
+        ): StatusTransition {
+            if (task.repsCompleted.isReachedBy(task.repsTarget)) {
+                return StatusTransition(
+                    TaskStatus2.Completed(),
+                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
                 )
             } else {
-                task.activate()
+                return StatusTransition(
+                TaskStatus2.Active(),
+                    AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
+                )
             }
         }
     }
+    class Cancelled: TaskStatus2 {
+        override fun tryToSetNextStep(
+            task: AdditionalTask,
+            rep: Rep
+        ): StatusTransition {
+            TODO("Not yet implemented")
+        }
+
+    }
+    class Completed: TaskStatus2{
+        override fun tryToSetNextStep(
+            task: AdditionalTask,
+            rep: Rep
+        ): StatusTransition {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+    class Active: TaskStatus2 {
+        override fun tryToSetNextStep(
+            task: AdditionalTask,
+            rep: Rep
+        ): StatusTransition {
+            TODO("Not yet implemented")
+        }
+
+    }
 }
+
+data class StatusTransition(
+//    val fromStatus: TaskStatus2,
+//    val toStatus: TaskStatus2,
+    val status: TaskStatus2,
+    val event: AdditionalTaskEvents,
+//    val error: AdditionalTaskError
+){
+//    val active: StatusTransition = StatusTransition(
+//        TaskStatus2.Planned(),
+//        TaskStatus2.Active(),
+//        Specific(repsCompleted < repsTarget)
+//        )
+//    val toCompleted: StatusTransition = StatusTransition(
+//        TaskStatus2.Planned(),
+//        TaskStatus2.Completed(),
+//        Specific(repsCompleted >= repsTarget)
+//    )
+//    fun next(currentStatus: TaskStatus2): StatusTransition{
+//        if (currentStatus == active){
+//
+//        }
+//        if (currentStatus == active)
+//    }
+}
+
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
     class TaskCompletedEvent(taskId: String) : AdditionalTaskEvents(taskId)

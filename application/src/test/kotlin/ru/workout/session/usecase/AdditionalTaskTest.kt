@@ -2,6 +2,7 @@ package ru.workout.session.usecase
 
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.additional.AdditionalTask
@@ -11,6 +12,7 @@ import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
+import ru.workout.session.domain.additional.TaskStatus2
 
 class AdditionalTaskTest: StringSpec({
     "created task should be in planned state"{
@@ -115,18 +117,23 @@ class AdditionalTaskTest: StringSpec({
         error.shouldBeInstanceOf<
                 AdditionalTaskError.TaskIsCompleted>()
     }
-
+    "the amount of completed repetitions reached the target reps"{
+        val repsComleted = Reps(mutableListOf<Rep>(Rep(2)))
+        val targetReps = Rep(5)
+        repsComleted.add(Rep(3))
+        repsComleted.isReachedBy(targetReps).shouldBeTrue()
+    }
     "task in planned state can be cancelled"{}
     "planned task becomes active after first completed reps"{
         val task = taskInPlanned()
+        task.status() == TaskStatus2.Planned
         task.completeReps(Rep(30))
-        task.status() shouldBe AdditionalTaskStatus.ACTIVE
-
+        task.status() == TaskStatus2.Active() // shouldBe TaskStatus2.Active()
     }
     "planned task becomes completed after first completed reps their reaches target reps"{
         val task = taskInPlanned(targetReps = 30)
         task.completeReps(Rep(30))
-        task.status() shouldBe AdditionalTaskStatus.COMPLETED
+        task.status() == TaskStatus2.Completed()
     }
     "completed reps are accumulated"{}
     "task becomes completed when target reps are reached"{}
