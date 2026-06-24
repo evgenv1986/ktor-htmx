@@ -6,6 +6,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.additional.AdditionalTaskError
+import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
@@ -36,6 +37,8 @@ class AdditionalTaskTest: StringSpec({
         val task = taskInPlanned()
         task.completeReps(Rep(30))
         task.status() shouldBe TaskStatus.Active
+        val beginningEvent = task.popEvents().last()
+        beginningEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
     }
     "the status of a partially completed task should be in progress"{
         val task = taskInPlanned()
@@ -113,9 +116,11 @@ class AdditionalTaskTest: StringSpec({
         val task = taskHandstand()
         task.cancel()  // из PLANNED, но cancel работает из любого состояния
         task.status() shouldBe TaskStatus.Cancelled
+        val cancelledEvent = task.popEvents().last()
+        cancelledEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCancelledEvent>()
     }
 
-// Дополнительная проверка для ACTIVE
+// Прогноз следующего варианта количества повторений, проверка для ACTIVE
     "proposed execution quantity for next step"{
         val task = taskActive(repsTarget = 30)
         task.proposedQuantity() shouldBe 9
@@ -161,6 +166,21 @@ class AdditionalTaskTest: StringSpec({
         val targetReps = Rep(5)
         repsCompleted.add(Rep(3))
         repsCompleted.isReachedBy(targetReps).shouldBeTrue()
+    }
+
+    "transition from planned to active to completed"{
+        val task = taskInPlanned(targetReps = 50)
+        task.status() shouldBe TaskStatus.Planned
+
+        task.completeReps(Rep(30))
+        val events = task.popEvents()
+        val repsCompletedEvent = events.first()
+        repsCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
+        val taskBeginningEvent = events.last()
+
+        task.completeReps(Rep(20))
+        val taskCompletedEvent = task.popEvents().last()
+        taskCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
     }
 })
 

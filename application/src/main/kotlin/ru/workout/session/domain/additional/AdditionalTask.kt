@@ -106,8 +106,9 @@ class AdditionalTask(
        newStatus: TaskStatus,
        event: DomainEvent
    ) {
-        this.status = newStatus
-        addEvent(event)
+       if (newStatus == status) return
+       this.status = newStatus
+       addEvent(event)
    }
 }
 
@@ -177,7 +178,16 @@ sealed interface TaskStatus{
             task: AdditionalTask,
             rep: Rep
         ): StatusTransition {
-            TODO("Not yet implemented")
+            if (task.repsCompleted.isReachedBy(task.repsTarget)) {
+                return StatusTransition(
+                    TaskStatus.Completed,
+                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
+                )
+            }
+            return StatusTransition(
+                TaskStatus.Active,
+                AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
+            )
         }
 
     }
