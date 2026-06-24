@@ -33,10 +33,10 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
             : Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus.Cancelled()){
+        ensure(status != TaskStatus.Cancelled){
             AdditionalTaskError.TaskIsCancelled
         }
-        ensure (status != TaskStatus.Completed())
+        ensure (status != TaskStatus.Completed)
         {
             AdditionalTaskError.TaskIsCompleted
         }
@@ -62,13 +62,13 @@ class AdditionalTask(
     }
     public fun complete() {
         changeStatus(
-            TaskStatus.Completed(),
+            TaskStatus.Completed,
             AdditionalTaskEvents.TaskCompletedEvent(taskId)
         )
     }
     fun activate(){
         changeStatus(
-            TaskStatus.Active(),
+            TaskStatus.Active,
             AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
     }
@@ -90,14 +90,14 @@ class AdditionalTask(
 
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus.Cancelled()){
+        ensure(status != TaskStatus.Cancelled){
             AdditionalTaskError.TaskAlreadyCancelled
         }
-        ensure(status != TaskStatus.Completed()){
+        ensure(status != TaskStatus.Completed){
             AdditionalTaskError.TaskIsCompleted
         }
         changeStatus(
-            TaskStatus.Cancelled(),
+            TaskStatus.Cancelled,
             AdditionalTaskEvents.TaskCancelledEvent(taskId)
         )
     }
@@ -125,7 +125,7 @@ sealed interface AdditionalTaskError {
     object TaskIsCompleted: AdditionalTaskError
     object TaskAlreadyCancelled: AdditionalTaskError
 }
-enum class AdditionalTaskStatus(
+private enum class AdditionalTaskStatus(
     private val nextStates: Set<AdditionalTaskStatus> = emptySet()
 ) {
     COMPLETED(),
@@ -142,18 +142,18 @@ sealed interface TaskStatus{
         ): StatusTransition {
             if (task.repsCompleted.isReachedBy(task.repsTarget)) {
                 return StatusTransition(
-                    TaskStatus.Completed(),
+                    TaskStatus.Completed,
                     AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
                 )
             } else {
                 return StatusTransition(
-                TaskStatus.Active(),
+                TaskStatus.Active,
                     AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
                 )
             }
         }
     }
-    class Cancelled: TaskStatus {
+    object Cancelled: TaskStatus {
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep
@@ -162,7 +162,7 @@ sealed interface TaskStatus{
         }
 
     }
-    class Completed: TaskStatus{
+    object Completed: TaskStatus{
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep
@@ -172,7 +172,7 @@ sealed interface TaskStatus{
 
     }
 
-    class Active: TaskStatus {
+    object Active: TaskStatus {
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep

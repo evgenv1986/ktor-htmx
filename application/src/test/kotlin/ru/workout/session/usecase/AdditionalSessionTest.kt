@@ -9,7 +9,6 @@ import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.StepEvents
 import ru.workout.session.domain.additional.AdditionalSession
 import ru.workout.session.domain.additional.AdditionalStep
-import ru.workout.session.domain.additional.AdditionalTaskStatus
 
 class AdditionalSessionTest: StringSpec({
 //    "думаю сессию делать отдельно, в другом классе теста.
