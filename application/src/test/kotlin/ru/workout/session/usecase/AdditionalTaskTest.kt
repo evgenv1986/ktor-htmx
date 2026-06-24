@@ -1,7 +1,10 @@
 package ru.workout.session.usecase
 
+import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
+import ru.workout.session.domain.additional.AdditionalTaskError
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.TaskProgressStatus
 import ru.workout.session.domain.additional.TaskStatus
@@ -114,6 +117,41 @@ class AdditionalTaskTest: StringSpec({
     "proposed execution quantity for next step"{
         val task = taskActive(repsTarget = 30)
         task.proposedQuantity() shouldBe 9
+    }
+
+
+
+
+    // Запрет операций на COMPLETED
+    "can not cancelled completed task"{
+        val task = taskCompleted()
+        val result = task.cancel()
+        val error = result.shouldBeLeft()
+        error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
+    }
+    "can not complete reps in completed task state"{
+        val task = taskCompleted()
+        val result = task.completeReps(Rep(10))
+        val error = result.shouldBeLeft()
+        error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
+    }
+    "can not complete rep for task in completed status"{
+        val task = taskHandstand(targetReps = 30)
+        task.completeReps(Rep(30))  // стала COMPLETED
+        task.completeReps(Rep(10)).shouldBeLeft()
+        task.repsCompleted() shouldBe 30
+    }
+
+
+
+
+    // Запрет операций на CANCELLED
+    "cancelled task cannot complete reps"{
+        val task = taskHandstand()
+        task.cancel()
+        val result = task.completeReps(Rep(10))
+        val error = result.shouldBeLeft()
+        error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCancelled>()
     }
 })
 
