@@ -12,7 +12,7 @@ import ru.workout.session.domain.additional.AdditionalTaskStatus
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
-import ru.workout.session.domain.additional.TaskStatus2
+import ru.workout.session.domain.additional.TaskStatus
 
 class AdditionalTaskTest: StringSpec({
     "created task should be in planned state"{
@@ -126,15 +126,16 @@ class AdditionalTaskTest: StringSpec({
     "task in planned state can be cancelled"{}
     "planned task becomes active after first completed reps"{
         val task = taskInPlanned()
-        task.status() == TaskStatus2.Planned
+        task.status() == TaskStatus.Planned
         task.completeReps(Rep(30))
-        task.status() == TaskStatus2.Active() // shouldBe TaskStatus2.Active()
+        task.status() == TaskStatus.Active() // shouldBe TaskStatus2.Active()
     }
     "planned task becomes completed after first completed reps their reaches target reps"{
         val task = taskInPlanned(targetReps = 30)
         task.completeReps(Rep(30))
-        task.status() == TaskStatus2.Completed()
+        task.status() == TaskStatus.Completed()
     }
+
     "completed reps are accumulated"{}
     "task becomes completed when target reps are reached"{}
     "task in active state can be completed before target reps reached"{}

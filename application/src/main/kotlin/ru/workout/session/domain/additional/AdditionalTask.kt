@@ -18,9 +18,9 @@ class AdditionalTask(
     internal val repsTarget: Rep,
     internal val repsCompleted: Reps
 ): DomainEntity() {
-    private var status: TaskStatus2 = TaskStatus2.Planned
+    private var status: TaskStatus = TaskStatus.Planned
 
-    fun status(): TaskStatus2 {
+    fun status(): TaskStatus {
         return status
     }
     fun progress(): TaskProgressStatus{
@@ -33,10 +33,10 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
             : Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus2.Cancelled()){
+        ensure(status != TaskStatus.Cancelled()){
             AdditionalTaskError.TaskIsCancelled
         }
-        ensure (status != TaskStatus2.Completed())
+        ensure (status != TaskStatus.Completed())
         {
             AdditionalTaskError.TaskIsCompleted
         }
@@ -62,13 +62,13 @@ class AdditionalTask(
     }
     public fun complete() {
         changeStatus(
-            TaskStatus2.Completed(),
+            TaskStatus.Completed(),
             AdditionalTaskEvents.TaskCompletedEvent(taskId)
         )
     }
     fun activate(){
         changeStatus(
-            TaskStatus2.Active(),
+            TaskStatus.Active(),
             AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
     }
@@ -90,21 +90,21 @@ class AdditionalTask(
 
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus2.Cancelled()){
+        ensure(status != TaskStatus.Cancelled()){
             AdditionalTaskError.TaskAlreadyCancelled
         }
-        ensure(status != TaskStatus2.Completed()){
+        ensure(status != TaskStatus.Completed()){
             AdditionalTaskError.TaskIsCompleted
         }
         changeStatus(
-            TaskStatus2.Cancelled(),
+            TaskStatus.Cancelled(),
             AdditionalTaskEvents.TaskCancelledEvent(taskId)
         )
     }
 
    internal fun changeStatus(
-        newStatus: TaskStatus2,
-        event: DomainEvent
+       newStatus: TaskStatus,
+       event: DomainEvent
    ) {
         this.status = newStatus
         addEvent(event)
@@ -134,26 +134,26 @@ enum class AdditionalTaskStatus(
     PLANNED(nextStates = setOf(ACTIVE, COMPLETED, CANCELLED));
     private fun canChangeTo (state: AdditionalTaskStatus) = nextStates.contains(state)
 }
-sealed interface TaskStatus2{
+sealed interface TaskStatus{
 
     fun tryToSetNextStep(task: AdditionalTask, rep: Rep): StatusTransition
-    object Planned: TaskStatus2{
+    object Planned: TaskStatus{
         override fun tryToSetNextStep(task: AdditionalTask, rep: Rep
         ): StatusTransition {
             if (task.repsCompleted.isReachedBy(task.repsTarget)) {
                 return StatusTransition(
-                    TaskStatus2.Completed(),
+                    TaskStatus.Completed(),
                     AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
                 )
             } else {
                 return StatusTransition(
-                TaskStatus2.Active(),
+                TaskStatus.Active(),
                     AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
                 )
             }
         }
     }
-    class Cancelled: TaskStatus2 {
+    class Cancelled: TaskStatus {
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep
@@ -162,7 +162,7 @@ sealed interface TaskStatus2{
         }
 
     }
-    class Completed: TaskStatus2{
+    class Completed: TaskStatus{
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep
@@ -172,7 +172,7 @@ sealed interface TaskStatus2{
 
     }
 
-    class Active: TaskStatus2 {
+    class Active: TaskStatus {
         override fun tryToSetNextStep(
             task: AdditionalTask,
             rep: Rep
@@ -186,7 +186,7 @@ sealed interface TaskStatus2{
 data class StatusTransition(
 //    val fromStatus: TaskStatus2,
 //    val toStatus: TaskStatus2,
-    val status: TaskStatus2,
+    val status: TaskStatus,
     val event: AdditionalTaskEvents,
 //    val error: AdditionalTaskError
 ){
