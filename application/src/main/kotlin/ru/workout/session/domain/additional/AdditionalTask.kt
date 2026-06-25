@@ -102,14 +102,16 @@ class AdditionalTask(
         )
     }
 
-   internal fun changeStatus(
+    internal fun changeStatus(
        newStatus: TaskStatus,
        event: DomainEvent
-   ) {
+    ) {
        if (newStatus == status) return
        this.status = newStatus
        addEvent(event)
-   }
+    }
+    fun targetReached(): Boolean =
+        repsCompleted.isReachedBy(repsTarget)
 }
 
 class Difference(
@@ -141,7 +143,7 @@ sealed interface TaskStatus{
     object Planned: TaskStatus{
         override fun tryToSetNextStep(task: AdditionalTask, rep: Rep
         ): StatusTransition {
-            if (task.repsCompleted.isReachedBy(task.repsTarget)) {
+            if (task.targetReached()){
                 return StatusTransition(
                     TaskStatus.Completed,
                     AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
@@ -153,6 +155,24 @@ sealed interface TaskStatus{
                 )
             }
         }
+    }
+    object Active: TaskStatus {
+        override fun tryToSetNextStep(
+            task: AdditionalTask,
+            rep: Rep
+        ): StatusTransition {
+            if (task.targetReached()) {
+                return StatusTransition(
+                    TaskStatus.Completed,
+                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
+                )
+            }
+            return StatusTransition(
+                TaskStatus.Active,
+                AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
+            )
+        }
+
     }
     object Cancelled: TaskStatus {
         override fun tryToSetNextStep(
@@ -173,24 +193,7 @@ sealed interface TaskStatus{
 
     }
 
-    object Active: TaskStatus {
-        override fun tryToSetNextStep(
-            task: AdditionalTask,
-            rep: Rep
-        ): StatusTransition {
-            if (task.repsCompleted.isReachedBy(task.repsTarget)) {
-                return StatusTransition(
-                    TaskStatus.Completed,
-                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
-                )
-            }
-            return StatusTransition(
-                TaskStatus.Active,
-                AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
-            )
-        }
 
-    }
 }
 
 data class StatusTransition(
