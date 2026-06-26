@@ -46,7 +46,7 @@ class AdditionalTask(
                 AdditionalTaskEvents
                     .RepsCompletedEvent(taskId) )
             }
-            status.setupNextState(this@AdditionalTask, rep)
+        status.setupNextState(this@AdditionalTask, rep)
     }
     public fun complete() {
         changeStatus(

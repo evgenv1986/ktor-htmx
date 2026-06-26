@@ -1,14 +1,23 @@
 package ru.workout.session.usecase
 
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import ru.workout.session.domain.SessionStatus
 import ru.workout.session.domain.SessionStep
 import ru.workout.session.domain.StepEvents
 import ru.workout.session.domain.StepStatus
 import ru.workout.session.domain.WorkoutSession
+import ru.workout.session.domain.additional.Rep
+import ru.workout.session.domain.additional.Reps
 
 class CompleteStepTest: StringSpec({
+    "the amount of completed repetitions reached the target reps"{
+        val repsCompleted = Reps(mutableListOf(Rep(2)))
+        val targetReps = Rep(5)
+        repsCompleted.add(Rep(3))
+        repsCompleted.isReachedBy(targetReps).shouldBeTrue()
+    }
     //35. test_step_created_as_planned
     //    → Рождается Step(exerciseName, targetReps, status=PLANNED)
     //    → Шаг рождается запланированным

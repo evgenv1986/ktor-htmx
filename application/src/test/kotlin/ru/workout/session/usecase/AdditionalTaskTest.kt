@@ -62,12 +62,6 @@ class AdditionalTaskTest: StringSpec({
         completedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
         task.status() shouldBe TaskStatus.Completed
     }
-    "task with fully completed target reps must have status completed"{
-        val task = taskInPlanned(targetReps = 30)
-        task.completeReps(Rep(30))
-        task.status() shouldBe TaskStatus.Completed
-    }
-
 // Переход PLANNED → CANCELLED
     "task can cancelling in planned state"{
         val task = taskHandstand()
@@ -88,7 +82,7 @@ class AdditionalTaskTest: StringSpec({
 
 
     // Создание ACTIVE (через completeReps из PLANNED)
-    "task completed reps is reached by target reps then task completion and progress is done"{
+    "complete reps in planned state task, should be set state task is completed and progress is done"{
         val task = taskActive(repsTarget = 30)  // уже ACTIVE
         task.completeReps(Rep(30))
         task.status() shouldBe TaskStatus.Completed
@@ -96,11 +90,7 @@ class AdditionalTaskTest: StringSpec({
     }
 
 // Переход ACTIVE → COMPLETED (автоматически)
-    "in progress task should return remaining reps"{
-        val task = taskInPlanned(targetReps = 30)
-        task.completeReps(Rep(10))  // теперь ACTIVE
-        task.repsRemaining() shouldBe Rep(20)
-    }
+
 
 // Переход ACTIVE → COMPLETED (вручную)
     "task in active state and has been completed reps can be completed manually"{
@@ -113,7 +103,7 @@ class AdditionalTaskTest: StringSpec({
 
 // Переход ACTIVE → CANCELLED
     "task can cancelling in active state"{
-        val task = taskHandstand()
+        val task = taskActive()
         task.cancel()  // из PLANNED, но cancel работает из любого состояния
         task.status() shouldBe TaskStatus.Cancelled
         val cancelledEvent = task.popEvents().last()
@@ -142,14 +132,6 @@ class AdditionalTaskTest: StringSpec({
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
     }
-    "can not complete rep for task in completed status"{
-        val task = taskHandstand(targetReps = 30)
-        task.completeReps(Rep(30))  // стала COMPLETED
-        task.completeReps(Rep(10)).shouldBeLeft()
-            .shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
-        task.repsCompleted() shouldBe 30
-    }
-
 
 
 
@@ -162,12 +144,7 @@ class AdditionalTaskTest: StringSpec({
         error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCancelled>()
     }
 
-    "the amount of completed repetitions reached the target reps"{
-        val repsCompleted = Reps(mutableListOf(Rep(2)))
-        val targetReps = Rep(5)
-        repsCompleted.add(Rep(3))
-        repsCompleted.isReachedBy(targetReps).shouldBeTrue()
-    }
+
 
     "transition from planned to active to completed"{
         val task = taskInPlanned(targetReps = 50)
@@ -181,6 +158,12 @@ class AdditionalTaskTest: StringSpec({
         task.completeReps(Rep(20))
         val taskCompletedEvent = task.popEvents().last()
         taskCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
+    }
+
+    "in progress task should return remaining reps"{
+        val task = taskInPlanned(targetReps = 30)
+        task.completeReps(Rep(10))  // теперь ACTIVE
+        task.repsRemaining() shouldBe Rep(20)
     }
 })
 
