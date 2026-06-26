@@ -18,7 +18,7 @@ data class Rep(
     }
 }
 
-open class Reps(val repList: MutableList<Rep>){
+data class Reps(val repList: MutableList<Rep>){
     fun totalReps(): Int
         = repList.sumOf { it.value }
 

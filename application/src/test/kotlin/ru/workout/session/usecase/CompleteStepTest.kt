@@ -18,6 +18,14 @@ class CompleteStepTest: StringSpec({
         repsCompleted.add(Rep(3))
         repsCompleted.isReachedBy(targetReps).shouldBeTrue()
     }
+    "completed reps are accumulated over multiple calls"{
+        val repsCompleted = Reps(mutableListOf(Rep(2)))
+        repsCompleted.add(Rep(8))
+        repsCompleted
+            .totalReps() shouldBe Reps(mutableListOf(Rep(8+2)))
+            .totalReps()
+    }
+
     //35. test_step_created_as_planned
     //    → Рождается Step(exerciseName, targetReps, status=PLANNED)
     //    → Шаг рождается запланированным
