@@ -60,6 +60,8 @@ class AdditionalTaskTest: StringSpec({
     "planned task becomes completed after first completed reps their reaches target reps"{
         val task = taskInPlanned(targetReps = 30)
         task.completeReps(Rep(30))
+        val completedEvent = task.popEvents().last()
+        completedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
         task.status() shouldBe TaskStatus.Completed
     }
     "task with fully completed target reps must have status completed"{
@@ -146,6 +148,7 @@ class AdditionalTaskTest: StringSpec({
         val task = taskHandstand(targetReps = 30)
         task.completeReps(Rep(30))  // стала COMPLETED
         task.completeReps(Rep(10)).shouldBeLeft()
+            .shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
         task.repsCompleted() shouldBe 30
     }
 

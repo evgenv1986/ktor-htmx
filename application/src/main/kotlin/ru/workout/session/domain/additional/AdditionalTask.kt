@@ -46,19 +46,7 @@ class AdditionalTask(
                 AdditionalTaskEvents
                     .RepsCompletedEvent(taskId) )
             }
-
-        val statusAndEvent = status.nextStep(this@AdditionalTask, rep)
-
-        changeStatus(
-            statusAndEvent.status,
-            statusAndEvent.event
-        )
-//        tryCompleteTask()
-    }
-    fun tryCompleteTask(){
-        if (repsTarget.isReachedBy(repsCompleted)){
-            complete()
-        }
+            status.setupNextState(this@AdditionalTask, rep)
     }
     public fun complete() {
         changeStatus(
@@ -72,7 +60,6 @@ class AdditionalTask(
             AdditionalTaskEvents.TaskBeginningEvent(taskId)
         )
     }
-
     fun proposedQuantity(): Int {
         return floor(lastCompletedRepsCount() * percent(5.0)).toInt()
     }
@@ -87,7 +74,6 @@ class AdditionalTask(
     fun repsCompleted(): Int{
         return repsCompleted.totalReps()
     }
-
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
         ensure(status != TaskStatus.Cancelled){
@@ -101,7 +87,6 @@ class AdditionalTask(
             AdditionalTaskEvents.TaskCancelledEvent(taskId)
         )
     }
-
     internal fun changeStatus(
        newStatus: TaskStatus,
        event: DomainEvent
@@ -139,88 +124,49 @@ private enum class AdditionalTaskStatus(
 }
 sealed interface TaskStatus{
 
-    fun nextStep(task: AdditionalTask, rep: Rep): StatusTransition
+    fun setupNextState(task: AdditionalTask, rep: Rep): Unit
     object Planned: TaskStatus{
-        override fun nextStep(task: AdditionalTask, rep: Rep
-        ): StatusTransition {
+        override fun setupNextState(task: AdditionalTask, rep: Rep
+        ): Unit {
             if (task.targetReached()){
-                return StatusTransition(
-                    TaskStatus.Completed,
-                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
-                )
+                task.complete()
             } else {
-                return StatusTransition(
-                TaskStatus.Active,
-                    AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
-                )
+                task.activate()
             }
         }
     }
     object Active: TaskStatus {
-        override fun nextStep(
+        override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): StatusTransition {
+        ): Unit {
             if (task.targetReached()) {
-                return StatusTransition(
-                    TaskStatus.Completed,
-                    AdditionalTaskEvents.TaskCompletedEvent(task.taskId)
-                )
+                task.complete()
             }
-            return StatusTransition(
-                TaskStatus.Active,
-                AdditionalTaskEvents.TaskBeginningEvent(task.taskId)
-            )
         }
 
     }
     object Cancelled: TaskStatus {
-        override fun nextStep(
+        override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): StatusTransition {
-            TODO("Not yet implemented")
+        ): Unit {
+            return
         }
-
     }
     object Completed: TaskStatus{
-        override fun nextStep(
+        override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): StatusTransition {
-            TODO("Not yet implemented")
-        }
-
+        ): Unit {}
     }
-
-
 }
 
 data class StatusTransition(
-//    val fromStatus: TaskStatus2,
-//    val toStatus: TaskStatus2,
     val status: TaskStatus,
     val event: AdditionalTaskEvents,
 //    val error: AdditionalTaskError
-){
-//    val active: StatusTransition = StatusTransition(
-//        TaskStatus2.Planned(),
-//        TaskStatus2.Active(),
-//        Specific(repsCompleted < repsTarget)
-//        )
-//    val toCompleted: StatusTransition = StatusTransition(
-//        TaskStatus2.Planned(),
-//        TaskStatus2.Completed(),
-//        Specific(repsCompleted >= repsTarget)
-//    )
-//    fun next(currentStatus: TaskStatus2): StatusTransition{
-//        if (currentStatus == active){
-//
-//        }
-//        if (currentStatus == active)
-//    }
-}
-
+){}
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
     class TaskCompletedEvent(taskId: String) : AdditionalTaskEvents(taskId)
