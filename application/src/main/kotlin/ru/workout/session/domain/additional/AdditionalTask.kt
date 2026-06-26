@@ -124,10 +124,9 @@ private enum class AdditionalTaskStatus(
 }
 sealed interface TaskStatus{
 
-    fun setupNextState(task: AdditionalTask, rep: Rep): Unit
+    fun setupNextState(task: AdditionalTask, rep: Rep)
     object Planned: TaskStatus{
-        override fun setupNextState(task: AdditionalTask, rep: Rep
-        ): Unit {
+        override fun setupNextState(task: AdditionalTask, rep: Rep){
             if (task.targetReached()){
                 task.complete()
             } else {
@@ -139,7 +138,7 @@ sealed interface TaskStatus{
         override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): Unit {
+        ) {
             if (task.targetReached()) {
                 task.complete()
             }
@@ -150,7 +149,7 @@ sealed interface TaskStatus{
         override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): Unit {
+        ) {
             return
         }
     }
@@ -158,15 +157,9 @@ sealed interface TaskStatus{
         override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
-        ): Unit {}
+        ) {}
     }
 }
-
-data class StatusTransition(
-    val status: TaskStatus,
-    val event: AdditionalTaskEvents,
-//    val error: AdditionalTaskError
-){}
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
     class TaskCompletedEvent(taskId: String) : AdditionalTaskEvents(taskId)
