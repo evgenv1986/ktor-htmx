@@ -113,15 +113,6 @@ sealed interface AdditionalTaskError {
     object TaskIsCompleted: AdditionalTaskError
     object TaskAlreadyCancelled: AdditionalTaskError
 }
-private enum class AdditionalTaskStatus(
-    private val nextStates: Set<AdditionalTaskStatus> = emptySet()
-) {
-    COMPLETED(),
-    CANCELLED(),
-    ACTIVE(nextStates = setOf(COMPLETED, CANCELLED)),
-    PLANNED(nextStates = setOf(ACTIVE, COMPLETED, CANCELLED));
-    private fun canChangeTo (state: AdditionalTaskStatus) = nextStates.contains(state)
-}
 sealed interface TaskStatus{
 
     fun setupNextState(task: AdditionalTask, rep: Rep)

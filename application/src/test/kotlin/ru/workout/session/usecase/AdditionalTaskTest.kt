@@ -179,8 +179,6 @@ class AdditionalTaskTest: StringSpec({
         val events = task.popEvents()
         val repsCompletedEvent = events.first()
         repsCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
-        val taskBeginningEvent = events.last()
-
         task.completeReps(Rep(20))
         val taskCompletedEvent = task.popEvents().last()
         taskCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
