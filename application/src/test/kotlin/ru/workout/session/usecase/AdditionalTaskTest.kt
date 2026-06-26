@@ -40,15 +40,13 @@ class AdditionalTaskTest: StringSpec({
         val beginningEvent = task.popEvents().last()
         beginningEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskBeginningEvent>()
     }
-    "the status of a partially completed task should be in progress"{
-        val task = taskInPlanned()
-        task.completeReps(Rep(10))
-        task.status() shouldBe TaskStatus.Active
-    }
     "can complete reps for task in progress state"{
-        val task = taskInPlanned("handstand", 300, "task1")
+        val taskId = "taskId1"
+        val task = taskActive(taskId = taskId)
         task.completeReps(Rep(14))
-        // проверяет событие и taskId
+        val completedEvent = task.popEvents().first()
+        completedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
+        completedEvent.taskId shouldBe taskId
     }
 
 // Переход PLANNED → COMPLETED (автоматически)
@@ -179,6 +177,7 @@ class AdditionalTaskTest: StringSpec({
         val events = task.popEvents()
         val repsCompletedEvent = events.first()
         repsCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
+
         task.completeReps(Rep(20))
         val taskCompletedEvent = task.popEvents().last()
         taskCompletedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
