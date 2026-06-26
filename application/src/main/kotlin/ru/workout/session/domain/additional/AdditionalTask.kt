@@ -160,14 +160,6 @@ sealed interface TaskStatus{
         ) {}
     }
 }
-sealed class AdditionalTaskEvents(val taskId: String
-): DomainEvent {
-    class TaskCompletedEvent(taskId: String) : AdditionalTaskEvents(taskId)
-    class TaskBeginningEvent(taskId: String): AdditionalTaskEvents(taskId)
-    class RepsCompletedEvent(taskId: String): AdditionalTaskEvents(taskId)
-    class TaskCancelledEvent(taskId: String): AdditionalTaskEvents(taskId)
-}
-
 enum class TaskProgressStatus {
     NOT_STARTED,
     IN_PROGRESS,
