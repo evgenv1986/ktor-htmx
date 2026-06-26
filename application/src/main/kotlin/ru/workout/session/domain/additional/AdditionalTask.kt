@@ -47,7 +47,7 @@ class AdditionalTask(
                     .RepsCompletedEvent(taskId) )
             }
 
-        val statusAndEvent = status.tryToSetNextStep(this@AdditionalTask, rep)
+        val statusAndEvent = status.nextStep(this@AdditionalTask, rep)
 
         changeStatus(
             statusAndEvent.status,
@@ -139,9 +139,9 @@ private enum class AdditionalTaskStatus(
 }
 sealed interface TaskStatus{
 
-    fun tryToSetNextStep(task: AdditionalTask, rep: Rep): StatusTransition
+    fun nextStep(task: AdditionalTask, rep: Rep): StatusTransition
     object Planned: TaskStatus{
-        override fun tryToSetNextStep(task: AdditionalTask, rep: Rep
+        override fun nextStep(task: AdditionalTask, rep: Rep
         ): StatusTransition {
             if (task.targetReached()){
                 return StatusTransition(
@@ -157,7 +157,7 @@ sealed interface TaskStatus{
         }
     }
     object Active: TaskStatus {
-        override fun tryToSetNextStep(
+        override fun nextStep(
             task: AdditionalTask,
             rep: Rep
         ): StatusTransition {
@@ -175,7 +175,7 @@ sealed interface TaskStatus{
 
     }
     object Cancelled: TaskStatus {
-        override fun tryToSetNextStep(
+        override fun nextStep(
             task: AdditionalTask,
             rep: Rep
         ): StatusTransition {
@@ -184,7 +184,7 @@ sealed interface TaskStatus{
 
     }
     object Completed: TaskStatus{
-        override fun tryToSetNextStep(
+        override fun nextStep(
             task: AdditionalTask,
             rep: Rep
         ): StatusTransition {
