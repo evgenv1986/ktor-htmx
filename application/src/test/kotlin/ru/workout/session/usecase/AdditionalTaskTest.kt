@@ -2,13 +2,11 @@ package ru.workout.session.usecase
 
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import ru.workout.session.domain.additional.AdditionalTaskError
 import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.Rep
-import ru.workout.session.domain.additional.Reps
 import ru.workout.session.domain.additional.TaskProgressStatus
 import ru.workout.session.domain.additional.TaskStatus
 
@@ -48,6 +46,14 @@ class AdditionalTaskTest: StringSpec({
         completedEvent.shouldBeInstanceOf<AdditionalTaskEvents.RepsCompletedEvent>()
         completedEvent.taskId shouldBe taskId
     }
+    "task in planned state can complete reps"{
+        val taskId = "taskId1"
+        val task = taskInPlanned(taskId = taskId)
+        val state = TaskStatus.Active
+        val allow: Boolean = state.canCompleteReps(task,Rep(30))
+        allow shouldBe true
+    }
+
 
 // Переход PLANNED → COMPLETED (автоматически)
     "reps completed reaches reps target, progress state should be done"{
@@ -62,6 +68,8 @@ class AdditionalTaskTest: StringSpec({
         completedEvent.shouldBeInstanceOf<AdditionalTaskEvents.TaskCompletedEvent>()
         task.status() shouldBe TaskStatus.Completed
     }
+
+
 // Переход PLANNED → CANCELLED
     "task can cancelling in planned state"{
         val task = taskHandstand()

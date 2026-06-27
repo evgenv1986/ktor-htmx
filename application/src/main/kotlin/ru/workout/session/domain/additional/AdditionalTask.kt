@@ -41,12 +41,49 @@ class AdditionalTask(
             AdditionalTaskError.TaskIsCompleted
         }
 
-        repsCompleted.add(rep)
-            .apply{ addEvent(
-                AdditionalTaskEvents
-                    .RepsCompletedEvent(taskId) )
+        val canComplete = status.canCompleteReps(this@AdditionalTask, rep)
+        if (canComplete) {
+            repsCompleted.add(rep)
+                .apply {
+                    addEvent(
+                        AdditionalTaskEvents
+                            .RepsCompletedEvent(taskId)
+                    )
+                }
+        }
+//        TODO("status.CanComplete(..).fold(" +
+//                "IfLeft = { can not complete because -> status.error }" +
+//                "IfRight = { repsCompleted.add(rep) }" + ") ")
+        val nextState = nextState()
+        recalculateState(nextState)
+    }
+    fun nextState(): TaskStatus =
+        when (status){
+            TaskStatus.Planned ->
+                if (targetReached()) TaskStatus.Completed
+                else TaskStatus.Active
+            TaskStatus.Active ->
+                if (targetReached()) TaskStatus.Completed
+                else TaskStatus.Active
+            TaskStatus.Completed -> TaskStatus.Completed
+            TaskStatus.Cancelled -> TaskStatus.Cancelled
+        }
+    fun recalculateState(nextState: TaskStatus) {
+        if (status != nextState){
+            when(nextState){
+                TaskStatus.Completed ->
+                    changeStatus( nextState,
+                        AdditionalTaskEvents.TaskCompletedEvent(taskId))
+                TaskStatus.Active -> changeStatus(
+                    nextState,
+                    AdditionalTaskEvents.TaskBeginningEvent(taskId))
+                TaskStatus.Cancelled -> changeStatus(
+                    nextState,
+                    AdditionalTaskEvents.TaskCancelledEvent(taskId)
+                )
+                else -> {}
             }
-        status.setupNextState(this@AdditionalTask, rep)
+        }
     }
     public fun complete() {
         changeStatus(
@@ -116,6 +153,8 @@ sealed interface AdditionalTaskError {
 sealed interface TaskStatus{
 
     fun setupNextState(task: AdditionalTask, rep: Rep)
+    fun canCompleteReps(task: AdditionalTask, rep: Rep): Boolean
+    fun nextState(): TaskStatus
     object Planned: TaskStatus{
         override fun setupNextState(task: AdditionalTask, rep: Rep){
             if (task.targetReached()){
@@ -123,6 +162,14 @@ sealed interface TaskStatus{
             } else {
                 task.activate()
             }
+        }
+        override fun canCompleteReps(
+            task: AdditionalTask,
+            rep: Rep
+        ): Boolean = true
+
+        override fun nextState(): TaskStatus {
+            TODO("Not yet implemented")
         }
     }
     object Active: TaskStatus {
@@ -135,6 +182,16 @@ sealed interface TaskStatus{
             }
         }
 
+        override fun canCompleteReps(
+            task: AdditionalTask,
+            rep: Rep
+        ): Boolean =
+            task.status() != TaskStatus.Completed ||
+            task.status() != TaskStatus.Cancelled
+
+        override fun nextState(): TaskStatus {
+            TODO("Not yet implemented")
+        }
     }
     object Cancelled: TaskStatus {
         override fun setupNextState(
@@ -143,12 +200,34 @@ sealed interface TaskStatus{
         ) {
             return
         }
+
+        override fun canCompleteReps(
+            task: AdditionalTask,
+            rep: Rep
+        ): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun nextState(): TaskStatus {
+            TODO("Not yet implemented")
+        }
     }
     object Completed: TaskStatus{
         override fun setupNextState(
             task: AdditionalTask,
             rep: Rep
         ) {}
+
+        override fun canCompleteReps(
+            task: AdditionalTask,
+            rep: Rep
+        ): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun nextState(): TaskStatus {
+            TODO("Not yet implemented")
+        }
     }
 }
 sealed class AdditionalTaskEvents(val taskId: String
@@ -157,6 +236,9 @@ sealed class AdditionalTaskEvents(val taskId: String
     class TaskBeginningEvent(taskId: String): AdditionalTaskEvents(taskId)
     class RepsCompletedEvent(taskId: String): AdditionalTaskEvents(taskId)
     class TaskCancelledEvent(taskId: String): AdditionalTaskEvents(taskId)
+    class CompleteRepsEvent(reps: Rep, taskId: String) {
+
+    }
 }
 
 enum class TaskProgressStatus {

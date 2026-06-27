@@ -8,6 +8,7 @@ import ru.workout.session.domain.SessionStep
 import ru.workout.session.domain.StepEvents
 import ru.workout.session.domain.StepStatus
 import ru.workout.session.domain.WorkoutSession
+import ru.workout.session.domain.additional.AdditionalTaskEvents
 import ru.workout.session.domain.additional.Rep
 import ru.workout.session.domain.additional.Reps
 
@@ -134,3 +135,43 @@ fun session(): WorkoutSession {
         status = null
     )
 }
+
+
+//
+//То есть ты бы сделал так?
+//fun completeReps(reps: Int) {
+//
+//    val newCompleted = completedReps + reps
+//
+//    val snapshot = TaskSnapshot(
+//        state,
+//        сompletedReps,
+//        targetReps
+//    )
+//
+//    val nextState = stateMachine.nextState(
+//        snapshot,
+//        event = TaskEvents.CompleteRepsEvent(reps, taskId)
+//    )
+//
+//    completedReps = newCompleted
+//    state = nextState
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
