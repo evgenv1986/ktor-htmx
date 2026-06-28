@@ -1,7 +1,6 @@
 package ru.workout.session.domain.additional
 
 import arrow.core.Either
-import arrow.core.left
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import ru.workout.common.event.DomainEvent
@@ -35,11 +34,6 @@ class AdditionalTask(
     fun completeReps(rep: Rep)
     : Either<AdditionalTaskError, Unit> = either {
         val result = status.completeReps(this@AdditionalTask, rep).bind()
-        val nextState = nextState()
-        recalculateState(nextState)
-
-    }
-    fun completeAddingReps(rep: Rep){
         repsCompleted.add(rep)
             .apply {
                 addEvent(
@@ -47,6 +41,9 @@ class AdditionalTask(
                         .RepsCompletedEvent(taskId)
                 )
             }
+        val nextState = nextState()
+        recalculateState(nextState)
+
     }
     fun nextState(): TaskStatus =
         when (status){
@@ -140,94 +137,6 @@ sealed interface AdditionalTaskError {
     object TaskIsCancelled: AdditionalTaskError
     object TaskIsCompleted: AdditionalTaskError
     object TaskAlreadyCancelled: AdditionalTaskError
-}
-sealed interface TaskStatus{
-
-    fun setupNextState(task: AdditionalTask, rep: Rep)
-    fun completeReps(task: AdditionalTask, rep: Rep): Either<AdditionalTaskError, Unit>
-    fun nextState(): TaskStatus
-    object Planned: TaskStatus{
-        override fun setupNextState(task: AdditionalTask, rep: Rep){
-            if (task.targetReached()){
-                task.complete()
-            } else {
-                task.activate()
-            }
-        }
-        override fun completeReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> {
-            task.completeAddingReps(rep)
-            return either { Unit }
-        }
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
-        }
-    }
-    object Active: TaskStatus {
-        override fun setupNextState(
-            task: AdditionalTask,
-            rep: Rep
-        ) {
-            if (task.targetReached()) {
-                task.complete()
-            }
-        }
-
-        override fun completeReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> {
-            task.completeAddingReps(rep)
-            return either { Unit }
-//            ensure(task.status() != TaskStatus.Completed) {
-//                AdditionalTaskError.TaskIsCompleted
-//            }
-//            ensure(task.status() != TaskStatus.Cancelled) {
-//                AdditionalTaskError.TaskIsCancelled
-//            }
-        }
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
-        }
-    }
-    object Cancelled: TaskStatus {
-        override fun setupNextState(
-            task: AdditionalTask,
-            rep: Rep
-        ) {
-            return
-        }
-
-        override fun completeReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
-        }
-    }
-    object Completed: TaskStatus{
-        override fun setupNextState(
-            task: AdditionalTask,
-            rep: Rep
-        ) {}
-
-        override fun completeReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCompleted.left()
-
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
-        }
-    }
 }
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {
