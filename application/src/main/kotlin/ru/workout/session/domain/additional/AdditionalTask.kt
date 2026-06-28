@@ -33,7 +33,7 @@ class AdditionalTask(
     }
     fun completeReps(rep: Rep)
     : Either<AdditionalTaskError, Unit> = either {
-        val result = status.completeReps(this@AdditionalTask, rep).bind()
+        val result = status.canCompleteReps(this@AdditionalTask, rep).bind()
         repsCompleted.add(rep)
             .apply {
                 addEvent(

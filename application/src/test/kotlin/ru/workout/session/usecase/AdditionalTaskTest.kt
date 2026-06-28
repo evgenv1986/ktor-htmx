@@ -51,7 +51,7 @@ class AdditionalTaskTest: StringSpec({
         val taskId = "taskId1"
         val task = taskInPlanned(taskId = taskId)
         val state = TaskStatus.Active
-        val result = state.completeReps(task,Rep(30))
+        val result = state.canCompleteReps(task,Rep(30))
         result.shouldBeRight()
     }
 
