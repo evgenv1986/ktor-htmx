@@ -1,6 +1,7 @@
 package ru.workout.session.usecase
 
 import io.kotest.assertions.arrow.core.shouldBeLeft
+import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -50,8 +51,8 @@ class AdditionalTaskTest: StringSpec({
         val taskId = "taskId1"
         val task = taskInPlanned(taskId = taskId)
         val state = TaskStatus.Active
-        val allow: Boolean = state.canCompleteReps(task,Rep(30))
-        allow shouldBe true
+        val result = state.completeReps(task,Rep(30))
+        result.shouldBeRight()
     }
 
 

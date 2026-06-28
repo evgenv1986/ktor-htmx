@@ -1,6 +1,7 @@
 package ru.workout.session.domain.additional
 
 import arrow.core.Either
+import arrow.core.left
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import ru.workout.common.event.DomainEvent
@@ -32,30 +33,20 @@ class AdditionalTask(
         }
     }
     fun completeReps(rep: Rep)
-            : Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus.Cancelled){
-            AdditionalTaskError.TaskIsCancelled
-        }
-        ensure (status != TaskStatus.Completed)
-        {
-            AdditionalTaskError.TaskIsCompleted
-        }
-
-        val canComplete = status.canCompleteReps(this@AdditionalTask, rep)
-        if (canComplete) {
-            repsCompleted.add(rep)
-                .apply {
-                    addEvent(
-                        AdditionalTaskEvents
-                            .RepsCompletedEvent(taskId)
-                    )
-                }
-        }
-//        TODO("status.CanComplete(..).fold(" +
-//                "IfLeft = { can not complete because -> status.error }" +
-//                "IfRight = { repsCompleted.add(rep) }" + ") ")
+    : Either<AdditionalTaskError, Unit> = either {
+        val result = status.completeReps(this@AdditionalTask, rep).bind()
         val nextState = nextState()
         recalculateState(nextState)
+
+    }
+    fun completeAddingReps(rep: Rep){
+        repsCompleted.add(rep)
+            .apply {
+                addEvent(
+                    AdditionalTaskEvents
+                        .RepsCompletedEvent(taskId)
+                )
+            }
     }
     fun nextState(): TaskStatus =
         when (status){
@@ -153,7 +144,7 @@ sealed interface AdditionalTaskError {
 sealed interface TaskStatus{
 
     fun setupNextState(task: AdditionalTask, rep: Rep)
-    fun canCompleteReps(task: AdditionalTask, rep: Rep): Boolean
+    fun completeReps(task: AdditionalTask, rep: Rep): Either<AdditionalTaskError, Unit>
     fun nextState(): TaskStatus
     object Planned: TaskStatus{
         override fun setupNextState(task: AdditionalTask, rep: Rep){
@@ -163,11 +154,13 @@ sealed interface TaskStatus{
                 task.activate()
             }
         }
-        override fun canCompleteReps(
+        override fun completeReps(
             task: AdditionalTask,
             rep: Rep
-        ): Boolean = true
-
+        ): Either<AdditionalTaskError, Unit> {
+            task.completeAddingReps(rep)
+            return either { Unit }
+        }
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
         }
@@ -182,12 +175,19 @@ sealed interface TaskStatus{
             }
         }
 
-        override fun canCompleteReps(
+        override fun completeReps(
             task: AdditionalTask,
             rep: Rep
-        ): Boolean =
-            task.status() != TaskStatus.Completed ||
-            task.status() != TaskStatus.Cancelled
+        ): Either<AdditionalTaskError, Unit> {
+            task.completeAddingReps(rep)
+            return either { Unit }
+//            ensure(task.status() != TaskStatus.Completed) {
+//                AdditionalTaskError.TaskIsCompleted
+//            }
+//            ensure(task.status() != TaskStatus.Cancelled) {
+//                AdditionalTaskError.TaskIsCancelled
+//            }
+        }
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -201,12 +201,11 @@ sealed interface TaskStatus{
             return
         }
 
-        override fun canCompleteReps(
+        override fun completeReps(
             task: AdditionalTask,
             rep: Rep
-        ): Boolean {
-            TODO("Not yet implemented")
-        }
+        ): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -218,12 +217,12 @@ sealed interface TaskStatus{
             rep: Rep
         ) {}
 
-        override fun canCompleteReps(
+        override fun completeReps(
             task: AdditionalTask,
             rep: Rep
-        ): Boolean {
-            TODO("Not yet implemented")
-        }
+        ): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCompleted.left()
+
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
