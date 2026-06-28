@@ -7,6 +7,7 @@ import arrow.core.raise.either
 sealed interface TaskStatus{
 
     fun canCompleteReps(task: AdditionalTask, rep: Rep): Either<AdditionalTaskError, Unit>
+    fun canCancel(): Either<AdditionalTaskError, Unit>
     fun nextState(): TaskStatus
     object Planned: TaskStatus{
         override fun canCompleteReps(
@@ -15,6 +16,9 @@ sealed interface TaskStatus{
         ): Either<AdditionalTaskError, Unit> {
             return either { Unit }
         }
+
+        override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
+
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
         }
@@ -33,6 +37,8 @@ sealed interface TaskStatus{
 //            }
         }
 
+        override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
+
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
         }
@@ -42,6 +48,9 @@ sealed interface TaskStatus{
             task: AdditionalTask,
             rep: Rep
         ): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
+
+        override fun canCancel(): Either<AdditionalTaskError, Unit> =
             AdditionalTaskError.TaskIsCancelled.left()
 
         override fun nextState(): TaskStatus {
@@ -54,6 +63,9 @@ sealed interface TaskStatus{
             rep: Rep
         ): Either<AdditionalTaskError, Unit> =
             AdditionalTaskError.TaskIsCompleted.left()
+
+        override fun canCancel(): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
 
 
         override fun nextState(): TaskStatus {
