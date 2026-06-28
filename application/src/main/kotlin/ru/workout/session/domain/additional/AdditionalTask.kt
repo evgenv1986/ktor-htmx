@@ -1,6 +1,7 @@
 package ru.workout.session.domain.additional
 
 import arrow.core.Either
+import arrow.core.raise.context.bind
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import ru.workout.common.event.DomainEvent
@@ -41,9 +42,7 @@ class AdditionalTask(
                         .RepsCompletedEvent(taskId)
                 )
             }
-        val nextState = nextState()
-        recalculateState(nextState)
-
+        applyNextState()
     }
     fun nextState(): TaskStatus =
         when (status){
@@ -56,21 +55,14 @@ class AdditionalTask(
             TaskStatus.Completed -> TaskStatus.Completed
             TaskStatus.Cancelled -> TaskStatus.Cancelled
         }
-    fun recalculateState(nextState: TaskStatus) {
-        if (status != nextState){
-            when(nextState){
-                TaskStatus.Completed ->
-                    changeStatus( nextState,
-                        AdditionalTaskEvents.TaskCompletedEvent(taskId))
-                TaskStatus.Active -> changeStatus(
-                    nextState,
-                    AdditionalTaskEvents.TaskBeginningEvent(taskId))
-                TaskStatus.Cancelled -> changeStatus(
-                    nextState,
-                    AdditionalTaskEvents.TaskCancelledEvent(taskId)
-                )
-                else -> {}
-            }
+    fun applyNextState() {
+        val nextState = nextState()
+        if (status == nextState) return
+        when(nextState){
+            TaskStatus.Completed -> complete()
+            TaskStatus.Active -> activate()
+            TaskStatus.Cancelled -> cancel()
+            else -> {}
         }
     }
     public fun complete() {
@@ -101,12 +93,7 @@ class AdditionalTask(
     }
     fun cancel()
     :Either<AdditionalTaskError, Unit> = either {
-        ensure(status != TaskStatus.Cancelled){
-            AdditionalTaskError.TaskAlreadyCancelled
-        }
-        ensure(status != TaskStatus.Completed){
-            AdditionalTaskError.TaskIsCompleted
-        }
+        val result = status.canCancel().bind()
         changeStatus(
             TaskStatus.Cancelled,
             AdditionalTaskEvents.TaskCancelledEvent(taskId)

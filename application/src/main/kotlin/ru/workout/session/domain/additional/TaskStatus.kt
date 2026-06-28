@@ -51,18 +51,14 @@ sealed interface TaskStatus{
         override fun canCompleteReps(
             task: AdditionalTask,
             rep: Rep
-        ): Either<AdditionalTaskError, Unit> = either{
-            AdditionalTaskError.TaskIsCancelled
-        }
+        ): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
 
-        override fun canCancel(): Either<AdditionalTaskError, Unit> = either{
-            AdditionalTaskError.TaskIsCancelled
-        }
+        override fun canCancel(): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
 
-        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {
-            AdditionalTaskError.TaskIsCancelled
-        }
-
+        override fun canActivate(): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCancelled.left()
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -76,12 +72,10 @@ sealed interface TaskStatus{
             AdditionalTaskError.TaskIsCompleted.left()
 
         override fun canCancel(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
+            AdditionalTaskError.TaskIsCompleted.left()
 
-        override fun canActivate(): Either<AdditionalTaskError, Unit> = either{
-            AdditionalTaskError.TaskIsCompleted
-        }
-
+        override fun canActivate(): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskIsCompleted.left()
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
