@@ -137,6 +137,7 @@ sealed interface AdditionalTaskError {
     object TaskIsCancelled: AdditionalTaskError
     object TaskIsCompleted: AdditionalTaskError
     object TaskAlreadyCancelled: AdditionalTaskError
+    object TaskAlreadyActive : AdditionalTaskError
 }
 sealed class AdditionalTaskEvents(val taskId: String
 ): DomainEvent {

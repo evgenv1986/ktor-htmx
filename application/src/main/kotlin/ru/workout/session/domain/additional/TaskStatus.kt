@@ -8,6 +8,7 @@ sealed interface TaskStatus{
 
     fun canCompleteReps(task: AdditionalTask, rep: Rep): Either<AdditionalTaskError, Unit>
     fun canCancel(): Either<AdditionalTaskError, Unit>
+    fun canActivate(): Either<AdditionalTaskError, Unit>
     fun nextState(): TaskStatus
     object Planned: TaskStatus{
         override fun canCompleteReps(
@@ -18,6 +19,7 @@ sealed interface TaskStatus{
         }
 
         override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {}
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -38,6 +40,8 @@ sealed interface TaskStatus{
         }
 
         override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
+        override fun canActivate(): Either<AdditionalTaskError, Unit> =
+            AdditionalTaskError.TaskAlreadyActive.left()
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -47,11 +51,18 @@ sealed interface TaskStatus{
         override fun canCompleteReps(
             task: AdditionalTask,
             rep: Rep
-        ): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
+        ): Either<AdditionalTaskError, Unit> = either{
+            AdditionalTaskError.TaskIsCancelled
+        }
 
-        override fun canCancel(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
+        override fun canCancel(): Either<AdditionalTaskError, Unit> = either{
+            AdditionalTaskError.TaskIsCancelled
+        }
+
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {
+            AdditionalTaskError.TaskIsCancelled
+        }
+
 
         override fun nextState(): TaskStatus {
             TODO("Not yet implemented")
@@ -66,6 +77,10 @@ sealed interface TaskStatus{
 
         override fun canCancel(): Either<AdditionalTaskError, Unit> =
             AdditionalTaskError.TaskIsCancelled.left()
+
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either{
+            AdditionalTaskError.TaskIsCompleted
+        }
 
 
         override fun nextState(): TaskStatus {
