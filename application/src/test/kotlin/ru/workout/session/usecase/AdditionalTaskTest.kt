@@ -51,7 +51,7 @@ class AdditionalTaskTest: StringSpec({
         val taskId = "taskId1"
         val task = taskInPlanned(taskId = taskId)
         val state = TaskStatus.Active
-        val result = state.canCompleteReps(task,Rep(30))
+        val result = state.canCompleteReps()
         result.shouldBeRight()
     }
 
@@ -141,7 +141,12 @@ class AdditionalTaskTest: StringSpec({
         val error = result.shouldBeLeft()
         error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
     }
-
+    "can not complete in completed task state"{
+        val task = taskCompleted()
+        val result = task.complete()
+        val error = result.shouldBeLeft()
+        error.shouldBeInstanceOf<AdditionalTaskError.TaskIsCompleted>()
+    }
 
 
     // Запрет операций на CANCELLED

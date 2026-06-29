@@ -5,80 +5,41 @@ import arrow.core.left
 import arrow.core.raise.either
 
 sealed interface TaskStatus{
-
-    fun canCompleteReps(task: AdditionalTask, rep: Rep): Either<AdditionalTaskError, Unit>
+    fun canCompleteReps(): Either<AdditionalTaskError, Unit>
     fun canCancel(): Either<AdditionalTaskError, Unit>
     fun canActivate(): Either<AdditionalTaskError, Unit>
-    fun nextState(): TaskStatus
     object Planned: TaskStatus{
-        override fun canCompleteReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> {
-            return either { Unit }
-        }
-
+        override fun canCompleteReps(): Either<AdditionalTaskError, Unit> = either {}
         override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
         override fun canActivate(): Either<AdditionalTaskError, Unit> = either {}
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
-        }
     }
     object Active: TaskStatus {
-        override fun canCompleteReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> {
-            return either { Unit }
-//            ensure(task.status() != TaskStatus.Completed) {
-//                AdditionalTaskError.TaskIsCompleted
-//            }
-//            ensure(task.status() != TaskStatus.Cancelled) {
-//                AdditionalTaskError.TaskIsCancelled
-//            }
-        }
-
+        override fun canCompleteReps(): Either<AdditionalTaskError, Unit> = either {}
         override fun canCancel(): Either<AdditionalTaskError, Unit> = either {}
-        override fun canActivate(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskAlreadyActive.left()
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {
+            AdditionalTaskError.TaskAlreadyActive
         }
     }
     object Cancelled: TaskStatus {
-        override fun canCompleteReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
-
-        override fun canCancel(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
-
-        override fun canActivate(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCancelled.left()
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
+        override fun canCompleteReps(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCancelled)
+        }
+        override fun canCancel(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCancelled)
+        }
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCancelled)
         }
     }
     object Completed: TaskStatus{
-        override fun canCompleteReps(
-            task: AdditionalTask,
-            rep: Rep
-        ): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCompleted.left()
-
-        override fun canCancel(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCompleted.left()
-
-        override fun canActivate(): Either<AdditionalTaskError, Unit> =
-            AdditionalTaskError.TaskIsCompleted.left()
-
-        override fun nextState(): TaskStatus {
-            TODO("Not yet implemented")
+        override fun canCompleteReps(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCompleted)
+        }
+        override fun canCancel(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCompleted)
+        }
+        override fun canActivate(): Either<AdditionalTaskError, Unit> = either {
+            raise(AdditionalTaskError.TaskIsCompleted)
         }
     }
 }
