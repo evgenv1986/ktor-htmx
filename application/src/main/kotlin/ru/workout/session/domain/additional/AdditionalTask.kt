@@ -55,7 +55,7 @@ class AdditionalTask(
             TaskStatus.Completed -> TaskStatus.Completed
             TaskStatus.Cancelled -> TaskStatus.Cancelled
         }
-    fun applyNextState() {
+    private fun applyNextState() {
         val nextState = nextState()
         if (status == nextState) return
         when(nextState){

@@ -10,6 +10,8 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
+import ru.workout.rest.COMPLETE_STEP
+import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
 import workout.application.workout.app.UserRegistrationHandler
 
@@ -89,6 +91,15 @@ fun Application.module() {
                     }
                     hr{}
                     div { id = "form-workoutInputView" }
+
+                    button {
+                        attributes["hx-get"] = "/workouts/sessions/123/tasks/234/completion-reps/new"
+                        attributes["hx-target"] = "#completion-reps-new"
+                        +"Открыть форму ввода повторов"
+                    }
+                    div { id = "completion-reps-new" }
+
+                    hr{}
                 }
             }
         }

@@ -19,13 +19,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import ru.workout.rest.WORKOUT_PLANS
 import ru.workout.rest.WORKOUT_PLANS_NEW
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import ru.workout.session.domain.WorkoutPlan
-import java.util.UUID
 
 class PlanWorkoutViewRoute(
     private val routing: Routing,

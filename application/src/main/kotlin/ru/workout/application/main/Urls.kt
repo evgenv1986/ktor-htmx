@@ -8,3 +8,10 @@ const val BEGIN_WORKOUT = "$WORKOUTS_SESSIONS/{sessionId}/beginning"
 const val WORKOUT_SESSION = "$WORKOUTS_SESSIONS/{sessionId}"
 const val STEPS = "/steps"
 const val COMPLETE_STEP = "$STEPS/{stepTemplateId}/completion"
+
+const val TASKS = "$WORKOUT_SESSION/tasks"
+const val TASK = "$TASKS/{taskId}"
+
+const val COMPLETION_REPS = "$TASK/completion-reps"
+const val COMPLETION_REPS_NEW = "$COMPLETION_REPS/new"
+const val COMPLETION_REP = "$COMPLETION_REPS/{repsId}"

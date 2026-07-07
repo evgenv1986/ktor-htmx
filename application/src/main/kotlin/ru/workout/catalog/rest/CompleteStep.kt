@@ -1,10 +1,8 @@
 package ru.workout.catalog.rest
 
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.put
 import kotlinx.serialization.Serializable
@@ -14,11 +12,11 @@ import ru.workout.session.usecase.ICompleteStepUseCase
 
 class CompleteStepRoute(
     private val routing: Routing,
-    private val CompleteStepEndPoint: CompleteStepEndPoint
+    private val completeStepEndPoint: CompleteStepEndPoint
 ) {
     fun register() {
         routing.put(COMPLETE_STEP) {
-            CompleteStepEndPoint.handle(call)
+            completeStepEndPoint.handle(call)
         }
     }
 }
