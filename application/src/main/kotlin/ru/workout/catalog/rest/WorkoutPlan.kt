@@ -60,7 +60,7 @@ class PlanWorkoutView {
                 }
                 br {}
                 textArea {
-                    name = "workoutText"
+                    name = "exercises"
                     rows = "5"
                     cols = "80"
                     placeholder = "Введите задание тренировки"

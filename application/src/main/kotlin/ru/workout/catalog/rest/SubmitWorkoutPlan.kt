@@ -13,9 +13,9 @@ import io.ktor.server.html.respondHtml
 import io.ktor.server.response.respond
 import kotlinx.html.body
 import kotlinx.html.div
+import kotlinx.serialization.Serializable
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.rest.WORKOUT_PLANS
-import ru.workout.session.domain.WorkoutPlan
 import ru.workout.catalog.usecase.main.PlanWorkoutUseCase
 import ru.workout.catalog.usecase.main.WorkoutUseCaseError
 
@@ -33,11 +33,12 @@ class SubmitWorkoutPlanEndPoint(
     val planWorkoutUseCase: PlanWorkoutUseCase,
     val workoutPlanView: WorkoutPlanView) {
     suspend fun handle(call: ApplicationCall) {
-        val input = call.receive<WorkoutPlan>()
-        val validateExercises = ValidWorkout(
+//        val input = call.receive<WorkoutPlan>()
+        val input = call.receive<WorkoutPlanResponse>()
+        val validateExercises = ValidWorkout.fromResponse(
             input,
             "exercises"
-        ).exercises()
+        )
         validateExercises.fold(
             ifLeft = { error ->
                 toInvalidParamsUnprocessableEntity(call, error)
@@ -50,6 +51,7 @@ class SubmitWorkoutPlanEndPoint(
             }
         )
     }
+
 
     private suspend fun toInvalidParamsUnprocessableEntity(
         call: ApplicationCall,
@@ -114,5 +116,6 @@ class WorkoutPlanView {
         }
     }
 }
-//@Serializable
-//data class WorkoutAddHandleModel()
+@Serializable
+data class WorkoutPlanResponse(val exercises: String){
+}

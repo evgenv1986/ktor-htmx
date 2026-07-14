@@ -17,6 +17,19 @@ open class ValidWorkout(val input: WorkoutPlan, val field: String = "exercises")
         }
         exercises
     }
+
+    companion object {
+        fun fromResponse(input: WorkoutPlanResponse, field: String)
+        : Either<ValidationError, List<TaskExercise>> = either {
+            val stringExercises: List<String> = input.exercises.lines()
+            val exercises: List<TaskExercise> = stringExercises.map {
+                line -> ParsedExercise(line).toExercise() }
+            ensure(exercises.isNotEmpty()){
+                ValidationError(field, "Тренировка должна быть заполнена упражнениями")
+            }
+            exercises
+        }
+    }
 }
 
 data class ValidationError(val field: String, val message: String)
