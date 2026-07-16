@@ -93,7 +93,7 @@ fun Application.module() {
                     div { id = "form-workoutInputView" }
 
                     button {
-                        attributes["hx-get"] = "/workouts/sessions/123/tasks/234/completion-reps/new"
+                        attributes["hx-get"] = "$COMPLETION_REPS_NEW"
                         attributes["hx-target"] = "#completion-reps-new"
                         +"Открыть форму ввода повторов"
                     }

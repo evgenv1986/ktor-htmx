@@ -13,5 +13,5 @@ const val TASKS = "$WORKOUT_SESSION/tasks"
 const val TASK = "$TASKS/{taskId}"
 
 const val COMPLETION_REPS = "$TASK/completion-reps"
-const val COMPLETION_REPS_NEW = "$COMPLETION_REPS/new"
-const val COMPLETION_REP = "$COMPLETION_REPS/{repsId}"
+const val COMPLETION_REPS_NEW = "/completion-reps/new"
+const val COMPLETION_REP = "/completion-reps"

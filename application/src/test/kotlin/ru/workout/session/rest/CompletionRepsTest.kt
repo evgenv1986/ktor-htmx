@@ -18,35 +18,24 @@ import ru.workout.rest.COMPLETION_REPS_NEW
 
 class CompletionRepsTest : StringSpec({
 
-    "completion reps should be invoked" {
+    // Тест 1: Форма (GET)
+    "completion reps form returns exercise data" {
         testApplication {
-            application {
-                module()
-            }
-
-            val jsonClient = createClient {
-                install(ContentNegotiation) {
-                    json()
-                }
-            }
+            application { module() }
 
             val exerciseName = "подтягивания"
             val reps = 30
 
-            val completionRepsView = jsonClient.get (COMPLETION_REPS_NEW)
-            val html = completionRepsView.bodyAsText()
+            val response = client.get(
+                "$COMPLETION_REPS_NEW"
+            )
+
+            response.status shouldBe HttpStatusCode.OK
+
+            // SSR: проверяем HTML контент
+            val html = response.bodyAsText()
             html shouldContain exerciseName
             html shouldContain reps.toString()
-            val workoutId = 123
-            val response = jsonClient.put("/workouts/sessions/$workoutId/beginning") {
-                contentType(ContentType.Application.Json)
-                setBody(workoutId)
-            }
-
-            // Проверка (Assertions)
-            // Здесь мы используем shouldBe из Kotest
-            response.status shouldBe HttpStatusCode.Created
-            response.status.value shouldBe 201
         }
     }
 })

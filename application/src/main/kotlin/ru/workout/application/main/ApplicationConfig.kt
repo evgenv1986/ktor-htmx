@@ -2,8 +2,7 @@ package ru.workout.application
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import ru.workout.application.main.rout.completeStepRoute
-import ru.workout.application.main.rout.registerAllRoutes
+import ru.workout.application.main.route.registerAllRoutes
 import ru.workout.catalog.domain.Workout
 import ru.workout.catalog.domain.WorkoutId
 import ru.workout.catalog.in_memoty_persistence.WorkoutAlreadyExitsInMemory
@@ -13,9 +12,6 @@ import ru.workout.catalog.in_memory_persistence.main.SaveWorkoutStorage
 import ru.workout.catalog.rest.BeginWorkoutEndPoint
 import ru.workout.catalog.rest.BeginWorkoutRoute
 import ru.workout.catalog.rest.BeginWorkoutUseCase
-import ru.workout.catalog.rest.CompleteStepEndPoint
-import ru.workout.catalog.rest.CompleteStepRoute
-import ru.workout.catalog.rest.CompleteStepUseCase
 import ru.workout.catalog.rest.SubmitWorkoutPlanEndPoint
 import ru.workout.catalog.rest.SubmitWorkoutPlanRoute
 import ru.workout.catalog.rest.WorkoutPlanView

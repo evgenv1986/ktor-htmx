@@ -67,10 +67,10 @@ class PlanWorkoutView {
 //                    required = true
                     id = "workout-text-input"
                 }
-                button {
-                    type = ButtonType.submit
-                    +"Сохранить тренировку"
-                }
+            }
+            button {
+                type = ButtonType.submit
+                +"Сохранить тренировку"
             }
         }
     }
