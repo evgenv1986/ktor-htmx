@@ -4,9 +4,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
-import io.ktor.server.request.contentType
 import io.ktor.server.request.receive
-import io.ktor.server.request.receiveText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import kotlinx.html.FlowContent
@@ -15,9 +13,6 @@ import kotlinx.html.div
 import kotlinx.html.style
 
 
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
 import ru.workout.rest.COMPLETION_REP
 
 fun Routing.completeRepsHandleRouteConfig() {
@@ -50,7 +45,7 @@ class CompleteRepsHandleEndpoint(
             HttpStatusCode.Created
             body {
                 with(completeRepsHandleView) {
-                    show()
+                    show(completion)
                 }
             }
         }
@@ -58,13 +53,12 @@ class CompleteRepsHandleEndpoint(
 }
 
 class CompleteRepsHandleView {
-    fun FlowContent.show() {
+    fun FlowContent.show(completion: CompleteRepsInputRequest) {
         div {
             style = "color: green; font-weight: bold;"
-            +"✅ Повторения сохранены: "
-            +"тут вставить название упражнения: ${
-                "и вставить количество повторений"
-            }, "
+            +"✅ Повторения сохранены:"
+            +" упражнение: ${completion.exerciseName}"
+            + " количество повторений: ${completion.reps}";
         }
     }
 
