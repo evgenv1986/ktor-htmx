@@ -1,12 +1,16 @@
 package ru.workout.application.main.route
 
+import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.TextContent
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
 import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import io.ktor.server.routing.put
 import kotlinx.html.FlowContent
 import kotlinx.html.body
 import kotlinx.html.div
@@ -29,7 +33,7 @@ class CompleteRepsHandleRoute(
     private val completeRepsHandleEndpoint: CompleteRepsHandleEndpoint
 ) {
     fun register() {
-        routing.post(COMPLETION_REP) {
+        routing.put(COMPLETION_REP) {
             completeRepsHandleEndpoint.handle(call)
         }
     }
@@ -39,10 +43,8 @@ class CompleteRepsHandleEndpoint(
 ) {
     suspend fun handle(call: ApplicationCall) {
         val completion = call.receive<CompleteRepsInputRequest>()
-        println("exerciseName = ${completion.exerciseName}")
-        println("reps = ${completion.reps}")
-        call.respondHtml {
-            HttpStatusCode.Created
+        call.response.status(HttpStatusCode.Created)
+        call.respondHtml(HttpStatusCode.Created) {
             body {
                 with(completeRepsHandleView) {
                     show(completion)
