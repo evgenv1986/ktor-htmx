@@ -15,7 +15,8 @@ class CompleteStepRoute(
     private val completeStepEndPoint: CompleteStepEndPoint
 ) {
     fun register() {
-        routing.put(COMPLETE_STEP) {
+        routing.put(
+            COMPLETE_STEP) {
             completeStepEndPoint.handle(call)
         }
     }

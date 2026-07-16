@@ -10,7 +10,6 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
-import ru.workout.rest.COMPLETE_STEP
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
 import workout.application.workout.app.UserRegistrationHandler

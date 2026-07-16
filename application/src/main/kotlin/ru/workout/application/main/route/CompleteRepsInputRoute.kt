@@ -17,6 +17,7 @@ import kotlinx.html.radioInput
 import kotlinx.html.style
 import kotlinx.html.textArea
 import kotlinx.html.unsafe
+import kotlinx.serialization.Serializable
 import ru.workout.rest.COMPLETION_REP
 import ru.workout.rest.COMPLETION_REPS_NEW
 import javax.management.Query.div
@@ -38,7 +39,6 @@ class CompleteInputRepsRoute(
             call.respondHtml {
                 body {
                     div {
-
                         id = "completion-input-container"
                         form {
                             attributes["hx-ext"] = "json-enc"
@@ -97,7 +97,6 @@ class CompleteInputRepsRoute(
                                 +"Сохранить выполненные повторения"
                             }
                         }
-
                         style {
                             unsafe {
                                 +"""
@@ -148,3 +147,8 @@ class CompleteInputRepsRoute(
     }
 }
 
+@Serializable
+data class CompleteRepsInputRequest(
+    val exerciseName: String,
+    val reps: String
+)
