@@ -1,15 +1,11 @@
 package ru.workout.application.main.route
 
-import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.content.TextContent
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
 import io.ktor.server.request.receive
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
-import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import kotlinx.html.FlowContent
 import kotlinx.html.body
@@ -19,18 +15,18 @@ import kotlinx.html.style
 
 import ru.workout.rest.COMPLETION_REP
 
-fun Routing.completeRepsHandleRouteConfig() {
-    CompleteRepsHandleRoute(
+fun Routing.logExerciseSetHandleRouteConfig() {
+    LogExerciseSetHandleRoute(
         routing = this,
-        CompleteRepsHandleEndpoint(
-            CompleteRepsHandleView()
+        LogExerciseSetHandleEndpoint(
+            LogExerciseSetHandleView()
         )
     ).register()
 }
 
-class CompleteRepsHandleRoute(
+class LogExerciseSetHandleRoute(
     private val routing: Routing,
-    private val completeRepsHandleEndpoint: CompleteRepsHandleEndpoint
+    private val completeRepsHandleEndpoint: LogExerciseSetHandleEndpoint
 ) {
     fun register() {
         routing.put(COMPLETION_REP) {
@@ -38,11 +34,11 @@ class CompleteRepsHandleRoute(
         }
     }
 }
-class CompleteRepsHandleEndpoint(
-    val completeRepsHandleView: CompleteRepsHandleView
+class LogExerciseSetHandleEndpoint(
+    val completeRepsHandleView: LogExerciseSetHandleView
 ) {
     suspend fun handle(call: ApplicationCall) {
-        val completion = call.receive<CompleteRepsInputRequest>()
+        val completion = call.receive<ExerciseSetInputRequest>()
         call.response.status(HttpStatusCode.Created)
         call.respondHtml(HttpStatusCode.Created) {
             body {
@@ -54,8 +50,8 @@ class CompleteRepsHandleEndpoint(
     }
 }
 
-class CompleteRepsHandleView {
-    fun FlowContent.show(completion: CompleteRepsInputRequest) {
+class LogExerciseSetHandleView {
+    fun FlowContent.show(completion: ExerciseSetInputRequest) {
         div {
             style = "color: green; font-weight: bold;"
             +"✅ Повторения сохранены:"

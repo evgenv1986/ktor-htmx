@@ -20,17 +20,16 @@ import kotlinx.html.unsafe
 import kotlinx.serialization.Serializable
 import ru.workout.rest.COMPLETION_REP
 import ru.workout.rest.COMPLETION_REPS_NEW
-import javax.management.Query.div
 
-fun Routing.completeInputRepsRoute() {
-    CompleteInputRepsRoute(
+fun Routing.logExerciseSetInputRoute() {
+    LogExerciseSetInputRoute(
         routing = this,
 //        CompleteStepEndPoint(
 //            MockCompleteStepUseCase()
 //        )
     ).register()
 }
-class CompleteInputRepsRoute(
+class LogExerciseSetInputRoute(
     private val routing: Routing,
 //    private val completeStepEndPoint: CompleteStepEndPoint
 ) {
@@ -148,7 +147,7 @@ class CompleteInputRepsRoute(
 }
 
 @Serializable
-data class CompleteRepsInputRequest(
+data class ExerciseSetInputRequest(
     val exerciseName: String,
     val reps: String
 )

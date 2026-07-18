@@ -4,9 +4,9 @@ import io.ktor.server.routing.Routing
 
 fun Routing.registerAllRoutes() {
     completeStepRoute()
-    completeInputRepsRoute()
+    logExerciseSetInputRoute()
 //    planWorkoutRoutes()
 //    submitWorkoutRoutes()
 //    beginWorkoutRoutes()
-    completeRepsHandleRouteConfig()
+    logExerciseSetHandleRouteConfig()
 }
