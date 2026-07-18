@@ -15,6 +15,7 @@ import kotlinx.html.style
 
 import ru.workout.rest.COMPLETION_REP
 
+//todo: Упростить маршруты: создание маршрута, регистрация, вызов
 fun Routing.logExerciseSetHandleRouteConfig() {
     LogExerciseSetHandleRoute(
         routing = this,

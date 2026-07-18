@@ -10,6 +10,7 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
+import ru.workout.application.main.entrySet.entrySetConfig
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
 import workout.application.workout.app.UserRegistrationHandler
@@ -30,7 +31,10 @@ fun Application.module() {
     // Создаем экземпляр нашего вынесенного класса
     val registrationHandler = UserRegistrationHandler()
 
-
+    routing {
+        entrySetConfig()
+    }
+    // все ниже описанные маршруты упростить по примеру выше - entrySetConfig()
     routing {
         var counter = 0
         // Регист`рация маршрутов из внешнего класса
@@ -109,4 +113,6 @@ fun Application.module() {
         }
     }
     ApplicationConfig(this).configureRoutes()
+
+
 }
