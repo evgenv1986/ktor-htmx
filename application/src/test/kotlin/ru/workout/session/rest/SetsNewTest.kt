@@ -7,8 +7,12 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
 import io.ktor.server.testing.testApplication
 import org.jsoup.Jsoup
 import ru.workout.application.module
@@ -70,6 +74,29 @@ class SetsNewTest: StringSpec({
             val form = doc.selectFirst("form")
             val formAction = form.attr("hx-post")
                 formAction.shouldContain("/tasks/$taskId/sets")
+
+        }
+    }
+    "handle post set for task"{
+        testApplication {
+            application { module() }
+            val taskId = 123
+            val response = client.post("/tasks/123/sets") {
+                contentType(ContentType.Application.FormUrlEncoded)
+                setBody("reps=30")
+            }
+            response.status shouldBe HttpStatusCode.OK
+
+            response.contentType().toString() shouldContain ("text/html")
+            val doc = Jsoup.parse(response.bodyAsText())
+            val bodyText = doc.body().text()
+
+            doc.selectFirst("p, .progress-info")
+                ?: bodyText.contains("30")
+
+//            val form = doc.selectFirst("form")
+//            val formAction = form.attr("hx-post")
+//            formAction.shouldContain("/tasks/$taskId/sets")
 
         }
     }
