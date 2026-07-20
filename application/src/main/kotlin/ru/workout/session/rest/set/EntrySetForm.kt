@@ -46,7 +46,8 @@ class EntrySetForm(val call: ApplicationCall) {
             p { +"Цель: ${task_targetReps} повторений" }
             p {
                 id = "progress-info"
-                +"Выполнено: ${task_completedReps}, осталось: ${task_targetReps - task_completedReps}"
+                +"Выполнено: ${task_completedReps}, "
+                +"осталось: ${task_targetReps - task_completedReps}"
             }
 
             form {
@@ -58,6 +59,7 @@ class EntrySetForm(val call: ApplicationCall) {
                     placeholder = "Количество повторений"
                     required = true
                     min = "1"
+                    width = "1"
                 }
                 button(type = ButtonType.submit) { +"Выполнил" }
             }
