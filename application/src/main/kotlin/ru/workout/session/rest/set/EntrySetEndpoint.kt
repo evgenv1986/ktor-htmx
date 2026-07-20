@@ -9,6 +9,7 @@ class EntrySetEndpoint(
     suspend fun handle(call: ApplicationCall) {
         val taskId = call.parameters["taskId"]
 //        val requestParams = call.receiveParameters()
+
         form.view(taskId)
     }
 

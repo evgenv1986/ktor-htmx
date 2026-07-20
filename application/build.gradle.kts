@@ -36,6 +36,7 @@ dependencies {
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
     testImplementation("io.ktor:ktor-client-content-negotiation-jvm:$ktor_version")
+    testImplementation("org.jsoup:jsoup:1.17.2")
 
     // KOTEST (Теперь с версиями!)
     testImplementation("io.kotest:kotest-runner-junit5:$kotest_version")

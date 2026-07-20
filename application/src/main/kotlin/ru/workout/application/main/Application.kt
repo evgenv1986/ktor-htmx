@@ -12,6 +12,7 @@ import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
 import ru.workout.rest.COMPLETION_REPS_NEW
+import ru.workout.rest.ENTRY_SET_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
 import workout.application.workout.app.UserRegistrationHandler
 
@@ -101,8 +102,17 @@ fun Application.module() {
                         +"Открыть форму ввода повторов"
                     }
                     div { id = "completion-reps-new" }
-
                     hr{}
+
+                    button {
+//                    TODO("реализовать URL построитель (с входящими аргументами, id задачи например")
+                        attributes["hx-get"] = "/tasks/123/sets/new"
+                        attributes["hx-target"] = "#entry-set-new"
+                        +"Открыть форму ввода подхода по задаче"
+                    }
+                    div { id = "entry-set-new" }
+                    hr{}
+
                 }
             }
         }
