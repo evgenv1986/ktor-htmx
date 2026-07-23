@@ -10,16 +10,12 @@ import kotlinx.html.body
 import kotlinx.html.button
 import kotlinx.html.div
 import kotlinx.html.form
-import kotlinx.html.h1
 import kotlinx.html.h2
 import kotlinx.html.h3
-import kotlinx.html.head
 import kotlinx.html.id
 import kotlinx.html.input
 import kotlinx.html.li
 import kotlinx.html.p
-import kotlinx.html.style
-import kotlinx.html.title
 import kotlinx.html.ul
 import kotlin.collections.isNotEmpty
 
