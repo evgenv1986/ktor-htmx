@@ -12,8 +12,8 @@ import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
 import ru.workout.rest.COMPLETION_REPS_NEW
-import ru.workout.rest.ENTRY_SET_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
+import ru.workout.session.rest.task.TaskResponse
 import workout.application.workout.app.UserRegistrationHandler
 
 fun main() {
@@ -32,11 +32,41 @@ fun Application.module() {
     // Создаем экземпляр нашего вынесенного класса
     val registrationHandler = UserRegistrationHandler()
 
-    routing {
-        entrySetConfig()
-    }
     // все ниже описанные маршруты упростить по примеру выше - entrySetConfig()
     routing {
+        entrySetConfig()
+
+        // получить задание из сета тренировки
+        get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
+//            val taskId: Int = call.parameters["taskId"]!!.toInt()
+//            val setId = call.parameters["setId"]!!.toInt()
+//            val sets = AssignedSetsUseCase.execute(taskId)
+//            val set = sets.setById(setId)
+
+//            val targetReps = 100
+            val setResponse = TaskResponse(
+                1,
+                2,
+                3,
+                25,
+                "Подтягивания"
+            )
+//            call.respond(setResponse)
+            call.respondHtml {
+                body {
+                    p {
+                        id = "set-step-task-container"
+                        +"задание для тренировки workoutId: ${setResponse.workoutId}"
+                        +" для сета setId: ${setResponse.setId}"
+                        +" для шага stepId: ${setResponse.stepId}"
+                        +" Упражнение: "
+                        +" ${setResponse.exerciseName}"
+                        +" ${setResponse.reps} повторений"
+                    }
+                }
+            }
+        }
+
         var counter = 0
         // Регист`рация маршрутов из внешнего класса
         registrationHandler.registerRoutes(this)
@@ -111,6 +141,14 @@ fun Application.module() {
                         +"Открыть форму ввода подхода по задаче"
                     }
                     div { id = "entry-set-new" }
+                    hr{}
+
+                    button {
+                        attributes["hx-get"] = "/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task"
+                        attributes["hx-target"] = "#read-set"
+                        +"Открыть задание сета"
+                    }
+                    div { id = "read-set" }
                     hr{}
 
                 }

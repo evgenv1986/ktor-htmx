@@ -1,9 +1,7 @@
 package ru.workout.session.rest
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.ktor.client.request.get
@@ -16,8 +14,6 @@ import io.ktor.http.contentType
 import io.ktor.server.testing.testApplication
 import org.jsoup.Jsoup
 import ru.workout.application.module
-import ru.workout.session.domain.additional.AdditionalTask
-import kotlin.test.assertTrue
 
 class SetsNewTest: StringSpec({
     "route for entry form for adding sets for task should be existed"{
@@ -77,6 +73,10 @@ class SetsNewTest: StringSpec({
 
         }
     }
+
+
+
+
     "handle post set for task"{
         testApplication {
             application { module() }
