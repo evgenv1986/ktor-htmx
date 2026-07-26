@@ -8,5 +8,5 @@ data class TaskResponse(
     val setId: Int,
     val stepId: Int,
     val reps: Int,
-    val exerciseName: String) {
-}
+    val exerciseName: String
+) {}

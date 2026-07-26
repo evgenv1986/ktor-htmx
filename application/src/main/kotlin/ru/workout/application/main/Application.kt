@@ -13,7 +13,9 @@ import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
+import ru.workout.session.rest.task.PresentTaskResponse
 import ru.workout.session.rest.task.TaskResponse
+import ru.workout.session.usecase.task.TaskSetView
 import workout.application.workout.app.UserRegistrationHandler
 
 fun main() {
@@ -44,13 +46,12 @@ fun Application.module() {
 //            val set = sets.setById(setId)
 
 //            val targetReps = 100
-            val setResponse = TaskResponse(
-                1,
-                2,
-                3,
-                25,
-                "Подтягивания"
-            )
+            val setResponse: TaskResponse =
+                PresentTaskResponse().toResponse(
+                    TaskSetView(1, 2, 3, 25, "Подтягивания")
+//                    .toView(TaskSet())
+                )
+
 //            call.respond(setResponse)
             call.respondHtml {
                 body {

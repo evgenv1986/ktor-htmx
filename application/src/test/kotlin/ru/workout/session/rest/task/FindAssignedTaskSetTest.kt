@@ -9,7 +9,9 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.testApplication
 import ru.workout.application.module
+import ru.workout.session.rest.task.PresentTaskResponse
 import ru.workout.session.rest.task.TaskResponse
+import ru.workout.session.usecase.task.TaskSetView
 
 class FindAssignedTaskSetTest: StringSpec({
     "should return status Ok, on assigned-sets request"{
@@ -27,36 +29,34 @@ class FindAssignedTaskSetTest: StringSpec({
     "should return workout html text"{
         TODO("полный тескст тренировки, затем разбить на div контейнеры с подгрузкой get запросами")
     }
-    "should return assignedTaskSetView from request"{
-        val taskId = 123
-        val setId = 1
-        val reps = 100
-        val expectTaskSetResponse = TaskResponse(taskId, setId, reps)
+    "should create taskResponse successfully"{
+        val expectTaskSetResponse = TaskResponse(1, 2, 3, 4, "pull-ups")
 
-//        val setResponse: TaskSetResponse =
-//            PresentTaskSetResponse().toResponse(
-//                TaskSetView().toView(TaskSet())
-//        )
+        val setResponse: TaskResponse =
+            PresentTaskResponse().toResponse(
+                TaskSetView(1, 2, 3, 4, "pull-ups")
+//                    .toView(TaskSet())
+        )
 //        data class PresentTaskSetResponse(val reps: Int)
 //        data class TaskSetView(val reps: Reps)
 //        data class TaskSet(val id: TaskSetId, val reps: Reps)
 
-//        setResponse shouldBe expectTaskSetResponse
+        setResponse shouldBe expectTaskSetResponse
 
-        // ниже закоментировать
-        testApplication {
-            application { module() }
-            val jsonClient = createClient {
-                install(ContentNegotiation) { json() }
-            }
-
-            val taskId = 123
-            val url = "/tasks/${taskId}/assigned-sets/1"
-            val response = client.get(url){
-//                contentType(ContentType.Application.Json)
-            }
-            response.body<TaskResponse>() shouldBe expectTaskSetResponse
-        }
+//        // ниже закоментировать
+//        testApplication {
+//            application { module() }
+//            val jsonClient = createClient {
+//                install(ContentNegotiation) { json() }
+//            }
+//
+//            val taskId = 123
+//            val url = "/tasks/${taskId}/assigned-sets/1"
+//            val response = client.get(url){
+////                contentType(ContentType.Application.Json)
+//            }
+//            response.body<TaskResponse>() shouldBe expectTaskSetResponse
+//        }
     }
     "should return status Ok, on completed-sets request"{
         testApplication {
