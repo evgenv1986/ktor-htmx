@@ -15,6 +15,7 @@ import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
 import ru.workout.session.rest.task.PresentTaskResponse
 import ru.workout.session.rest.task.TaskResponse
+import ru.workout.session.rest.task.WorkoutHtml
 import ru.workout.session.usecase.task.TaskSetView
 import workout.application.workout.app.UserRegistrationHandler
 
@@ -40,12 +41,6 @@ fun Application.module() {
 
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
-//            val taskId: Int = call.parameters["taskId"]!!.toInt()
-//            val setId = call.parameters["setId"]!!.toInt()
-//            val sets = AssignedSetsUseCase.execute(taskId)
-//            val set = sets.setById(setId)
-
-//            val targetReps = 100
             val setResponse: TaskResponse =
                 PresentTaskResponse().toResponse(
                     TaskSetView(1, 2, 3, 25, "Подтягивания")
@@ -53,17 +48,23 @@ fun Application.module() {
                 )
 
 //            call.respond(setResponse)
+//            val workoutHtml = WorkoutHtml(call).render(setResponse)
             call.respondHtml {
                 body {
+                    WorkoutHtml(call).render(this, setResponse)
+
                     p {
                         id = "set-step-task-container"
-                        +"задание для тренировки workoutId: ${setResponse.workoutId}"
+
+
                         +" для сета setId: ${setResponse.setId}"
                         +" для шага stepId: ${setResponse.stepId}"
                         +" Упражнение: "
                         +" ${setResponse.exerciseName}"
                         +" ${setResponse.reps} повторений"
                     }
+                    div { p {  } }
+                    div { p {  } }
                 }
             }
         }

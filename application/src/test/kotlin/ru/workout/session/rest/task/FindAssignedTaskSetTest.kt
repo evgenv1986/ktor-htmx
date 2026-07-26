@@ -29,7 +29,7 @@ class FindAssignedTaskSetTest: StringSpec({
     "should return workout html text"{
         TODO("полный тескст тренировки, затем разбить на div контейнеры с подгрузкой get запросами")
     }
-    "should create taskResponse successfully"{
+    "should create taskResponse from TaskSetView successfully"{
         val expectTaskSetResponse = TaskResponse(1, 2, 3, 4, "pull-ups")
 
         val setResponse: TaskResponse =
@@ -58,6 +58,7 @@ class FindAssignedTaskSetTest: StringSpec({
 //            response.body<TaskResponse>() shouldBe expectTaskSetResponse
 //        }
     }
+
     "should return status Ok, on completed-sets request"{
         testApplication {
             application { module() }
