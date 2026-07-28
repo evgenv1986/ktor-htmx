@@ -11,11 +11,14 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
+import ru.workout.session.rest.html.workout.workoutRoutes
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
-import ru.workout.session.rest.task.PresentTaskResponse
-import ru.workout.session.rest.task.TaskResponse
-import ru.workout.session.rest.task.WorkoutHtml
+import ru.workout.session.rest.html.PresentTaskResponse
+import ru.workout.session.rest.html.TaskHtml
+import ru.workout.session.rest.html.TaskResponse
+import ru.workout.session.rest.html.workout.WorkoutHtml
+import ru.workout.session.rest.html.workout.WorkoutResponse
 import ru.workout.session.usecase.task.TaskSetView
 import workout.application.workout.app.UserRegistrationHandler
 
@@ -38,7 +41,7 @@ fun Application.module() {
     // все ниже описанные маршруты упростить по примеру выше - entrySetConfig()
     routing {
         entrySetConfig()
-
+        workoutRoutes()
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
             val setResponse: TaskResponse =
@@ -48,17 +51,16 @@ fun Application.module() {
                 )
 
 //            call.respond(setResponse)
-//            val workoutHtml = WorkoutHtml(call).render(setResponse)
             call.respondHtml {
                 body {
-                    WorkoutHtml(call).render(this, setResponse)
+//                    WorkoutHtml(call).render(
+//                        this,
+//                        WorkoutResponse("1")
+//                    )
 
+                    id = "set-step-task-container"
+                    TaskHtml(call).render(this, setResponse)
                     p {
-                        id = "set-step-task-container"
-
-
-                        +" для сета setId: ${setResponse.setId}"
-                        +" для шага stepId: ${setResponse.stepId}"
                         +" Упражнение: "
                         +" ${setResponse.exerciseName}"
                         +" ${setResponse.reps} повторений"
@@ -81,6 +83,8 @@ fun Application.module() {
                     meta { charset = "UTF-8" }
                     script { src = "https://unpkg.com/htmx.org@1.9.12" }
                     script { src = "https://unpkg.com/htmx.org/dist/ext/json-enc.js" }
+//                        script { src = "/static/js/htmx.min.js" }
+//                        script { src = "/static/js/json-enc.js" }
                     style {
                         unsafe {
                             +"""
@@ -151,6 +155,15 @@ fun Application.module() {
                         +"Открыть задание сета"
                     }
                     div { id = "read-set" }
+                    hr{}
+
+                    button {
+                        attributes["hx-get"] = "/workouts/{workoutId}"
+                        attributes["hx-target"] = "#workout-div"
+                        +"Открыть (выполненную) тренировку №1"
+                        +" которая отображает все задания и все выполненные подходы"
+                    }
+                    div { id = "workout-div" }
                     hr{}
 
                 }

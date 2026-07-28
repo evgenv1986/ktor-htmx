@@ -2,15 +2,12 @@ package ru.workout.session.rest
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.ktor.client.call.body
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
-import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.testApplication
 import ru.workout.application.module
-import ru.workout.session.rest.task.PresentTaskResponse
-import ru.workout.session.rest.task.TaskResponse
+import ru.workout.session.rest.html.PresentTaskResponse
+import ru.workout.session.rest.html.TaskResponse
 import ru.workout.session.usecase.task.TaskSetView
 
 class FindAssignedTaskSetTest: StringSpec({

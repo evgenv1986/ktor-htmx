@@ -32,6 +32,7 @@ dependencies {
 //    implementation("io.arrow-kt:arrow-core:1.2.4")
     implementation(project(":training:usecase"))
     implementation(project(":training:domain"))
+//    implementation("io.ktor:ktor-server-static-jvm")
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")

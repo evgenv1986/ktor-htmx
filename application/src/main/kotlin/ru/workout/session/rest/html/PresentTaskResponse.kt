@@ -1,4 +1,4 @@
-package ru.workout.session.rest.task
+package ru.workout.session.rest.html
 
 import ru.workout.session.usecase.task.TaskSetView
 
