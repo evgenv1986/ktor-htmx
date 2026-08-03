@@ -11,6 +11,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
+import ru.workout.application.main.v2.route.application_v2
 import ru.workout.session.rest.html.workout.workoutRoutes
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
@@ -19,6 +20,7 @@ import ru.workout.session.rest.html.TaskHtml
 import ru.workout.session.rest.html.TaskResponse
 import ru.workout.session.rest.html.workout.WorkoutHtml
 import ru.workout.session.rest.html.workout.WorkoutResponse
+import ru.workout.session.rest.html.workout.stepRoutes
 import ru.workout.session.usecase.task.TaskSetView
 import workout.application.workout.app.UserRegistrationHandler
 
@@ -42,6 +44,8 @@ fun Application.module() {
     routing {
         entrySetConfig()
         workoutRoutes()
+        stepRoutes()
+        application_v2()
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
             val setResponse: TaskResponse =
