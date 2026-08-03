@@ -3,16 +3,20 @@ package ru.workout.session.rest.html.workout
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
+import io.ktor.server.request.receiveParameters
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import kotlinx.html.body
+import kotlinx.html.id
+import kotlinx.html.p
 
 fun Route.workoutRoutes() {
     get("/workouts/{workoutId}/task") {
         WorkoutTaskByIdEndpoint(call).handle(call)
     }
-//    post(""){
-//        HandleAddSetEndpoint(call).handle()
+//    post("/steps/{stepId}/completion"){
+//        CompletionStepEndpoint(call).handle()
 //    }
 }
 class WorkoutTaskByIdEndpoint(
@@ -30,9 +34,16 @@ class WorkoutTaskByIdEndpoint(
         val sets = listOf<SetResponse>(
             SetResponse( "set1", rounds)
         )
+        val completions = listOf<StepCompletionResponse>(
+            StepCompletionResponse(
+                stepId = "step1",
+                RepsResponse(30)
+            )
+        )
         val workout = WorkoutResponse(
             workoutId,
-            sets
+            sets,
+            completions
         )
         call.respondHtml {
             body {
@@ -41,5 +52,24 @@ class WorkoutTaskByIdEndpoint(
                 }
             }
         }
+    }
+}
+
+
+class CompletionStepEndpoint(val call: ApplicationCall){
+    suspend fun handle(stepId: String){
+        val form = call.receiveParameters()
+        val reps = form["reps"].toString()
+        val stepId = form["stepId"].toString()
+        val response = StepCompletionResponse(stepId, RepsResponse(reps.toInt()))
+        call.respondHtml {
+            body {
+                with(StepCompletionHtml(call)) {
+                    render(this@body, listOf(response))
+                }
+            }
+        }
+
+
     }
 }

@@ -1,11 +1,17 @@
 package ru.workout.session.rest.html.workout
 
 import io.ktor.server.application.ApplicationCall
+import kotlinx.html.ButtonType
 import kotlinx.html.FlowContent
+import kotlinx.html.InputType
 import kotlinx.html.br
+import kotlinx.html.button
 import kotlinx.html.div
+import kotlinx.html.form
+import kotlinx.html.h2
 import kotlinx.html.hr
 import kotlinx.html.id
+import kotlinx.html.input
 import kotlinx.html.p
 import kotlinx.html.span
 import kotlinx.html.style
@@ -25,15 +31,20 @@ class WorkoutHtml(val call: ApplicationCall) {
                     5. отжимания от пола с колен алмазные в отказ
                     6. отдых 60-180 секунд
                     6. В моменте отдыха: 40 китайских приседаний и 40 скручиваний на пресс.
-                    
                     3 подхода-раунда.
+                    
+                    выполненные шаги: 1
+                    Шаг: step1
+                    выполнено повторений reps: 30
                 """.trimIndent()
             }
+            hr{}
             p {
                 +"Тренировка (workoutId: ${workout.workoutId}):"
             }
-            hr{}
             SetsHtml(call).render(this, workout.sets)
+            StepCompletionHtml(call).render(this, workout.completions)
+            CompletionStepForm(call).render(this, workout.sets.first().rounds.first().steps.first())
         }
     }
 }
@@ -100,6 +111,61 @@ class StepsHtml(val call: ApplicationCall) {
             span { +"повторения reps: ${step.reps}" }
             br{}
             br{}
+        }
+    }
+}
+
+class StepCompletionHtml(val call: ApplicationCall) {
+    fun render(content: FlowContent, stepCompletion: List<StepCompletionResponse>) {
+        content.div {
+            id = "step-completion-container"
+            hr{}
+            p { +"выполненные шаги: ${stepCompletion.size}"}
+            stepCompletion.forEach { step ->
+                renderCompletion(this, step)
+            }
+        }
+    }
+    fun renderCompletion(content: FlowContent, completion: StepCompletionResponse) {
+        content.div {
+            id = "completion-${completion.stepId}"
+            attributes["class"] = "completion-item"
+            span { +"Шаг stepId: ${completion.stepId}" }
+            br{}
+            span { +"выполнено повторений reps: ${completion.repsResponse.value}" }
+            br{}
+            br{}
+        }
+    }
+}
+
+class CompletionStepForm(val call: ApplicationCall) {
+    fun render(content: FlowContent, step: StepResponse) {
+        content.div {
+            id = "completionStepContainer"
+            hr {}
+            span { +"Ввод выполнения stepId: ${step.stepId}" }
+            div {
+                h2 { +"Упражнение: ${step.exerciseName}" }
+            }
+//            p {
+//                id = "progress-info"
+//                +"Выполнено: ${task_completedReps}, "
+//                +"осталось: ${task_targetReps - task_completedReps}"
+//            }
+            form {
+                attributes["hx-post"] = "/steps/${step.stepId}/completion"
+                attributes["hx-target"] = "#completion-${step.stepId}"
+                attributes["hx-swap"] = "outerHTML"
+
+                input(type = InputType.number, name = "reps") {
+                    placeholder = "Количество повторений"
+                    required = true
+                    min = "1"
+                    width = "1"
+                }
+                button(type = ButtonType.submit) { +"Выполнил" }
+            }
         }
     }
 }
