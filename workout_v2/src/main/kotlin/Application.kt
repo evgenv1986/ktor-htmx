@@ -9,6 +9,7 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.call
+import io.ktor.server.routing.get
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import kotlin.collections.set
@@ -88,9 +89,7 @@ fun Application.module() {
                 }
             }
         }
-        get ("/steps/{stepId}/task") {
-            StepTaskEndpoint().invoke(call)
-        }
+        stepTaskEndpoint()
         get ("/steps/{stepId}/progress"){
             val stepId = call.parameters["stepId"]!!
             call.respondHtml {
@@ -156,6 +155,11 @@ fun loadStepTask(call: ApplicationCall): DIV.() -> Unit = {
     }
 }
 
+fun Route.stepTaskEndpoint(){
+    get ("/steps/{stepId}/task") {
+        StepTaskEndpoint().invoke(call)
+    }
+}
 class StepTaskEndpoint{
     suspend fun invoke(call: ApplicationCall){
         val stepId = call.parameters["stepId"]!!
