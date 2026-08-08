@@ -11,7 +11,6 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
-import ru.workout.application.main.v2.route.application_v2
 import ru.workout.session.rest.html.workout.workoutRoutes
 import ru.workout.rest.COMPLETION_REPS_NEW
 import ru.workout.rest.WORKOUT_PLANS_NEW
@@ -45,7 +44,6 @@ fun Application.module() {
         entrySetConfig()
         workoutRoutes()
         stepRoutes()
-        application_v2()
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
             val setResponse: TaskResponse =

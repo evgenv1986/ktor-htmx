@@ -11,9 +11,9 @@ fun Route.stepRoutes() {
     get("/workouts/{workoutId}/sets/{setId}/rounds/{roundId}/steps/{stepId}/completion") {
         StepCompletionEndpoint(call).handle()
     }
-    get("/workouts/{workoutId}/sets/{setId}/rounds/{roundId}/steps/{stepId}/completion/new") {
-        StepCompletionEndpoint(call).handle()
-    }
+//    get("/workouts/{workoutId}/sets/{setId}/rounds/{roundId}/steps/{stepId}/completion/new") {
+//        StepCompletionEndpoint(call).handle()
+//    }
 //    post("/steps/{stepId}/completion"){
 //        CompletionStepEndpoint(call).handle()
 //    }

@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/training/domain" />
             <option value="$PROJECT_DIR$/training/rest" />
             <option value="$PROJECT_DIR$/training/usecase" />
+            <option value="$PROJECT_DIR$/workout_v2" />
           </set>
         </option>
       </GradleProjectSettings>
