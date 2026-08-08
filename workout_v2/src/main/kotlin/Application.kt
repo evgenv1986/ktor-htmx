@@ -66,11 +66,6 @@ fun Application.module() {
                         div {
                             id = "step-completion-id"
                             loadStepTask(call)()
-//                            id = "step-task-id"
-//                            attributes["hx-get"] = "/steps/${stepId}/task"
-//                            attributes["hx-trigger"] = "load"
-//                            attributes["hx-target"] = "#step-task-id"
-//                            attributes["hx-swap"] = "innerHTML"
                         }
                         hr{}
                         div {
@@ -166,15 +161,12 @@ class StepTaskEndpoint{
         call.respondHtml {
             body {
                 div {
-                    stepTaskContent(call)()
+                    stepTaskContent(stepId)()
                 }
             }
         }
     }
-    fun stepTaskContent(call: ApplicationCall): DIV.() -> Unit = {
-        val stepId = call.parameters["stepId"]!!
-        div {
+    fun stepTaskContent(stepId: String): DIV.() -> Unit = {
             p {+"форма с заданием для шага stepsId = ${stepId}"}
-        }
     }
 }
