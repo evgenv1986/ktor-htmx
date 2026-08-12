@@ -11,7 +11,10 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.call
 import io.ktor.server.routing.get
 import kotlinx.html.*
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import ru.workout.application.ru.workout.session.rest.stepCompletion.completionStepRoute
+import ru.workout.application.ru.workout.session.rest.stepCompletion.newCompletionStepEndpoint
 import kotlin.collections.set
 
 fun main() {
@@ -63,28 +66,38 @@ fun Application.module() {
                 body{
                     script { src = "https://unpkg.com/htmx.org@1.9.10" }
                     div {
-                        div {
-                            id = "step-completion-id"
-                            loadStepTask(call)()
-                        }
-                        hr{}
-                        div {
-                            id = "step-progress-id"
-                            attributes["hx-get"] = "/steps/${stepId}/progress"
-                            attributes["hx-trigger"] = "load"
-                            attributes["hx-target"] = "#step-progress-id"
-                            attributes["hx-swap"] = "innerHTML"
-                            p { +"- с прогрессом( статистика выполнения) " } }
-                        hr{}
-                        div {
-                            id = "completion-new-id"
-                            p {+"форма ввода повторений"}
-                        }
+                        id = "step-completion-id"
+//                        div {
+//                            loadStepTask(call)()
+//                        }
+//                        hr{}
+//                        div {
+//                            id = "step-progress-id"
+//                            attributes["hx-get"] = "/steps/${stepId}/progress"
+//                            attributes["hx-trigger"] = "load"
+//                            attributes["hx-target"] = "#step-progress-id"
+//                            attributes["hx-swap"] = "innerHTML"
+//                            p { +"- с прогрессом( статистика выполнения) " } }
+//                        hr{}
+//                        div {
+//                            id = "completion-new-id"
+//                            p {+"форма ввода повторений"}
+//                        }
                     }
+                    stepCompletionCard(
+                        StepCompletionView(
+                            id = "s1",
+                            exerciseName = "pullups",
+                            reps = 35
+                    ))
                 }
             }
         }
-        stepTaskEndpoint()
+//        stepTaskEndpoint()
+
+        newCompletionStepEndpoint()
+        completionStepRoute()
+
         get ("/steps/{stepId}/progress"){
             val stepId = call.parameters["stepId"]!!
             call.respondHtml {
@@ -139,6 +152,58 @@ fun Application.module() {
         }
     }
 }
+
+fun FlowContent.stepCompletionCard(step: StepCompletionView) {
+   div {
+       id = "step-completion-card"
+//       style = "cursor: pointer; border: 1px solid #ddd; padding: 16px; margin: 8px 0; border-radius: 8px;"
+//       attributes["hx-post"] = "/steps/${step.id}/completion"
+//       attributes["hx-trigger"] = "click"
+//       attributes["hx-target"] = "#status-${step.id}"
+//       attributes["hx-swap"] = "innerHTML"
+//       attributes["hx-vals"] = Json.encodeToString(
+//           mapOf(
+//               "stepId" to step.id,
+//               "reps" to step.reps
+//           )
+//       )
+
+       form {
+           attributes["hx-post"] = "/steps/${step.id}/completion"
+           attributes["hx-trigger"] = "click"
+           attributes["hx-target"] = "#status-${step.id}"
+           attributes["hx-swap"] = "innerHTML"
+           input(type = InputType.number, name = "reps") {
+               placeholder = "Количество повторений"
+               required = true
+               min = "1"
+               width = "1"
+           }
+           button(type = ButtonType.submit) { +"Выполнил" }
+       }
+
+       h3 { +step.exerciseName }
+
+       span {
+           id = "badge"
+           +"Нажмите, чтобы выполнить"
+       }
+       div {
+           id = "status-${step.id}"
+           style = "margin-bottom: 16px;"
+       }
+   }
+
+
+}
+
+@Serializable
+class StepCompletionView(
+    val id: String,
+    val exerciseName: String,
+    val reps: Int
+)
+
 fun loadStepTask(call: ApplicationCall): DIV.() -> Unit = {
     val stepId = call.parameters["stepId"]!!
     div {

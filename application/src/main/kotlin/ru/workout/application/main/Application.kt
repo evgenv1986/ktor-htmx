@@ -44,6 +44,14 @@ fun Application.module() {
         entrySetConfig()
         workoutRoutes()
         stepRoutes()
+        post ("/workouts/{workoutId}/starting") {
+            val workoutId = call.parameters["workoutId"]!!
+            call.respondHtml {
+                body {
+                    div {
+                        id = workoutId.toString()
+                    }}}
+        }
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
             val setResponse: TaskResponse =

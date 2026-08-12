@@ -9,4 +9,4 @@ data class TaskResponse(
     val stepId: Int,
     val reps: Int,
     val exerciseName: String
-) {}
+)
