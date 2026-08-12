@@ -49,7 +49,7 @@ fun Application.module() {
             call.respondHtml {
                 body {
                     div {
-                        id = workoutId.toString()
+                        id = workoutId
                     }}}
         }
         // получить задание из сета тренировки

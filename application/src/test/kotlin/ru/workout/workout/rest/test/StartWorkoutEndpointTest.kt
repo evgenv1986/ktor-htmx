@@ -35,7 +35,7 @@ class StartWorkoutEndpointTest: StringSpec({
             response.status shouldBe HttpStatusCode.OK
             response.contentType().toString() shouldContain ("text/html")
             val body = response.bodyAsText()
-            body shouldContain(workoutId)
+            body shouldContain workoutId
 
         }
     }
