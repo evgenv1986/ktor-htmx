@@ -25,14 +25,13 @@ fun Route.createWorkout(){
 
 class CreateWorkoutEndpoint {
     fun handle(){
-        """
-            распарсить workoutId из адресной строки
-            извлечь workoutRequest данные тренировки с сетами, подходами итд
-            создать метод workoutRequest.toWorkoutCreateUseCaseDto()
-            создать workoutDto(внутри valueObjects) из workoutRequest, (workoutDto находится в модуле workout_v2.usecase.workout)
-            создать create-Workout-Usecase, и передать его экземпляр в конструктор endpoint'a
-            передать в агрументы endpoint'a экземпляр create-Workout-Usecase, вызвать usecase.invoke(workoutDto)
-            проверить что usecase успешно создал агрегат тренировки
-        """.trimIndent()
+        TODO("распарсить workoutId из адресной строки")
+        TODO("перенести парсинг workoutId в эндпоинт")
+        TODO("извлечь workoutRequest данные тренировки с сетами, подходами итд")
+        TODO("создать метод workoutRequest.toWorkoutCreateUseCaseDto()")
+        TODO("создать workoutDto(внутри valueObjects) из workoutRequest, (workoutDto находится в модуле workout_v2.usecase.workout)")
+        TODO("создать create-Workout-Usecase, и передать его экземпляр в конструктор endpoint'a")
+        TODO("передать в агрументы endpoint'a экземпляр create-Workout-Usecase, вызвать usecase.invoke(workoutDto)")
+        TODO("проверить что usecase успешно создал агрегат тренировки")
     }
 }
