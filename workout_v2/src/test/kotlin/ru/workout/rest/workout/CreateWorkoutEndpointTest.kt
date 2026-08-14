@@ -40,6 +40,9 @@ class CreateWorkoutEndpointTest: StringSpec({
             response.contentType().toString() shouldContain ("text/html")
             val body = response.bodyAsText()
             body shouldContain workoutId
+
+            request.sets.first().rounds.first().steps.first().exercise shouldBe "Подъем с переворотом"
+            request.sets.first().rounds.first().steps.first().reps shouldBe 1
         }
     }
     "should create workoutDto from workout-request"{
