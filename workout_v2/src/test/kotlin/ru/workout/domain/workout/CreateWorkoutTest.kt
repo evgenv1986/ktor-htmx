@@ -1,24 +1,24 @@
-package ru.workout.workout.domain.test
+package ru.workout.domain.workout
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import ru.workout.application.ru.workout.domain.workout.Round
+import ru.workout.application.ru.workout.domain.workout.Set
+import ru.workout.application.ru.workout.domain.workout.Step
+import ru.workout.application.ru.workout.domain.workout.Workout
+import ru.workout.application.ru.workout.domain.workout.WorkoutEvent
+import ru.workout.application.ru.workout.domain.workout.WorkoutId
+import ru.workout.application.ru.workout.domain.workout.WorkoutIdGenerator
+import ru.workout.application.ru.workout.domain.workout.WorkoutStatus
 import ru.workout.common.event.DomainEvent
-import ru.workout.workout.domain.main.Round
-import ru.workout.workout.domain.main.Set
-import ru.workout.workout.domain.main.Step
-import ru.workout.workout.domain.main.Workout
-import ru.workout.workout.domain.main.WorkoutEvent
-import ru.workout.workout.domain.main.WorkoutId
-import ru.workout.workout.domain.main.WorkoutIdGenerator
-import ru.workout.workout.domain.main.WorkoutStatus
 
 
-class WorkoutTest: StringSpec({
-    "workout with task started successfully"{
+class CreateWorkoutTest: StringSpec({
+    "workout with task created successfully"{
         val workoutId = WorkoutId("w1")
         val idGenerator = MockWorkoutIdGenerator(workoutId)
-        val workout = Workout.start(
+        val workout = Workout.Companion.create(
             sets = listOf(
                 Set(
                     rounds = listOf(
@@ -88,7 +88,7 @@ class WorkoutTest: StringSpec({
         val startedEvent: DomainEvent = events[0]
         startedEvent.shouldBeInstanceOf<WorkoutEvent.StartedEvent>()
         startedEvent.workoutId shouldBe workoutId
-        workout.status shouldBe WorkoutStatus.STARTED
+        workout.status shouldBe WorkoutStatus.CREATED
     }
 })
 

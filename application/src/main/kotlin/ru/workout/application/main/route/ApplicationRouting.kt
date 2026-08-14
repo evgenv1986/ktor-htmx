@@ -10,5 +10,5 @@ fun Routing.registerAllRoutes() {
 //    submitWorkoutRoutes()
 //    beginWorkoutRoutes()
     logExerciseSetHandleRouteConfig()
-//    entrySetConfig()
+    entrySetConfig()
 }

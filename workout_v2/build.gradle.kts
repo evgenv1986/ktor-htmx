@@ -31,6 +31,7 @@ dependencies {
 //    implementation("io.arrow-kt:arrow-core:1.2.4")
     implementation(project(":training:usecase"))
     implementation(project(":training:domain"))
+    implementation(project(":application"))
 //    implementation("io.ktor:ktor-server-static-jvm")
 
     // ТЕСТОВЫЕ ОСНОВНЫЕ
@@ -56,6 +57,7 @@ dependencies {
 
     testImplementation("io.kotest:kotest-assertions-core:5.9.1")
     testImplementation(kotlin("test"))
+    testImplementation(project(":application"))
 
 }
 

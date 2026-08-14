@@ -8,6 +8,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.request.receive
 import kotlinx.html.*
 import kotlinx.serialization.json.Json
 import ru.workout.application.main.entrySet.entrySetConfig
@@ -17,8 +18,6 @@ import ru.workout.rest.WORKOUT_PLANS_NEW
 import ru.workout.session.rest.html.PresentTaskResponse
 import ru.workout.session.rest.html.TaskHtml
 import ru.workout.session.rest.html.TaskResponse
-import ru.workout.session.rest.html.workout.WorkoutHtml
-import ru.workout.session.rest.html.workout.WorkoutResponse
 import ru.workout.session.rest.html.workout.stepRoutes
 import ru.workout.session.usecase.task.TaskSetView
 import workout.application.workout.app.UserRegistrationHandler
@@ -44,14 +43,7 @@ fun Application.module() {
         entrySetConfig()
         workoutRoutes()
         stepRoutes()
-        post ("/workouts/{workoutId}/starting") {
-            val workoutId = call.parameters["workoutId"]!!
-            call.respondHtml {
-                body {
-                    div {
-                        id = workoutId
-                    }}}
-        }
+
         // получить задание из сета тренировки
         get("/workouts/{workoutId}/sets/{setId}/steps/{stepId}/task") {
             val setResponse: TaskResponse =

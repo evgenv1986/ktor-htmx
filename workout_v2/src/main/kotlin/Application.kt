@@ -9,10 +9,13 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.call
+import io.ktor.server.request.receive
 import io.ktor.server.routing.get
 import kotlinx.html.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import ru.workout.application.ru.workout.rest.workout.WorkoutCreationRequest
+import ru.workout.application.ru.workout.rest.workout.createWorkout
 import ru.workout.application.ru.workout.session.rest.stepCompletion.completionStepRoute
 import ru.workout.application.ru.workout.session.rest.stepCompletion.newCompletionStepEndpoint
 import kotlin.collections.set
@@ -32,6 +35,8 @@ fun Application.module() {
     }
 
     routing {
+        createWorkout()
+
         get("/") {
             call.respondHtml(HttpStatusCode.OK) {
                 lang = "ru"

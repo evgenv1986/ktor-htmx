@@ -1,4 +1,4 @@
-package ru.workout.workout.domain.main
+package ru.workout.application.ru.workout.domain.workout
 
 import ru.workout.common.event.DomainEvent
 
@@ -9,12 +9,12 @@ class Workout(
 ) {
     private var events = ArrayList<DomainEvent>()
     companion object{
-        fun start(sets: List<Set>, workoutIdGenerator: WorkoutIdGenerator): Workout {
+        fun create (sets: List<Set>, workoutIdGenerator: WorkoutIdGenerator): Workout {
             val id = workoutIdGenerator.nextId()
             return Workout(
                 sets,
                 workoutIdGenerator.nextId(),
-                WorkoutStatus.STARTED
+                WorkoutStatus.CREATED
             )
             .apply{
                 addEvent(WorkoutEvent.StartedEvent(
@@ -47,6 +47,6 @@ interface WorkoutIdGenerator {
 }
 data class WorkoutId(val value: String)
 enum class WorkoutStatus {
-    STARTED,
+    CREATED,
     PLANNED
 }
