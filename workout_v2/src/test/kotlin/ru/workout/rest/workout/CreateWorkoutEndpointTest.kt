@@ -5,6 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
@@ -19,8 +20,27 @@ import ru.workout.application.ru.workout.rest.workout.SetStartingRequest
 import ru.workout.application.ru.workout.rest.workout.StepStartingRequest
 import ru.workout.application.ru.workout.rest.workout.WorkoutCreationRequest
 import ru.workout.application.ru.workout.usecase.workout.workoutCreateUseCaseDto
+import java.util.UUID
 
 class CreateWorkoutEndpointTest: StringSpec({
+    "Create empty workout with id"{
+        testApplication {
+            application { module() }
+            val jsonClient = createClient {
+                install(ContentNegotiation) {
+                    json()
+                }
+            }
+            val response = jsonClient.get("/workouts/creation/new") {
+                contentType(ContentType.Application.Json)
+            }
+            response.status shouldBe HttpStatusCode.OK
+            response.contentType().toString() shouldContain ("text/html")
+            val body = response.bodyAsText()
+//            body shouldContain UUID.randomUUID().toString()
+            body shouldContain "Создание тренировки"
+        }
+    }
     "should create workout from request"{
         testApplication {
             application { module() }

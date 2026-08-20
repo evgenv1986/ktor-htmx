@@ -1,6 +1,7 @@
 package ru.workout.application.ru.workout.domain.workout
 
 import ru.workout.common.event.DomainEvent
+import java.util.UUID
 
 class Workout(
     val sets: List<Set>,
@@ -53,3 +54,4 @@ enum class WorkoutStatus {
     CREATED,
     PLANNED
 }
+data class WorkoutId2(val value: UUID)

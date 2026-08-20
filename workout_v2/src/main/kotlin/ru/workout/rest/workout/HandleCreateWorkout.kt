@@ -11,13 +11,13 @@ import kotlinx.html.div
 import kotlinx.html.id
 import kotlinx.html.p
 
-fun Route.createWorkout(){
+fun Route.handleCreateWorkout(){
     post ("/workouts/{workoutId}/creation") {
-        CreateWorkoutEndpoint().handle(call)
+        HandleCreateWorkout().handle(call)
     }
 }
 
-class CreateWorkoutEndpoint() {
+class HandleCreateWorkout() {
     suspend fun handle(call: ApplicationCall) {
         val workoutId = call.parameters["workoutId"]!!
         val workoutRequest = call.receive<WorkoutCreationRequest>()
