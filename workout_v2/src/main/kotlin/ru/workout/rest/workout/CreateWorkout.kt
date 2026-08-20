@@ -10,6 +10,7 @@ import kotlinx.html.body
 import kotlinx.html.div
 import kotlinx.html.id
 import kotlinx.html.p
+import kotlinx.html.span
 import ru.workout.application.ru.workout.domain.workout.WorkoutId2
 import java.util.UUID
 
@@ -27,6 +28,7 @@ class CreateWorkout {
                 div {
                     id = workoutIdString
                     p { +"Создание тренировки" }
+                    span {+"workoutId: ${workoutIdString}"}
                 }}}
     }
 }
