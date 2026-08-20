@@ -1,20 +1,15 @@
 package ru.workout.application.ru.workout.rest.workout
 
 import kotlinx.serialization.Serializable
-import ru.workout.application.ru.workout.usecase.workout.WorkoutDto
+import ru.workout.application.ru.workout.usecase.workout.workoutCreateUseCaseDto
 
 @Serializable
 class WorkoutCreationRequest(
-    val sets: List<SetStartingRequest>
+    val name: String
 ){
-    fun toWorkoutDto(): WorkoutDto {
-         TODO("not implemented")
-    }
-//    fun toWorkoutDto(): WorkoutDto =
-//        val sets = listOf(WorkoutSet)-domain - set
-//        WorkoutDto(
-//            sets = sets
-//        )
+    var sets: List<SetStartingRequest> = listOf()
+    fun toWorkoutDto(): workoutCreateUseCaseDto = workoutCreateUseCaseDto(
+    )
 }
 @Serializable
 class SetStartingRequest(val rounds: List<RoundStartingRequest>){}

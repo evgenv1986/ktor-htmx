@@ -9,7 +9,10 @@ class Workout(
 ) {
     private var events = ArrayList<DomainEvent>()
     companion object{
-        fun create (sets: List<Set>, workoutIdGenerator: WorkoutIdGenerator): Workout {
+        fun create (
+            sets: List<Set>,
+            workoutIdGenerator: WorkoutIdGenerator
+        ): Workout {
             val id = workoutIdGenerator.nextId()
             return Workout(
                 sets,

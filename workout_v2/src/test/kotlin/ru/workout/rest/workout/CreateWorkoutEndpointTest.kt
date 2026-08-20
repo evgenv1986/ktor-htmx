@@ -1,7 +1,6 @@
 package ru.workout.rest.workout
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -19,7 +18,7 @@ import ru.workout.application.ru.workout.rest.workout.RoundStartingRequest
 import ru.workout.application.ru.workout.rest.workout.SetStartingRequest
 import ru.workout.application.ru.workout.rest.workout.StepStartingRequest
 import ru.workout.application.ru.workout.rest.workout.WorkoutCreationRequest
-import ru.workout.application.ru.workout.usecase.workout.WorkoutDto
+import ru.workout.application.ru.workout.usecase.workout.workoutCreateUseCaseDto
 
 class CreateWorkoutEndpointTest: StringSpec({
     "should create workout from request"{
@@ -31,7 +30,7 @@ class CreateWorkoutEndpointTest: StringSpec({
                 }
             }
             val workoutId = "w1"
-            val request: WorkoutCreationRequest = workoutRequest()
+            val request: WorkoutCreationRequest = workoutRequestWithSets()
             val response = jsonClient.post("/workouts/${workoutId}/creation") {
                 contentType(ContentType.Application.Json)
                 setBody(request)
@@ -46,17 +45,15 @@ class CreateWorkoutEndpointTest: StringSpec({
         }
     }
     "should create workoutDto from workout-request"{
-        val request: WorkoutCreationRequest = workoutRequest()
-        val workoutDto: WorkoutDto = request.toWorkoutDto()
-        workoutDto.shouldBeInstanceOf<WorkoutDto>()
-        workoutDto.sets.count() shouldBeEqual (request.sets.count())
+        val request: WorkoutCreationRequest = WorkoutCreationRequest()
+        val workoutDto: workoutCreateUseCaseDto = request.toWorkoutDto()
+        workoutDto.shouldBeInstanceOf<workoutCreateUseCaseDto>()
     }
 })
 
 
-fun workoutRequest(): WorkoutCreationRequest =
-    WorkoutCreationRequest(
-        sets = listOf(
+fun workoutRequestWithSets(): WorkoutCreationRequest { WorkoutCreationRequest("name")
+        .sets = listOf(
             SetStartingRequest(
                 rounds = listOf(
                     RoundStartingRequest(
@@ -120,7 +117,7 @@ fun workoutRequest(): WorkoutCreationRequest =
             )
         ),
     )
-
+}
 
 val text = """
         1 подъем переворотом + 
