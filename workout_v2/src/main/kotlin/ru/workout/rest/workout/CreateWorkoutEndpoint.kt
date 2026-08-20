@@ -14,7 +14,6 @@ import kotlinx.html.p
 fun Route.createWorkout(){
     post ("/workouts/{workoutId}/creation") {
         CreateWorkoutEndpoint().handle(call)
-
     }
 }
 

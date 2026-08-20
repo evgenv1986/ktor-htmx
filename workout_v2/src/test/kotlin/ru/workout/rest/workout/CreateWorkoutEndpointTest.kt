@@ -45,15 +45,16 @@ class CreateWorkoutEndpointTest: StringSpec({
         }
     }
     "should create workoutDto from workout-request"{
-        val request: WorkoutCreationRequest = WorkoutCreationRequest()
+        val request: WorkoutCreationRequest = WorkoutCreationRequest("workName")
         val workoutDto: workoutCreateUseCaseDto = request.toWorkoutDto()
         workoutDto.shouldBeInstanceOf<workoutCreateUseCaseDto>()
     }
 })
 
 
-fun workoutRequestWithSets(): WorkoutCreationRequest { WorkoutCreationRequest("name")
-        .sets = listOf(
+fun workoutRequestWithSets(): WorkoutCreationRequest {
+    val workoutCreation = WorkoutCreationRequest("name")
+    workoutCreation.sets = listOf (
             SetStartingRequest(
                 rounds = listOf(
                     RoundStartingRequest(
@@ -115,8 +116,9 @@ fun workoutRequestWithSets(): WorkoutCreationRequest { WorkoutCreationRequest("n
                     )
                 )
             )
-        ),
+
     )
+    return workoutCreation
 }
 
 val text = """
