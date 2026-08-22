@@ -31,13 +31,14 @@ class CreateWorkoutEndpointTest: StringSpec({
                     json()
                 }
             }
+            val workoutId = UUID.fromString("2ab04ceb-6de3-4195-a0cb-45826ccb8a6e").toString()
             val response = jsonClient.get("/workouts/creation/new") {
                 contentType(ContentType.Application.Json)
             }
             response.status shouldBe HttpStatusCode.OK
             response.contentType().toString() shouldContain ("text/html")
             val body = response.bodyAsText()
-//            body shouldContain UUID.randomUUID().toString()
+            body shouldContain workoutId
             body shouldContain "Создание тренировки"
         }
     }

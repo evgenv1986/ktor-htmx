@@ -13,7 +13,7 @@ import io.ktor.server.routing.get
 import kotlinx.html.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import ru.workout.application.ru.workout.rest.workout.createWorkout
+import ru.workout.application.ru.workout.rest.workout.createWorkoutNew
 import ru.workout.application.ru.workout.rest.workout.handleCreateWorkout
 import ru.workout.application.ru.workout.session.rest.stepCompletion.completionStepRoute
 import ru.workout.application.ru.workout.session.rest.stepCompletion.newCompletionStepEndpoint
@@ -35,7 +35,7 @@ fun Application.module() {
 
     routing {
         // Форма ввода создания тренировки
-        createWorkout()
+        createWorkoutNew()
         // Обработка запроса создания тренировки
         handleCreateWorkout()
 
